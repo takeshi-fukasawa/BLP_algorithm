@@ -19,6 +19,8 @@ for kk=1:n_sim
     end
 %%delta_initial=delta_initial+0.01;
 
+%delta_initial=delta_jt_true*0.999;%%%%
+
 for iter_BLP=1:ITER_MAX
 
   output=BLP_update_func(...

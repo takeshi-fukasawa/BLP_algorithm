@@ -16,8 +16,8 @@ function output=...
   
       
   if tune_param_BLP>0
-    s_0t_predict=1-sum(s_jt_predict(:));
-    S_0t_data=1-sum(S_jt_data(:));
+    s_0t_predict=1-sum(s_jt_predict,[1,3]);%1*1*1*T
+    S_0t_data=1-sum(S_jt_data,[1,3]);%1*1*1*T
     delta_updated=delta_updated-tune_param_BLP*(log(S_0t_data)-log(s_0t_predict));
 
      if rho>0

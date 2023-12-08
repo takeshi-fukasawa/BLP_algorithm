@@ -45,7 +45,9 @@ weight=1/ns*ones(1,ns,1);%1*ns*1
 
 
 %% Compute product market share, given parameters
-delta_jt_true=(beta_0+reshape(x_jt*beta_x,J,1,G,T)+alpha*p_jt+xi_jt)./eps_sd;%J by 1
+delta_jt_true=(beta_0+reshape(x_jt*beta_x,J,1,G,T)+alpha*p_jt+xi_jt)./eps_sd;%J*1*G*T
+
+
 mu_ijt_true=sigma_const*randn(1,ns,1,1)+...
     sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*rand(1,ns,1,1,3),5)+...
     sigma_p*reshape(p_jt,J,1,G,T).*rand(1,ns,1,1);
@@ -55,6 +57,14 @@ mu_ijt_true=reshape(mu_ijt_true,J,ns,G,T)./eps_sd;
 if mistake_spec==0
     mu_ijt_est=mu_ijt_true+randn(J,ns,G,T)*0.0;%J*ns*G*T
 else
-    mu_ijt_est=mu_ijt_true*2;%J by I
+    mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
+end
+
+
+if 1==0
+%%%%% same char over time %%%%%%
+delta_jt_true=repmat(delta_jt_true(:,:,:,1),1,1,1,T);
+mu_ijt_true=repmat(mu_ijt_true(:,:,:,1),1,1,1,T);
+%%%%%%%%%%%
 end
 
