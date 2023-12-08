@@ -2,6 +2,10 @@
 
 delta_initial=delta_initial0;
 V_initial=V_initial0;
+
+%delta_initial=delta_jt_true;
+%V_initial=V_true;
+
 DIST_MAT_V_BLP=zeros(ITER_MAX,2);
 tic
 for k=1:ITER_MAX

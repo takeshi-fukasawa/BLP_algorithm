@@ -16,14 +16,17 @@ function output=...
 
     %% Update IV
     
-    [delta,s_ijt_up_to_scale,s_igt]=compute_delta_from_V_IV_func(...
+    [delta,s_ijt_up_to_scale,s_igt]=...
+        compute_delta_from_V_IV_func(...
     mu_ijt,weight,S_jt_data,rho,V_initial,IV_initial,beta_C,L);
 
-      weight_V=[];
-       EV=compute_EV_func(V_initial,weight_V);
+    weight_V=[];
+    EV=compute_EV_func(V_initial,weight_V);
+
+    v_i0t=beta_C*EV;
 
     s_0t_predict=sum(reshape(weight,1,ns).*...
-        reshape(exp(beta_C*EV-V_initial),1,ns,1,T),2);%1*1*1*T
+        reshape(exp(v_i0t-V_initial),1,ns,1,T),2);%1*1*1*T
     s_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
 
@@ -48,14 +51,12 @@ function output=...
             rho*(log(S_gt_data)-log(s_gt_predict))+...
             tune_param.*log(s_0_ratio);%1*ns*G*T
         
-        temp=IV_updated-beta_C*V_initial;
        
     end
 
     resid_IV=IV_initial-IV_updated;
 
     %% Update V
-    v_i0t=beta_C*V_initial;%1*ns*1*T
     V_updated=log(exp(v_i0t)+sum(exp(IV_updated),3));%% Use IV_updated => faster
     resid_V=V_initial-V_updated;
 

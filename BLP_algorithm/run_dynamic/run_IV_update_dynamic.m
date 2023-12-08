@@ -11,7 +11,7 @@ V_initial=V_initial0*1.1;
 
 tune_param=1/(1-beta_C);% fast, even when rho>0.
 
-%tune_param=1;
+tune_param=1;
 
 DIST_MAT=zeros(ITER_MAX,2);
 tic

@@ -82,6 +82,7 @@ n_iteration_update_V_spectral_0(m,1)=n_iteration_update_V_spectral;
 t_update_V_spectral_0=t_update_V_spectral;
 
 %%% Newton iteration
+if 1==0
 tune_param=1;Newton_spec=1;
 run run_V_update_dynamic.m
 
@@ -89,6 +90,8 @@ n_iteration_update_V_Newton(m,1)=n_iteration_update_V;
 t_update_V_Newton(m,1)=t_update_V;
 n_iteration_update_V_spectral_Newton(m,1)=n_iteration_update_V_spectral;
 t_update_V_spectral_Newton=t_update_V_spectral;
+end
+
 end
 
 
