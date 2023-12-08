@@ -12,7 +12,10 @@ for iter=1:ITER_MAX
 
 
 u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_initial;%J*I*G*T
-u_i0t_tilde=beta_C*V_initial;%1*ns*1*T
+
+weight_V=[];
+EV=compute_EV_func(V_initial,weight_V);
+u_i0t_tilde=beta_C*EV;%1*ns*1*T
 
     [s_jt,ChoiceProb_true,s_ijt_given_g_ccp_true,s_igt_ccp_true,...
     numer_1_true,denom_1_true,numer_2_true,denom_2_true]=...

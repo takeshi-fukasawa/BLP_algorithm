@@ -1,6 +1,7 @@
 %% V_update_func
 %%%V_initial0=V_true;
 V_initial=V_initial0;
+%V_initial=V_true;
 
 DIST_MAT=zeros(ITER_MAX,1);
 tic

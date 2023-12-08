@@ -11,11 +11,13 @@ addpath('./run_dynamic')
 mistake_spec=0;
 
 J=25;% Number of products per nest
-G=3;
+G=1;
 beta_0=4;
 
 beta_C=0.99;
-rho_true=0.8;
+beta_C=0.99;
+
+rho_true=0;
 rho_est=rho_true;
 L=100000;
 
@@ -26,7 +28,7 @@ n_sim=1;
 I=1000;
 I=10;
 
-T=5;
+T=10;
 
 ns=I;
 TOL=1e-12;
