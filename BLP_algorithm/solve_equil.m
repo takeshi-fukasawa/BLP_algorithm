@@ -1,3 +1,4 @@
+n_dim_V=1;
 
 if GPU_spec==1
     delta_jt_true=gpuArray(delta_jt_true);
@@ -6,20 +7,21 @@ if GPU_spec==1
     weight=gpuArray(weight);
 end
 
-V_initial=zeros(1,ns,1,T);%1*ns*1*T
+V_initial=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
 
 for iter=1:ITER_MAX
 
-
-u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_initial;%J*I*G*T
+u_ijt_tilde=delta_jt_true+mu_ijt_true;%J*I*G*T
 
 weight_V=[];
 EV=compute_EV_func(V_initial,weight_V);
-u_i0t_tilde=beta_C*EV;%1*ns*1*T
+u_i0t_tilde=beta_C*EV;%1*ns*1*T*n_dim_V
+
+u_i0t_tilde_temp=u_i0t_tilde(:,:,:,:,1);%1*ns*1*T
 
     [s_jt,ChoiceProb_true,s_ijt_given_g_ccp_true,s_igt_ccp_true,...
     numer_1_true,denom_1_true,numer_2_true,denom_2_true]=...
-    share_func(u_ijt_tilde,u_i0t_tilde,rho_true,weight);
+    share_func(u_ijt_tilde,u_i0t_tilde_temp,rho_true,weight);
 V_updated=log(denom_2_true);
 
 

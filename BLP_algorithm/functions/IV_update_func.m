@@ -5,12 +5,21 @@ function output=...
     
     [J,ns,G,T]=size(mu_ijt);   
 
+    weight_V=[];
+    EV=compute_EV_func(V_initial,weight_V);%1*ns*1*T*n_dim_V
+    v_i0t=beta_C*EV;%1*ns*1*T*n_dim_V
+   
+    V_initial_temp=V_initial(:,:,:,:,1);%1*ns*1*T; V at obs data pts
+    IV_initial_temp=IV_initial(:,:,:,:,1);%1*ns*G*T; IV at obs data pts
+   
+    v_i0t_temp=v_i0t(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t at obs data pts
+   
     
     if rho==0
     numer_1=exp(mu_ijt./(1-rho));%J*ns*G*T
     denom_1=sum(reshape(weight,1,ns).*...
         reshape(numer_1,J,ns,G,T).*...
-        reshape(exp(-V_initial),1,ns,1,T),2);%J*1*G*T
+        reshape(exp(-V_initial_temp),1,ns,1,T),2);%J*1*G*T
     end
 
 
@@ -18,15 +27,11 @@ function output=...
     
     [delta,s_ijt_up_to_scale,s_igt]=...
         compute_delta_from_V_IV_func(...
-    mu_ijt,weight,S_jt_data,rho,V_initial,IV_initial,beta_C,L);
+    mu_ijt,weight,S_jt_data,rho,V_initial_temp,IV_initial_temp,beta_C,L);
 
-    weight_V=[];
-    EV=compute_EV_func(V_initial,weight_V);
-
-    v_i0t=beta_C*EV;
 
     s_0t_predict=sum(reshape(weight,1,ns).*...
-        reshape(exp(v_i0t-V_initial),1,ns,1,T),2);%1*1*1*T
+        reshape(exp(v_i0t_temp-V_initial_temp),1,ns,1,T),2);%1*1*1*T
     s_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
 
