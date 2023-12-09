@@ -47,7 +47,7 @@ delta_updated=compute_delta_func2(mu_ijt_est,weight,...
 
 ratio_delta_V=delta_updated./delta_jt_true;
 
-n_iteration_update_V=k;
+n_iter_update_V=k;
 
 %%%%%%%%%%%%%%%%%%%%%
 %% V_update_func spectral
@@ -80,7 +80,7 @@ delta_sol=compute_delta_func2(...
         mu_ijt_est,weight,S_jt_data,rho_est,V_sol,beta_C,L);
 
 
-n_iteration_update_V_spectral=count;
+n_iter_update_V_spectral=count;
 DIST_MAT_V_spectral=DIST_table;
 ratio_delta_V_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_V_spectral),max(ratio_delta_V_spectral)]

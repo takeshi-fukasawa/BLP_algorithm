@@ -57,13 +57,13 @@ end %%kk
 t_joint_s=toc/n_sim;
 
 
-n_iteration_update_joint_s=k;
+n_iter_update_joint_s=k;
 ratio_delta_joint_s=delta_updated_joint_s./delta_jt_true;
 [min(ratio_delta_joint_s),max(ratio_delta_joint_s)];
 
 log_dist_joint_s_new=log10(DIST_MAT_joint_s);
 
-results_joint_s(m,1)=n_iteration_update_joint_s;
+results_joint_s(m,1)=n_iter_update_joint_s;
 results_joint_s(m,2)=t_joint_s;
 results_joint_s(m,3)=(results_joint_s(m,1)<ITER_MAX);
 
@@ -104,14 +104,14 @@ end%%kk
     
 
 
-n_iteration_joint_s_spectral=count;
+n_iter_joint_s_spectral=count;
 DIST_MAT_joint_s_spectral=DIST_table;
 ratio_delta_joint_s_spectral=delta_sol_joint_s_spectral./delta_jt_true;
 [min(ratio_delta_joint_s_spectral),max(ratio_delta_joint_s_spectral)];
 
 log_dist_joint_s_spectral=log10(DIST_MAT_joint_s_spectral);
 
-results_joint_s_spectral(m,1)=n_iteration_joint_s_spectral;
+results_joint_s_spectral(m,1)=n_iter_joint_s_spectral;
 results_joint_s_spectral(m,2)=t_joint_s_spectral;
 
 results_joint_s_spectral(m,3)=(results_joint_s_spectral(m,1)<ITER_MAX);

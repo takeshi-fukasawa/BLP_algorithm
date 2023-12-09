@@ -46,7 +46,7 @@ t_BLP_V=toc;
 
 ratio_delta_V_BLP=delta_updated./delta_jt_true;
 
-n_iteration_update_V_BLP=k;
+n_iter_update_V_BLP=k;
 
 %% BLP_Bellman_joint_update_func Spectral
 tic
@@ -64,4 +64,4 @@ t_V_BLP_spectral=toc;
 
 ratio_delta_V_BLP_spectral=delta_sol./delta_jt_true;
 DIST_MAT_V_BLP_spectral=DIST_table;
-n_iteration_update_V_BLP_spectral=count;
+n_iter_update_V_BLP_spectral=count;

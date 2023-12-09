@@ -64,7 +64,7 @@ for k=1:ITER_MAX
 
 end% for loop
 
-n_iteration_BLP=k;
+n_iter_BLP=k;
 
 %% Compute delta, given nonlinear parameters (sigma; new)
 delta_initial=log(S_j_data)-log(S_0_data);%J by 1; Initial value of delta
@@ -95,7 +95,7 @@ for k=1:ITER_MAX
 
 end% for loop
 
-n_iteration_new=k;
+n_iter_new=k;
 
 %% Compute delta, given nonlinear parameters (Kalouptsidi method)
 weight=1/ns*ones(1,ns);%1*ns
@@ -138,7 +138,7 @@ for k=1:ITER_MAX
 
 end% for loop
 
-n_iteration_new2=k;
+n_iter_new2=k;
 
 
 % Function to compute market shares s_j given u_ijt_tilde

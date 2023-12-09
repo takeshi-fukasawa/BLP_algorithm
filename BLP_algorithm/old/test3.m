@@ -65,7 +65,7 @@ V_hat_updated_temp3=V_hat_updated;
 
 V_updated_temp3=V_updated;
 
-n_iteration_update_V_2=k;
+n_iter_update_V_2=k;
 ratio_delta_V_hat=delta_updated_3./delta_j_true;
 [min(ratio_delta_V_hat),max(ratio_delta_V_hat)]
 

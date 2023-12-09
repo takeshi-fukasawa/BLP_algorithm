@@ -50,7 +50,7 @@ denom_1_temp1=denom_1;
 numer_2_temp1=numer_2;
 denom_2_temp1=denom_2;
 
-n_iteration_update_Inc=k;
+n_iter_update_Inc=k;
 ratio_delta_Inc=delta_updated_Inc./delta_j_true;
 [min(ratio_delta_Inc),max(ratio_delta_Inc)]
 
@@ -70,7 +70,7 @@ output_spectral=...
 
 delta_sol_Inc_spectral=compute_delta_func(numer_1_without_delta,denom_1,numer_2,denom_2,weight,S_j_data,rho_est);%J*1
 
-n_iteration_update_Inc_spectral=count
+n_iter_update_Inc_spectral=count
 DIST_MAT_Inc_spectral=DIST_table;
 ratio_delta_Inc_spectral=delta_sol_Inc_spectral./delta_j_true;
 [min(ratio_delta_Inc_spectral),max(ratio_delta_Inc_spectral)]

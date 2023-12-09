@@ -31,7 +31,7 @@ for k=1:ITER_MAX
 end% for loop
 t_delta_middle=toc;
 ratio_delta_middle=delta_updated./delta_jt_true;
-n_iteration_update_delta_middle=k;
+n_iter_update_delta_middle=k;
 
 tic
 output_spectral=...
@@ -47,4 +47,4 @@ t_delta_middle_spectral=toc;
 
 ratio_delta_middle_spectral=delta_sol./delta_jt_true;
 DIST_MAT_delta_middle_spectral=DIST_table;
-n_iteration_update_delta_middle_spectral=count;
+n_iter_update_delta_middle_spectral=count;

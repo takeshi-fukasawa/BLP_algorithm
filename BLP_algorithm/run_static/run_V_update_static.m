@@ -58,9 +58,9 @@ t_update_V=toc;
 
 ratio_delta_V=delta_updated./delta_jt_true;
 
-n_iteration_update_V=iter_V;
+n_iter_update_V=iter_V;
 
-      results_V(m,1)=n_iteration_update_V;
+      results_V(m,1)=n_iter_update_V;
       results_V(m,2)=t_update_V;
       results_V(m,3)=(results_V(m,1)<ITER_MAX);
 
@@ -93,12 +93,12 @@ delta_sol=compute_delta_func2(mu_ijt_est,weight,...
         S_jt_data,rho_est,...
         V_sol,beta_C,L);%J*1
 
-n_iteration_update_V_spectral=count;
+n_iter_update_V_spectral=count;
 DIST_MAT_V_spectral=DIST_table;
 ratio_delta_V_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_V_spectral),max(ratio_delta_V_spectral)]
 
-results_V_spectral(m,1)=n_iteration_update_V_spectral;
+results_V_spectral(m,1)=n_iter_update_V_spectral;
 results_V_spectral(m,2)=t_update_V_spectral;
 results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX);
 

@@ -52,9 +52,9 @@ end
 t_BLP=toc/n_sim;
 ratio_delta_BLP=delta_updated./delta_jt_true;
 
-n_iteration_BLP=iter_BLP;
+n_iter_BLP=iter_BLP;
 
-results_BLP(m,1)=n_iteration_BLP;
+results_BLP(m,1)=n_iter_BLP;
 results_BLP(m,2)=t_BLP;
 results_BLP(m,3)=(results_BLP(m,1)<ITER_MAX);
 
@@ -85,7 +85,7 @@ end
 
     t_BLP_spectral=toc/n_sim;
 
-    n_iteration_BLP_spectral=count;
+    n_iter_BLP_spectral=count;
     DIST_MAT_BLP_spectral=DIST_table;
     
 
@@ -94,7 +94,7 @@ end
     ratio_delta_BLP_spectral=delta_sol./delta_jt_true;
     delta_check_BLP_spectral=[min(ratio_delta_BLP_spectral),max(ratio_delta_BLP_spectral)];
 
-    results_BLP_spectral(m,1)=n_iteration_BLP_spectral;
+    results_BLP_spectral(m,1)=n_iter_BLP_spectral;
     results_BLP_spectral(m,2)=t_BLP_spectral;
     results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX);
     

@@ -42,7 +42,7 @@ for k=1:ITER_MAX
 end% for loop
 t_V_middle=toc;
 ratio_V_middle=delta_updated./delta_jt_true;
-n_iteration_update_V_middle=k;
+n_iter_update_V_middle=k;
 
 %% Spectral
 if delta_fixed_spec==0
@@ -67,4 +67,4 @@ t_V_middle_spectral=toc;
 ratio_V_middle_spectral=delta_sol./delta_jt_true;
 
 DIST_MAT_V_middle_spectral=DIST_table;
-n_iteration_update_V_middle_spectral=count;
+n_iter_update_V_middle_spectral=count;

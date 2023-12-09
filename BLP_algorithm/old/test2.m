@@ -64,7 +64,7 @@ difference_temp2=difference;
 V_updated_temp2=V_updated;
 V_hat_updated_temp2=V_hat_updated;
 
-n_iteration_update_V=k;
+n_iter_update_V=k;
 ratio_delta_V=delta_updated_2./delta_j_true;
 [min(ratio_delta_V),max(ratio_delta_V)]
 

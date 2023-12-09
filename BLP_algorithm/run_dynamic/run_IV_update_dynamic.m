@@ -15,7 +15,7 @@ tune_param=1;
 
 DIST_MAT=zeros(ITER_MAX,2);
 tic
-ITER_MAX=1000;
+%ITER_MAX=1000;
 for k=1:ITER_MAX
     output=...
     IV_update_func(...
@@ -59,7 +59,7 @@ delta_updated=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
 
 ratio_delta_IV=delta_updated./delta_jt_true;
 
-n_iteration_update_IV=k;
+n_iter_update_IV=k;
 %%%%%%%%%%%%%%%%%%%%%
 
 %% IV_update_func spectral
@@ -78,14 +78,14 @@ for kk=1:n_sim
     
 end%%kk
 
-n_iteration_update_IV=k;
+n_iter_update_IV=k;
 t_update_IV_spectral=toc/n_sim;
 
 delta_sol=compute_delta_from_V_IV_func(...
         mu_ijt_est,weight,S_jt_data,rho_est,...
         V_sol,IV_sol,beta_C,L);
 
-n_iteration_update_IV_spectral=count;
+n_iter_update_IV_spectral=count;
 DIST_MAT_IV_spectral=DIST_table;
 ratio_delta_IV_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_IV_spectral),max(ratio_delta_IV_spectral)]
