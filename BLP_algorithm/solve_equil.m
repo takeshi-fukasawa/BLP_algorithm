@@ -1,4 +1,3 @@
-n_dim_V=1;
 
 if GPU_spec==1
     delta_jt_true=gpuArray(delta_jt_true);
@@ -38,7 +37,7 @@ u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
 [s_jt_predict,ChoiceProb_true,s_ijt_given_g_ccp,s_igt_ccp_true,...
     numer_1,denom_1,numer_2,denom_2]=...
-    share_func(u_ijt_tilde,u_i0t_tilde,rho_true,weight);
+    share_func(u_ijt_tilde(:,:,:,:,1),u_i0t_tilde(:,:,:,:,1),rho_true,weight);
 
 s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);%1*ns
 s_i0t_true=s_i0t_ccp_true.*weight;%1*ns

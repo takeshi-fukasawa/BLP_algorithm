@@ -20,6 +20,8 @@ elseif T>=2 & n_dim_V==1 %% Perfect foresight
 
 else
     IV_obs_pt=IV(:,:,:,:,1);%1*ns*G*T
+    
+    EV=repmat(V(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
 
     %%%%%%%%%%
     %%% Compute coefficients

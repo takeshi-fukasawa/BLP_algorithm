@@ -10,6 +10,8 @@ addpath('./run_dynamic')
 
 mistake_spec=0;
 
+n_dim_V=1;
+
 J=25;% Number of products per nest
 G=1;
 beta_0=4;
