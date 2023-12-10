@@ -9,7 +9,7 @@ end
 
 V_initial=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
 
-ITER_MAX=2;
+ITER_MAX=2000;
 
 for iter=1:ITER_MAX
 
