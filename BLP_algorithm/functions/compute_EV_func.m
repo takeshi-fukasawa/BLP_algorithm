@@ -1,4 +1,4 @@
-function EV=compute_EV_func(V,weight_V)
+function EV=compute_EV_func(V,IV,weight_V)
 
 [~,ns,~,T,n_dim_V]=size(V);
 
@@ -12,14 +12,21 @@ elseif T>=2 & n_dim_V==1 %% Perfect foresight
    %EV=cat(4,V(:,:,:,2:T),V(:,:,:,1));
    %EV=cat(4,V(:,:,:,1),V(:,:,:,3:T),V(:,:,:,1));
    
-   EV=repmat(V(:,:,:,1),1,1,1,T);
+   %EV=repmat(V(:,:,:,1),1,1,1,T);
    
-   EV=V*0.9+0.5;
-   EV=V*0.99+mean(V,4)/100;%%%%
-   EV=mean(V,4);
+   %EV=V*0.9+0.5;
+   %EV=V*0.99+mean(V,4)/100;%%%%
+   %EV=mean(V,4);
 
 else
-%%%%%%%%
+    IV_obs_pt=IV(:,:,:,:,1);%1*ns*G*T
+
+    %%%%%%%%%%
+    %%% Compute coefficients
+    coef_1=0.9;
+    coef_0=0;
+    %%%%%%%%%%%%%%
+
 end
 
 end
