@@ -18,9 +18,11 @@ for kk=1:n_sim
         delta_initial=log(S_jt_data)-log(S_0t_data);%J*1*G*T; Initial value of delta
     end
 %%delta_initial=delta_initial+0.01;
+delta_initial=delta_initial+randn(size(delta_initial));
 
 %delta_initial=delta_jt_true*0.999;%%%%
 
+DIST_MAT=zeros(ITER_MAX,3);
 for iter_BLP=1:ITER_MAX
 
   output=BLP_update_func(...
@@ -57,6 +59,8 @@ n_iter_BLP=iter_BLP;
 results_BLP(m,1)=n_iter_BLP;
 results_BLP(m,2)=t_BLP;
 results_BLP(m,3)=(results_BLP(m,1)<ITER_MAX);
+
+DIST_MAT_BLP=DIST_MAT;
 
 if mistake_spec==0
     results_BLP(m,3)=results_BLP(m,3).*(max(abs(ratio_delta_BLP(:)-1))<1e-8);

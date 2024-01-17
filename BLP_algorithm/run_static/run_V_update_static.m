@@ -10,8 +10,11 @@
 
 %%%V_initial0=V_true;
 V_initial0=-log(S_0t_data).*ones(size(weight));
-
 V_initial=V_initial0;
+
+%%%%%%%%%%%
+%V_initial=V_initial0*10+randn(size(V_initial0));
+%%%%%%%%%%
 
 DIST_MAT=zeros(ITER_MAX,1);
 tic
@@ -57,6 +60,8 @@ t_update_V=toc;
 
 
 ratio_delta_V=delta_updated./delta_jt_true;
+
+DIST_MAT_V=DIST_MAT;
 
 n_iter_update_V=iter_V;
 

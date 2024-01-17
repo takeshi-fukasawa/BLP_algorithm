@@ -14,7 +14,7 @@ I=2;
 n_dim_V=1;
 
 n_market=1;
-T=10;
+T=1;
 
 beta_C=0.0;
 L=1;

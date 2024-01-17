@@ -67,5 +67,16 @@ else
     mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
 end
 
+if J==1 & ns==2
+    %%% Introduce heterogeneity
+    mu_ijt_est(1,1)=0;%-f_hetero;
+    mu_ijt_est(1,2)=f_hetero;
+    mu_ijt_true=mu_ijt_est;
+    
+    weight=[0.5,0.5];
+    weight=[0.1,0.9];
+
+end
+
 
 
