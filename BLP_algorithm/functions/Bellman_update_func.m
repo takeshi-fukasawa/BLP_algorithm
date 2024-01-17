@@ -20,7 +20,7 @@ function resid_V=Bellman_update_func(...
     u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
 
-    IV=log(sum(exp(u_ijt_tilde),1));
+    IV=log(sum(exp(u_ijt_tilde),1));%1*I*1*T*n_dim_V
     V_updated=log(exp(u_i0t_tilde)+sum(exp(IV),3));%1*ns*1*T*n_dim_V
 
 

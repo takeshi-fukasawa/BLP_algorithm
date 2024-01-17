@@ -10,7 +10,8 @@ GPU_spec=0;
 
 n_sim=1;
 I=10;
-%I=2;
+I=2;
+n_dim_V=1;
 
 n_market=1;
 T=10;
@@ -47,5 +48,5 @@ if 1==0
     filename=append("C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/no_nest_results_ns_",...
         string(ns),"_",string(mistake_spec),".csv");
 
-writematrix(results_no_nest,filename)
+    writematrix(results_no_nest,filename)
 end
