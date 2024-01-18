@@ -12,7 +12,7 @@ n_sim=1;
 I=2;
 n_dim_V=1;
 
-n_market=2;
+n_market=3;
 T=1;
 
 beta_C=0.0;
@@ -21,7 +21,7 @@ L=1;
 %% Simulation 1
 J=1;% Number of products per nest
 G=1;
-f_hetero=6;
+f_hetero=1;
 
 beta_0=10;
 rho_true=0.0;
@@ -31,5 +31,5 @@ run run_RCNL_iterations.m
 results_1=results;
 
 temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j-prob_i_given_0);
-conv_const=sum(temp);
+conv_const=sum(temp)
 
