@@ -18,7 +18,7 @@ for kk=1:n_sim
         delta_initial=log(S_jt_data)-log(S_0t_data);%J*1*G*T; Initial value of delta
     end
 %%delta_initial=delta_initial+0.01;
-delta_initial=delta_initial+randn(size(delta_initial));
+delta_initial=delta_initial+0*randn(size(delta_initial));
 
 %delta_initial=delta_jt_true*0.999;%%%%
 

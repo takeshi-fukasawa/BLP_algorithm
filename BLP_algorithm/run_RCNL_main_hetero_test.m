@@ -19,9 +19,9 @@ beta_C=0.0;
 L=1;
 
 %% Simulation 1
-J=1;% Number of products per nest
+J=10;% Number of products per nest
 G=1;
-f_hetero=1;
+f_hetero=10;
 
 beta_0=10;
 rho_true=0.0;
@@ -30,6 +30,7 @@ rho_est=rho_true;%%%%%
 run run_RCNL_iterations.m
 results_1=results;
 
-temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j-prob_i_given_0);
-conv_const=sum(temp)
+temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j-prob_i_given_0);%J*ns
+conv_const=max(sum(temp,2))
+
 
