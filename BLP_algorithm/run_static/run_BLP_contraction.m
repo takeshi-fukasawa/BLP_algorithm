@@ -20,6 +20,7 @@ for kk=1:n_sim
 %%delta_initial=delta_initial+0.01;
 delta_initial=delta_initial+0*randn(size(delta_initial));
 
+%delta_initial=ones(size(delta_initial));
 %delta_initial=delta_jt_true*0.999;%%%%
 
 DIST_MAT=zeros(ITER_MAX,3);

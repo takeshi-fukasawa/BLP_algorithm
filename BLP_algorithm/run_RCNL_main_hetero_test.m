@@ -31,6 +31,9 @@ run run_RCNL_iterations.m
 results_1=results;
 
 temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j-prob_i_given_0);%J*ns
-conv_const=max(sum(temp,2))
+conv_const_delta_new=max(sum(temp,2))
+
+temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j);%J*ns
+conv_const_delta_old=max(sum(temp,2))
 
 
