@@ -67,11 +67,15 @@ else
     mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
 end
 
-if (J==1|J==10) & ns==2
+if (J==1|J==2|J==10) & ns==2
     if J==1
         %%% Introduce heterogeneity
         mu_ijt_est(1,1)=0;%-f_hetero;
         mu_ijt_est(1,2)=f_hetero;
+    elseif J==2
+        mu_ijt_est(1,1)=f_hetero;
+        mu_ijt_est(2,2)=f_hetero;
+        
     elseif J==10
         mu_ijt_est=f_hetero*randn(J,ns);
     end

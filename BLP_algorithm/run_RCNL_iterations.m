@@ -55,8 +55,13 @@ results_data(m,1)=round(median(S_0t_data(:)),3);
 tune_param_BLP=0;
 run run_BLP_contraction.m
 
+DISTMAT_BLP_0=DIST_MAT_BLP;
+ratio_delta_BLP_0=ratio_delta_BLP;
+
 tune_param_BLP=1;
 run run_BLP_contraction.m
+DISTMAT_BLP_1=DIST_MAT_BLP;
+ratio_delta_BLP_1=ratio_delta_BLP;
 
 
 TOL=1e-12;
@@ -75,11 +80,17 @@ if G==1 %%%%%%%%%%%%%%%%%%
     run run_V_update_static.m
     results_V_contraction=results_V;
     results_V_contraction_spectral=results_V_spectral;
+    
+    DISTMAT_V_0=DIST_MAT_V;
+    ratio_delta_V_0=ratio_delta_V;
 
     tune_param=1;
     run run_V_update_static.m
     results_V_new=results_V;
     results_V_new_spectral=results_V_spectral;
+
+    DISTMAT_V_1=DIST_MAT_V;
+    ratio_delta_V_1=ratio_delta_V;
 
 
     if 1==0
