@@ -10,6 +10,7 @@ GPU_spec=0;
 
 n_sim=1;
 I=2;
+%%I=100;
 n_dim_V=1;
 
 n_market=3;
@@ -19,7 +20,7 @@ beta_C=0.0;
 L=1;
 
 %% Simulation 1
-J=2;% Number of products per nest
+J=10;% Number of products per nest
 G=1;
 f_hetero=10;
 

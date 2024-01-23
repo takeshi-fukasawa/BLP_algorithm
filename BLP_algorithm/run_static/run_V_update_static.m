@@ -107,6 +107,11 @@ results_V_spectral(m,1)=n_iter_update_V_spectral;
 results_V_spectral(m,2)=t_update_V_spectral;
 results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX);
 
+    if mistake_spec==0
+        results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX & ...
+            max(abs(ratio_delta_V_spectral(:)-1))<1e-8);
+    end
+
     if tune_param==0
         results_V_contraction=results_V;
         results_V_contraction_spectral=results_V_spectral;
