@@ -68,24 +68,25 @@ else
 end
 
 if (J==1|J==2|J==10) & ns==2
+    mu_ijt_est=(mu_base)*ones(size(mu_ijt_est));
+    %%%mu_ijt_est(1,2)=2;
     if J==1
         %%% Introduce heterogeneity
         mu_ijt_est(1,1)=0;%-f_hetero;
         mu_ijt_est(1,2)=f_hetero;
     elseif J==2
-        %delta_jt_true=(-1)*ones(J,1);
         mu_ijt_est(1,1)=f_hetero;
         mu_ijt_est(2,2)=f_hetero;
-        
     elseif J==10
-        delta_jt_true=(-3)*ones(J,1);
         mu_ijt_est=f_hetero*randn(J,ns);
     end
 
+    delta_jt_true=beta_0*ones(J,1);
+    %delta_jt_true(1)=delta_jt_true(1)+0.5;
     mu_ijt_true=mu_ijt_est;
     
     weight=[0.5,0.5];
-    weight=[0.1,0.9];
+    %weight=[0.1,0.9];
     weight=[0.1,0.9];
 end
 
