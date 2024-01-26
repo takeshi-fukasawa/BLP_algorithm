@@ -61,29 +61,23 @@ mu_ijt_true=repmat(mu_ijt_true(:,:,:,1),1,1,1,T);
 %%%%%%%%%%%
 end
 
-if mistake_spec==0
-    mu_ijt_est=mu_ijt_true+randn(J,ns,G,T)*0.0;%J*ns*G*T
-else
-    mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
-end
 
 if (J==1|J==2|J==10) & ns==2
-    mu_ijt_est=(mu_base)*ones(size(mu_ijt_est));
+    mu_ijt_true=(mu_base)*ones(size(mu_ijt_true));
     %%%mu_ijt_est(1,2)=2;
     if J==1
         %%% Introduce heterogeneity
-        mu_ijt_est(1,1)=0;%-f_hetero;
-        mu_ijt_est(1,2)=f_hetero;
+        mu_ijt_true(1,1)=0;%-f_hetero;
+        mu_ijt_true(1,2)=f_hetero;
     elseif J==2
-        mu_ijt_est(1,1)=f_hetero;
-        mu_ijt_est(2,2)=f_hetero;
+        mu_ijt_true(1,1)=f_hetero;
+        mu_ijt_true(2,2)=f_hetero;
     elseif J==10
-        mu_ijt_est=f_hetero*randn(J,ns);
+        mu_ijt_true=f_hetero*randn(J,ns);
     end
 
     delta_jt_true=beta_0*ones(J,1);
     %delta_jt_true(1)=delta_jt_true(1)+0.5;
-    mu_ijt_true=mu_ijt_est;
     
     weight=[0.5,0.5];
     %weight=[0.1,0.9];
@@ -91,4 +85,12 @@ if (J==1|J==2|J==10) & ns==2
 end
 
 
+
+if mistake_spec==0
+    mu_ijt_est=mu_ijt_true+randn(J,ns,G,T)*0.0;%J*ns*G*T
+else
+    mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
+    mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
+    
+end
 

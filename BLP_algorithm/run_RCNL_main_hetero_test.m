@@ -4,7 +4,7 @@ global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 addpath('./functions')
 addpath('./run_static')
 
-mistake_spec=0;
+mistake_spec=1;
 
 GPU_spec=0;
 
@@ -35,17 +35,14 @@ results_1=results;
 u_ijt_1=u_ijt_tilde;
 
 %%%%%%%%%%%%%
-%% Simulation 1
+%% Simulation 1_temp
 I=2;
 J=2;% Number of products per nest
-mu_base=1;
-f_hetero=11;
-beta_0=-1;
 
 %%%%%%%%%%%%%
-mu_base=0;
+mu_base=-10;
 f_hetero=10;
-beta_0=-2;
+beta_0=-1;
 %%%%%%%%%%%
 
 run run_RCNL_iterations.m
