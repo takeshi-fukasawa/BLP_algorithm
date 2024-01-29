@@ -69,6 +69,13 @@ n_iter_update_V=iter_V;
       results_V(m,2)=t_update_V;
       results_V(m,3)=(results_V(m,1)<ITER_MAX);
 
+[s_jt_predict,~]=...
+  share_func(delta_updated+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
+DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+results_V(m,4)=log10(DIST_s_jt);
+results_V(m,5)=(results_V(m,4)<log10(TOL));
+
+     
 %% V_update_func spectral
 tic
 for kk=1:n_sim
@@ -106,6 +113,12 @@ ratio_delta_V_spectral=delta_sol./delta_jt_true;
 results_V_spectral(m,1)=n_iter_update_V_spectral;
 results_V_spectral(m,2)=t_update_V_spectral;
 results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX);
+
+[s_jt_predict,~]=...
+  share_func(delta_sol+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
+DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+results_V_spectral(m,4)=log10(DIST_s_jt);
+results_V_spectral(m,5)=(results_V_spectral(m,4)<log10(TOL));
 
     if mistake_spec==0
         results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX & ...

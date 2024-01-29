@@ -6,10 +6,12 @@ function [x_sol_cell]=spectral_func(fun,n_var,varargin)
 % x1_min, x2_min,...: min of x ([] implies empty)
 
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
-
+%
 alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
 %TOL=1e-11;
 %ITER_MAX=100;%%300;
+
+%ITER_MAX=1000;
 
 % varargin:1*XXX
 %size(varargin)

@@ -149,6 +149,8 @@ else
     results_temp(:,2)=round(results_temp(:,2),4);
 end
 
+results_temp(:,4)=round(results_temp(:,4),2);%log(s_jt_predict)-log(S_jt_data)
+
 results=[[beta_0 G J rho_est mean(results_data,1)].*ones(size(results_temp,1),1),...
     results_temp];
 

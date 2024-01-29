@@ -34,23 +34,9 @@ results_1=results;
 
 u_ijt_1=u_ijt_tilde;
 
-BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
-temp=(log10(DISTMAT_BLP_1(:,1)));
+temp=diff(log10(DISTMAT_BLP_1));
 plot(temp)
-saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
-
-
-plot(diff(temp))
 ylim([-0.001,0.001])
-saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
-
-CCP_table=round([s_ijt_true;s_i0t_true]./weight,4);
-filename=append(BLP_paper_figure_path,'Large_hetero_CCP.csv');
-writematrix(CCP_table,filename)
-
-filename=append(BLP_paper_figure_path,'Large_hetero_results.csv');
-writematrix(results_1,filename)
-
 
 if 1==0
 

@@ -61,6 +61,12 @@ results_BLP(m,1)=n_iter_BLP;
 results_BLP(m,2)=t_BLP;
 results_BLP(m,3)=(results_BLP(m,1)<ITER_MAX);
 
+[s_jt_predict,~]=...
+  share_func(delta_updated+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
+DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+results_BLP(m,4)=log10(DIST_s_jt);
+results_BLP(m,5)=(results_BLP(m,4)<log10(TOL));
+
 DIST_MAT_BLP=DIST_MAT;
 
 if mistake_spec==0
@@ -102,7 +108,14 @@ end
     results_BLP_spectral(m,1)=n_iter_BLP_spectral;
     results_BLP_spectral(m,2)=t_BLP_spectral;
     results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX);
-    
+  
+[s_jt_predict,~]=...
+  share_func(delta_sol+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
+DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+results_BLP_spectral(m,4)=log10(DIST_s_jt_spectral);
+  
+results_BLP_spectral(m,5)=(results_BLP_spectral(m,4)<log10(TOL));
+
     if mistake_spec==0
         results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX & max(abs(ratio_delta_BLP_spectral(:)-1))<1e-8);
     end

@@ -79,6 +79,7 @@ if (J==1|J==2|J==10) & ns==2
     delta_jt_true=beta_0*ones(J,1);
     %delta_jt_true(1)=delta_jt_true(1)+0.5;
     
+    delta_jt_true(1)=0;
     weight=[0.5,0.5];
     %weight=[0.1,0.9];
     weight=[0.1,0.9];
