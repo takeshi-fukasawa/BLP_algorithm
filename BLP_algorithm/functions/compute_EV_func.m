@@ -14,6 +14,7 @@ elseif T>=2 & n_dim_V==1 %% Perfect foresight
    
    %EV=repmat(V(:,:,:,1),1,1,1,T);
    
+   EV=repmat(V(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
    %EV=V*0.9+0.5;
    %EV=V*0.99+mean(V,4)/100;%%%%
    %EV=mean(V,4);
@@ -22,7 +23,8 @@ else
     IV_obs_pt=IV(:,:,:,:,1);%1*ns*G*T
     IV_grid=IV(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
     
-    EV=repmat(V(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
+    EV=cat(4,V(:,:,:,2:T,1),V(:,:,:,T,1));
+    EV=repmat(EV(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
 
 %%%%% Insert 
     %%%%%%%%%%

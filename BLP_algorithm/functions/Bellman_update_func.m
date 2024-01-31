@@ -15,6 +15,7 @@ function resid_V=Bellman_update_func(...
        IV=IV_obs_pt;
     else
         IV=IVS_compute_IV_func(IV_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
+        IV=IV_obs_pt;%%%%%%
     end
 
     weight_V=[];
