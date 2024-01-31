@@ -1,6 +1,8 @@
 function resid_V=Bellman_update_func(...
     V_initial,delta,mu_ijt,beta_C,L,rho,weight)
 
+%%% rho>0 allowed; Bellman update
+
     n_dim_V=size(V_initial,5);
 
     u_ijt_tilde=delta+mu_ijt+(beta_C^L).*V_initial;%J*I*G*T

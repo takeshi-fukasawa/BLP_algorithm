@@ -4,6 +4,7 @@ global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 addpath('./functions')
 addpath('./run_static')
 
+large_hetero_spec=0;
 mistake_spec=0;
 tune_param=1;
 tune_param_BLP=0;

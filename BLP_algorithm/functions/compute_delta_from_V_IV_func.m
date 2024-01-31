@@ -1,8 +1,16 @@
 %%%%%
 function [delta,s_ijt_up_to_scale,s_igt]=compute_delta_from_V_IV_func(...
-    mu_ijt,weight,S_jt_data,rho,V,IV,beta_C,L)
+    mu_ijt,weight,S_jt_data,rho,V,IV)
+
+%%% rho>0 case allowed
+%%% IV,V => delta
+%%% If V empty, compute V from IV (static (beta_C==0) case)
 
     [J,ns,G,T]=size(mu_ijt);
+
+    if isempty(V)==1 % static (beta_C==0) case
+       V=log(1+sum(IV,3));%1*ns*G*T
+    end
 
     temp_numer1=exp(mu_ijt./(1-rho));
     temp_denom1=exp(IV./(1-rho));

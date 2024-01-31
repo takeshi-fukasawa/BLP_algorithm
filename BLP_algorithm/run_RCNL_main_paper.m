@@ -5,7 +5,7 @@ addpath('./functions')
 addpath('./run_static')
 
 mistake_spec=0;
-
+large_hetero_spec=0;
 GPU_spec=0;
 
 n_sim=1;

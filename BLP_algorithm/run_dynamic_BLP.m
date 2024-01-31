@@ -8,6 +8,7 @@ global delta_updated
 addpath('./functions')
 addpath('./run_dynamic')
 
+large_hetero_spec=0;
 mistake_spec=0;
 
 n_dim_V=1;
@@ -43,6 +44,7 @@ for m=1:n_market
 rng(m);
 gpurng(m);
 
+%% Generate data and solve equilibrium
 %run DGP.m
 run DGP_ABLP.m
 mu_ij_est=mu_ijt_true*1;
@@ -79,7 +81,6 @@ ratio_delta_V_spectral_1=ratio_delta_V_spectral;
 
 %%% tune_param==1/(1-beta_C)
 tune_param=1/(1-beta_C);Newton_spec=0;
-
 run run_V_update_dynamic.m
 
 n_iter_update_V_2(m,1)=n_iter_update_V;
@@ -103,9 +104,9 @@ end
 end
 
 
-%% Update IV
+%% Jointly Update V and IV
 if 1==1
-run run_IV_update_dynamic.m
+run run_V_IV_update_dynamic.m
 end
 
 %% Joint update of delta and V

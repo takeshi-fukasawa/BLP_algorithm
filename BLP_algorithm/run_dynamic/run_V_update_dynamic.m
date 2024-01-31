@@ -41,9 +41,9 @@ for k=1:ITER_MAX
 end% for loop
 t_update_V=toc;
 
-delta_updated=compute_delta_func2(mu_ijt_est,weight,...
+delta_updated=compute_delta_from_V_func(mu_ijt_est,weight,...
         S_jt_data,rho_est,...
-        V_updated,beta_C,L);%J*1
+        V_updated);%J*1
 
 ratio_delta_V=delta_updated./delta_jt_true;
 
@@ -76,8 +76,8 @@ end%%kk
 t_update_V_spectral=toc/n_sim;
 
 
-delta_sol=compute_delta_func2(...
-        mu_ijt_est,weight,S_jt_data,rho_est,V_sol,beta_C,L);
+delta_sol=compute_delta_from_V_func(...
+        mu_ijt_est,weight,S_jt_data,rho_est,V_sol);
 
 
 n_iter_update_V_spectral=count;

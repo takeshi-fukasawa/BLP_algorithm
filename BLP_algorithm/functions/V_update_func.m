@@ -21,7 +21,7 @@ if n_dim_V==1
     IV_new=log(exp_IV_new);
 else
 %%% Inclusive value sufficiency
-IV_new_obs_pt=log(exp_IV_new);%J*1*1*T
+IV_new_obs_pt=log(exp_IV_new);%1*1*G*T
 IV_new=IVS_compute_IV_func(IV_new_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
 exp_IV_new=exp(IV_new);%1*ns*1*T*n_dim_V
 end

@@ -62,7 +62,7 @@ mu_ijt_true=repmat(mu_ijt_true(:,:,:,1),1,1,1,T);
 end
 
 
-if (J==1|J==2|J==10) & ns==2
+if large_hetero_spec==1
     mu_ijt_true=(mu_base)*ones(size(mu_ijt_true));
     %%%mu_ijt_est(1,2)=2;
     if J==1
