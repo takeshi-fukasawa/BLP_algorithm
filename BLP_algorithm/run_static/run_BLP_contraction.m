@@ -1,13 +1,13 @@
 %% Compute delta, given nonlinear parameters (sigma)
 DIST=100;
 
-    if tune_param_BLP==0
-        results_BLP=results_BLP_contraction;
-        results_BLP_spectral=results_BLP_contraction_spectral;
-    else
-        results_BLP=results_BLP_new;
-        results_BLP_spectral=results_BLP_new_spectral;
-    end
+if tune_param_BLP==0
+    results_BLP=results_BLP_contraction;
+    results_BLP_spectral=results_BLP_contraction_spectral;
+else
+    results_BLP=results_BLP_new;
+    results_BLP_spectral=results_BLP_new_spectral;
+end
 
 
 tic

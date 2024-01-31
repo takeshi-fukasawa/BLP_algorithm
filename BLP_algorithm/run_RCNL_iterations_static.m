@@ -11,19 +11,16 @@ results_data=zeros(n_market,1);
 
 results_V_contraction=zeros(n_market,3);
 results_V_contraction_spectral=zeros(n_market,3);
-
 results_V_new=zeros(n_market,3);
 results_V_new_spectral=zeros(n_market,3);
 
 results_BLP_contraction=zeros(n_market,3);
 results_BLP_contraction_spectral=zeros(n_market,3);
-
 results_BLP_new=zeros(n_market,3);
 results_BLP_new_spectral=zeros(n_market,3);
 
 results_r_mixed_spectral=zeros(n_market,3);
 results_r_mixed=zeros(n_market,3);
-
 results_r_conservative_spectral=zeros(n_market,3);
 results_r_conservative=zeros(n_market,3);
 

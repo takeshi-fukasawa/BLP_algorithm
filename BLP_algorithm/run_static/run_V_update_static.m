@@ -1,12 +1,12 @@
-    %% V_update_func
+%% V_update_func
 
-   if tune_param==0
-        results_V=results_V_contraction;
-        results_V_spectral=results_V_contraction_spectral;
-    else
-        results_V=results_V_new;
-        results_V_spectral=results_V_new_spectral;
-    end
+if tune_param==0
+    results_V=results_V_contraction;
+    results_V_spectral=results_V_contraction_spectral;
+else
+    results_V=results_V_new;
+    results_V_spectral=results_V_new_spectral;
+end
 
 %%%V_initial0=V_true;
 V_initial0=-log(S_0t_data).*ones(size(weight));
@@ -120,16 +120,16 @@ DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 results_V_spectral(m,4)=log10(DIST_s_jt);
 results_V_spectral(m,5)=(results_V_spectral(m,4)<log10(TOL));
 
-    if mistake_spec==0
-        results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX & ...
-            max(abs(ratio_delta_V_spectral(:)-1))<1e-8);
-    end
+if mistake_spec==0
+    results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX & ...
+        max(abs(ratio_delta_V_spectral(:)-1))<1e-8);
+end
 
-    if tune_param==0
-        results_V_contraction=results_V;
-        results_V_contraction_spectral=results_V_spectral;
-    else
-        results_V_new=results_V;
-        results_V_new_spectral=results_V_spectral;
-    end
+if tune_param==0
+    results_V_contraction=results_V;
+    results_V_contraction_spectral=results_V_spectral;
+else
+    results_V_new=results_V;
+    results_V_new_spectral=results_V_spectral;
+end
        

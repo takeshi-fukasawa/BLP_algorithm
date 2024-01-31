@@ -1,4 +1,16 @@
 
+
+if tune_param==0
+    results_V=results_V_0;
+    results_V_spectral=results_V_0_spectral;
+elseif tune_param==1
+    results_V=results_V_1;
+    results_V_spectral=results_V_1_spectral;
+else
+    results_V=results_V_2;
+    results_V_spectral=results_V_2_spectral;
+end
+
 %% V_update_func
 %%%V_initial0=V_true;
 V_initial=V_initial0;
@@ -55,6 +67,12 @@ EV=compute_EV_func(V_updated,[],weight_V);
   share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
+results_V(m,1)=n_iter_update_V;
+results_V(m,2)=t_update_V;
+results_V(m,3)=(results_V(m,1)<ITER_MAX);
+results_V(m,4)=log10(DIST_s_jt);
+results_V(m,5)=(results_V(m,4)<log10(TOL));
+
 %%%%%%%%%%%%%%%%%%%%%
 %% V_update_func spectral
 tic
@@ -95,3 +113,21 @@ n_iter_update_V_spectral=count;
 DIST_MAT_V_spectral=DIST_table;
 ratio_delta_V_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_V_spectral),max(ratio_delta_V_spectral)]
+
+results_V_spectral(m,1)=n_iter_update_V_spectral;
+results_V_spectral(m,2)=t_update_V_spectral;
+results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX);
+results_V_spectral(m,4)=log10(DIST_s_jt_spectral);
+results_V_spectral(m,5)=(results_V_spectral(m,4)<log10(TOL));
+
+
+if tune_param==0
+    results_V_0=results_V;
+    results_V_0_spectral=results_V_spectral;
+elseif tune_param==1
+    results_V_1=results_V;
+    results_V_1_spectral=results_V_spectral;
+else
+    results_V_2=results_V;
+    results_V_2_spectral=results_V_spectral;
+end

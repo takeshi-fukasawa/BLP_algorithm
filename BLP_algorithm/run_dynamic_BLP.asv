@@ -51,8 +51,6 @@ results_V_BLP_0_spectral=zeros(n_market,3);
 results_V_BLP_1=zeros(n_market,3);
 results_V_BLP_1_spectral=zeros(n_market,3);
 
-
-
 for m=1:n_market
 
 rng(m);
@@ -180,13 +178,6 @@ results(:,2)=round(results(:,2),3);
 results=[zeros(size(results,1),2),results];
 results(:,1)=beta_C;
 results(:,2)=median(S_0t_data(:));
-
-results_temp=[...
-    results_V_0;results_V_0_spectral;...
-    results_V_1;results_V_1_spectral;...
-    results_V_2;results_V_2_spectral;...
-    results_V_BLP_0;results_V_BLP_0_spectral;...
-    results_V_BLP_1;results_V_BLP_1_spectral];
 
 if 1==0
     filename=append("C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/no_nest_results_beta_",...

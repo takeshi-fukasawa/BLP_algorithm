@@ -1,3 +1,12 @@
+
+if tune_param_BLP==0
+    results_V_BLP=results_V_BLP_0;
+    results_V_BLP_spectral=results_V_BLP_0_spectral;
+elseif tune_param_BLP==1
+    results_V_BLP=results_V_BLP_1;
+    results_V_BLP_spectral=results_V_BLP_1_spectral;
+end
+
 %% BLP_Bellman_joint_update_func 
 
 delta_initial=delta_initial0;
@@ -42,7 +51,7 @@ for k=1:ITER_MAX
       end
 
 end% for loop
-t_BLP_V=toc;
+t_V_BLP=toc;
 
 ratio_delta_V_BLP=delta_updated./delta_jt_true;
 
@@ -52,6 +61,12 @@ EV=compute_EV_func(V_sol,[],weight_V);
 [s_jt_predict,~]=...
   share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+
+results_V_BLP(m,1)=n_iter_update_V_BLP;
+results_V_BLP(m,2)=t_V_BLP;
+results_V_BLP(m,3)=(results_V_BLP(m,1)<ITER_MAX);
+results_V_BLP(m,4)=log10(DIST_s_jt);
+results_V_BLP(m,5)=(results_V_BLP(m,4)<log10(TOL));
 
 %% BLP_Bellman_joint_update_func Spectral
 tic
@@ -75,3 +90,18 @@ EV=compute_EV_func(V_sol,[],weight_V);
 [s_jt_predict,~]=...
   share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+
+
+results_V_BLP_spectral(m,1)=n_iter_update_V_BLP_spectral;
+results_V_BLP_spectral(m,2)=t_V_BLP_spectral;
+results_V_BLP_spectral(m,3)=(results_V_BLP_spectral(m,1)<ITER_MAX);
+results_V_BLP_spectral(m,4)=log10(DIST_s_jt_spectral);
+results_V_BLP_spectral(m,5)=(results_V_BLP_spectral(m,4)<log10(TOL));
+
+if tune_param_BLP==0
+    results_V_BLP_0=results_V_BLP;
+    results_V_BLP_0_spectral=results_V_BLP_spectral;
+elseif tune_param_BLP==1
+    results_V_BLP_1=results_V_BLP;
+    results_V_BLP_1_spectral=results_V_BLP_spectral;
+end
