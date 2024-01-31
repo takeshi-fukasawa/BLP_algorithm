@@ -1,3 +1,4 @@
+
 %% V_update_func
 %%%V_initial0=V_true;
 V_initial=V_initial0;
@@ -49,6 +50,11 @@ ratio_delta_V=delta_updated./delta_jt_true;
 
 n_iter_update_V=k;
 
+EV=compute_EV_func(V_updated,[],weight_V);
+[s_jt_predict,~]=...
+  share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
+
 %%%%%%%%%%%%%%%%%%%%%
 %% V_update_func spectral
 tic
@@ -78,6 +84,11 @@ t_update_V_spectral=toc/n_sim;
 
 delta_sol=compute_delta_from_V_func(...
         mu_ijt_est,weight,S_jt_data,rho_est,V_sol);
+
+EV=compute_EV_func(V_sol,[],weight_V);
+[s_jt_predict,~]=...
+  share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 
 n_iter_update_V_spectral=count;

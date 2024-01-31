@@ -108,7 +108,7 @@ end
     results_BLP_spectral(m,1)=n_iter_BLP_spectral;
     results_BLP_spectral(m,2)=t_BLP_spectral;
     results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX);
-  
+
 [s_jt_predict,~]=...
   share_func(delta_sol+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));

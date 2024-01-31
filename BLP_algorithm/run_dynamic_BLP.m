@@ -57,55 +57,55 @@ delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);% I
 %% Update V (rho==0 & G==1 case only)
 if G==1 & rho_est==0
     %%% tune_param==0
-tune_param=0;Newton_spec=0;
-run run_V_update_dynamic.m
-
-n_iter_update_V_0(m,1)=n_iter_update_V;
-t_update_V_0(m,1)=t_update_V;
-n_iter_update_V_spectral_0(m,1)=n_iter_update_V_spectral;
-t_update_V_spectral_0=t_update_V_spectral;
-ratio_delta_V_0=ratio_delta_V;
-ratio_delta_V_spectral_0=ratio_delta_V_spectral;
-
-%%% tune_param==1
-tune_param=1;Newton_spec=0;
-
-run run_V_update_dynamic.m
-
-n_iter_update_V_1(m,1)=n_iter_update_V;
-t_update_V_1(m,1)=t_update_V;
-n_iter_update_V_spectral_1(m,1)=n_iter_update_V_spectral;
-t_update_V_spectral_1=t_update_V_spectral;
-ratio_delta_V_1=ratio_delta_V;
-ratio_delta_V_spectral_1=ratio_delta_V_spectral;
-
-%%% tune_param==1/(1-beta_C)
-tune_param=1/(1-beta_C);Newton_spec=0;
-run run_V_update_dynamic.m
-
-n_iter_update_V_2(m,1)=n_iter_update_V;
-t_update_V_2(m,1)=t_update_V;
-n_iter_update_V_spectral_2(m,1)=n_iter_update_V_spectral;
-t_update_V_spectral_2=t_update_V_spectral;
-ratio_delta_V_2=ratio_delta_V;
-ratio_delta_V_spectral_2=ratio_delta_V_spectral;
-
-%%% Newton iteration
-if 1==0
-tune_param=1;Newton_spec=1;
-run run_V_update_dynamic.m
-
-n_iter_update_V_Newton(m,1)=n_iter_update_V;
-t_update_V_Newton(m,1)=t_update_V;
-n_iter_update_V_spectral_Newton(m,1)=n_iter_update_V_spectral;
-t_update_V_spectral_Newton=t_update_V_spectral;
-end
+    tune_param=0;Newton_spec=0;
+    run run_V_update_dynamic.m
+    
+    n_iter_update_V_0(m,1)=n_iter_update_V;
+    t_update_V_0(m,1)=t_update_V;
+    n_iter_update_V_spectral_0(m,1)=n_iter_update_V_spectral;
+    t_update_V_spectral_0=t_update_V_spectral;
+    ratio_delta_V_0=ratio_delta_V;
+    ratio_delta_V_spectral_0=ratio_delta_V_spectral;
+    
+    %%% tune_param==1
+    tune_param=1;Newton_spec=0;
+    
+    run run_V_update_dynamic.m
+    
+    n_iter_update_V_1(m,1)=n_iter_update_V;
+    t_update_V_1(m,1)=t_update_V;
+    n_iter_update_V_spectral_1(m,1)=n_iter_update_V_spectral;
+    t_update_V_spectral_1=t_update_V_spectral;
+    ratio_delta_V_1=ratio_delta_V;
+    ratio_delta_V_spectral_1=ratio_delta_V_spectral;
+    
+    %%% tune_param==1/(1-beta_C)
+    tune_param=1/(1-beta_C);Newton_spec=0;
+    run run_V_update_dynamic.m
+    
+    n_iter_update_V_2(m,1)=n_iter_update_V;
+    t_update_V_2(m,1)=t_update_V;
+    n_iter_update_V_spectral_2(m,1)=n_iter_update_V_spectral;
+    t_update_V_spectral_2=t_update_V_spectral;
+    ratio_delta_V_2=ratio_delta_V;
+    ratio_delta_V_spectral_2=ratio_delta_V_spectral;
+    
+    %%% Newton iteration
+    if 1==0
+        tune_param=1;Newton_spec=1;
+        run run_V_update_dynamic.m
+        
+        n_iter_update_V_Newton(m,1)=n_iter_update_V;
+        t_update_V_Newton(m,1)=t_update_V;
+        n_iter_update_V_spectral_Newton(m,1)=n_iter_update_V_spectral;
+        t_update_V_spectral_Newton=t_update_V_spectral;
+    end
 
 end
 
 
 %% Jointly Update V and IV
-if 1==1
+if G>=2
 run run_V_IV_update_dynamic.m
 end
 
