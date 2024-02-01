@@ -22,6 +22,7 @@ elseif T>=2 & n_dim_V==1 %% Perfect foresight
 else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     IV_state_obs_pt=IV_state(:,:,:,:,1);%1*ns*G*T
     IV_state_grid=IV_state(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
+    n_grid_IV=size(IV_state_grid,5);
 
     %%%% Compute Ar1 coefficients %%%%%%
     X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
@@ -36,10 +37,20 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
 
     n_draw=size(weight_V,1);
-    IV_t1_state_draw=IV_state.*coef_1+coef_0+reshape(x_V,1,1,1,1,1,n_draw);%1*ns*G*T*n_grid*n_draw
+    IV_t1_state_draw=IV_state.*coef_1+coef_0+reshape(x_V,1,1,1,1,1,n_draw);%1*ns*G*T*n_grid_IV*n_draw
 
-    %%% Interpolate V_t1_draw %%%%%%
-    V_t1_draw=IV_t1_state_draw;%%% temporary %%%%%%
+    %%% Construct Chebyshev basis
+    n_dim_Chebyshev=n_grid_IV;
+    x=reshape(IV_state_grid(1,1,1,1,:),n_grid_IV,1);
+
+    basis_t_grid=construct_Chebyshev_basis_func(reshape(IV_state_grid(1,1,1,1,:),n_grid_IV,1),n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev
+    y=(reshape(V_grid(1,:,1,1,2:end),ns,n_grid_IV))';%n_grid_IV*ns
+    coef=inv(basis_t_grid'*basis_t_grid)*basis_t_grid'*y;%n_dim_Chebyshev*ns
+
+basis_t1=construct_Chebyshev_basis_func(reshape(IV_t1_state_draw,ns*G*T*n_grid_IV*n_draw,1),n_dim_Chebyshev);%(ns*G*T*n_grid_IV*n_draw)*n_dim_Chebyshev
+
+V_t1_draw=sum(reshape(basis_t1,1,ns,G,T,n_grid_IV,n_draw,n_dim_Chebyshev).*reshape(coef,1,ns,1,1,1,1,n_dim_Chebyshev),7);%1*ns*G*T*n_grid_IV*n_draw
+
 
     EV=sum(V_t1_draw.*reshape(weight_V,1,1,1,1,1,n_draw),6);%1*ns*G*(T-1)*n_grid
     

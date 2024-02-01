@@ -9,7 +9,7 @@ function [delta,s_ijt_up_to_scale,s_igt]=compute_delta_from_V_IV_func(...
     [J,ns,G,T]=size(mu_ijt);
 
     if isempty(V)==1 % static (beta_C==0) case
-       V=log(1+sum(IV,3));%1*ns*G*T
+       V=log(1+sum(exp(IV),3));%1*ns*G*T
     end
 
     temp_numer1=exp(mu_ijt./(1-rho));

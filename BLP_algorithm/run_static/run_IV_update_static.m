@@ -12,7 +12,7 @@ end
 IV_initial0=repmat(log(S_gt_data)-log(S_0t_data),[1,ns,1,1]);%1*ns*G*T
 
 IV_initial=IV_initial0;
-IV_initial=IV_true;
+%%IV_initial=IV_true;
 
 DIST_MAT=zeros(ITER_MAX,1);
 tic

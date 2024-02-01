@@ -12,7 +12,7 @@ large_hetero_spec=0;
 mistake_spec=0;
 durable_spec=1;
 
-n_dim_V=2;
+n_dim_V=1;
 
 J=25;% Number of products per nest
 G=1;
@@ -32,7 +32,7 @@ n_sim=1;
 I=1000;
 I=2;
 
-T=10;
+T=5;
 
 ns=I;
 TOL=1e-12;
