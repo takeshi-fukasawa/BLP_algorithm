@@ -30,9 +30,14 @@ end %for loop for solving V
 
 u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_updated;%J*I*G*T
 
-weight_V=[];
+n_draw=4;
+[x_V,weight_V]=gausshermi(n_draw);
+    x_V=x_V*sqrt(2);%n_draw*1
+    weight_V=weight_V./sum(weight_V,1);%n_draw*1
+
+
 IV=[];
-EV=compute_EV_func(V_updated,IV,weight_V);%1*ns*1*T*n_dim_V
+EV=compute_EV_func(V_updated,IV,weight_V,x_V);%1*ns*1*T*n_dim_V
 u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
 [s_jt_predict,ChoiceProb_true,s_ijt_given_g_ccp,s_igt_ccp_true,...

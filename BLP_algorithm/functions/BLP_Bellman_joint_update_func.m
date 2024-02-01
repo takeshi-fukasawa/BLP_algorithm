@@ -7,8 +7,8 @@ function output=...
 
 u_ij_tilde=delta_initial+mu_ij+(beta_C^L).*V_initial;%J*I*G
 
-weight_V=[];
-EV=compute_EV_func(V_initial,[],weight_V);
+weight_V=[];x_V=[];
+EV=compute_EV_func(V_initial,[],weight_V,x_V);
 u_i0_tilde=beta_C*EV;%J*I*G
 
     [s_j_predict,ChoiceProb,s_ij_given_g_ccp,s_ig_ccp,...

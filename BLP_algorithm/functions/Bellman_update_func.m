@@ -19,7 +19,8 @@ function resid_V=Bellman_update_func(...
     end
 
     weight_V=[];
-    EV=compute_EV_func(V_initial,IV,weight_V);%1*ns*1*T*n_dim_V
+    x_V=[];
+    EV=compute_EV_func(V_initial,IV,weight_V,x_V);%1*ns*1*T*n_dim_V
     u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
 

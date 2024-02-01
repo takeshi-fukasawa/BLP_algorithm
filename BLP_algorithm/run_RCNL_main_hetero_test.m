@@ -6,6 +6,7 @@ addpath('./run_static')
 
 mistake_spec=0;
 large_hetero_spec=1;
+durable_spec=0;
 
 GPU_spec=0;
 
@@ -30,7 +31,7 @@ mu_base=0;
 f_hetero=10;
 beta_0=-1;
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_1=results;
 
 u_ijt_1=u_ijt_tilde;
@@ -67,7 +68,7 @@ f_hetero=10;
 beta_0=0;
 %%%%%%%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_1_temp=results;
 
 u_ijt_1_temp=u_ijt_tilde;
@@ -95,7 +96,7 @@ J=10;% Number of products per nest
 f_hetero=10;
 beta_0=-1;
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_2=results;
 
 %% Simulation 3
@@ -104,7 +105,7 @@ J=10;% Number of products per nest
 f_hetero=10;
 beta_0=20;
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_3=results;
 
 end

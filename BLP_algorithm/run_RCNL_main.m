@@ -8,6 +8,7 @@ large_hetero_spec=0;
 mistake_spec=0;
 tune_param=1;
 tune_param_BLP=0;
+durable_spec=0;
 
 GPU_spec=0;
 
@@ -29,7 +30,7 @@ beta_0=0;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_1=results;
 
 %% Simulation 2
@@ -39,7 +40,7 @@ beta_0=4;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_2=results;
 
 %% Simulation 3
@@ -49,7 +50,7 @@ beta_0=0;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_3=results;
 
 %% Simulation 4
@@ -59,7 +60,7 @@ beta_0=0;
 rho_true=0.8;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_4=results;
 
 end
@@ -71,7 +72,7 @@ beta_0=-4;
 rho_true=0.95;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations.m
+run run_RCNL_iterations_static.m
 results_5=results;
 
 results_no_nest=[results_1;results_2];

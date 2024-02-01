@@ -10,6 +10,7 @@ addpath('./run_dynamic')
 
 large_hetero_spec=0;
 mistake_spec=0;
+durable_spec=0;
 
 n_dim_V=2;
 

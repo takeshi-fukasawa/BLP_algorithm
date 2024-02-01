@@ -2,8 +2,8 @@
 function output=...
     V_update_func(...
     V_initial,weight,mu_ijt,rho,...
-    S_jt_data,S_0t_data,numer_1_without_delta,...
-    beta_C,L,tune_param,Newton_spec)
+    S_jt_data,S_0t_data,...
+    weight_V,x_V,beta_C,L,tune_param,Newton_spec)
  
     %%% G==1 case only
     [J,ns,~,T]=size(mu_ijt);
@@ -26,8 +26,7 @@ IV_new=IVS_compute_IV_func(IV_new_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
 exp_IV_new=exp(IV_new);%1*ns*1*T*n_dim_V
 end
 
-    weight_V=[];
-    EV=compute_EV_func(V_initial,IV_new,weight_V);%1*ns*1*T*n_dim_V
+    EV=compute_EV_func(V_initial,IV_new,weight_V,x_V);%1*ns*1*T*n_dim_V
     v_i0t=beta_C*EV;%1*ns*1*T*n_dim_V
 
     v_i0t_obs_pt=v_i0t(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t at obs data pts

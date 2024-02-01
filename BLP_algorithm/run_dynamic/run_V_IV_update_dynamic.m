@@ -59,7 +59,7 @@ delta_updated=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
 
 ratio_delta_IV=delta_updated./delta_jt_true;
 
-EV=compute_EV_func(V_updated,[],weight_V);
+EV=compute_EV_func(V_updated,[],weight_V,x_V);
 [s_jt_predict,~]=...
   share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
@@ -96,7 +96,7 @@ DIST_MAT_IV_spectral=DIST_table;
 ratio_delta_IV_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_IV_spectral),max(ratio_delta_IV_spectral)]
 
-EV=compute_EV_func(V_sol,[],weight_V);
+EV=compute_EV_func(V_sol,[],weight_V,x_V);
 [s_jt_predict,~]=...
   share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));

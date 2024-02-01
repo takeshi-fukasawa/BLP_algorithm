@@ -39,7 +39,7 @@ IV_new=IVS_compute_IV_func(IV_new,n_dim_V-1);%1*ns*G*T*n_dim_V
 end
 
     weight_V=[];
-    EV=compute_EV_func(V_initial,IV_new,weight_V);%1*ns*1*T*n_dim_V
+    EV=compute_EV_func(V_initial,IV_new,weight_V,x_V);%1*ns*1*T*n_dim_V
     v_i0t=beta_C*EV;%1*ns*1*T*n_dim_V
 
     v_i0t_obs_pt=v_i0t(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t at obs data pts

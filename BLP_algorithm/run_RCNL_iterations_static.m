@@ -19,6 +19,11 @@ results_BLP_contraction_spectral=zeros(n_market,3);
 results_BLP_new=zeros(n_market,3);
 results_BLP_new_spectral=zeros(n_market,3);
 
+results_IV_contraction=zeros(n_market,3);
+results_IV_contraction_spectral=zeros(n_market,3);
+results_IV_new=zeros(n_market,3);
+results_IV_new_spectral=zeros(n_market,3);
+
 results_r_mixed_spectral=zeros(n_market,3);
 results_r_mixed=zeros(n_market,3);
 results_r_conservative_spectral=zeros(n_market,3);
@@ -86,7 +91,7 @@ if G==1 %%%%%%%%%%%%%%%%%%
 
 
     if 1==0
-    %% Kaloutpsidi method
+    %% Kalouptsidi method
 
     switch_r_spec=1;%%%%
     run run_Kalouptsidi_method_static.m
@@ -103,7 +108,28 @@ if G==1 %%%%%%%%%%%%%%%%%%
     end
     
 
-end %%%%% G==1
+else %%%%% G>=2
+
+    %% IV_update static
+    tune_param=0;
+    run run_IV_update_static.m
+    results_IV_contraction=results_IV;
+    results_IV_contraction_spectral=results_IV_spectral;
+    
+    DISTMAT_IV_0=DIST_MAT_IV;
+    ratio_delta_IV_0=ratio_delta_IV;
+
+    tune_param=1;
+    run run_IV_update_static.m
+    results_IV_new=results_IV;
+    results_IV_new_spectral=results_IV_spectral;
+
+    DISTMAT_IV_1=DIST_MAT_IV;
+    ratio_delta_IV_1=ratio_delta_IV;
+
+
+end % G==1 or G>=2
+
 end % n_market
 
 if G==1
