@@ -44,6 +44,8 @@ u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
     numer_1,denom_1,numer_2,denom_2]=...
     share_func(u_ijt_tilde(:,:,:,:,1),u_i0t_tilde(:,:,:,:,1),rho_true,weight);
 
+IV_true=log(numer_2);
+
 s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);%1*ns
 s_i0t_true=s_i0t_ccp_true.*weight;%1*ns
 

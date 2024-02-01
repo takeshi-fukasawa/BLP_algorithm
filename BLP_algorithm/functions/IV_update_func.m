@@ -7,7 +7,7 @@ function output=...
     %%% Allow for rho>0,G>=2 case %%%
   
     [J,ns,G,T]=size(mu_ijt);   
-    V=log(1+sum(exp(IV),3));%1*ns*1*T
+    V=log(1+sum(exp(IV_initial),3));%1*ns*1*T
      
     if rho==0
     numer_1=exp(mu_ijt./(1-rho));%J*ns*G*T

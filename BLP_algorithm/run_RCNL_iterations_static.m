@@ -9,20 +9,23 @@ Newton_spec=0;
 
 results_data=zeros(n_market,1);
 
-results_V_contraction=zeros(n_market,3);
-results_V_contraction_spectral=zeros(n_market,3);
-results_V_new=zeros(n_market,3);
-results_V_new_spectral=zeros(n_market,3);
+if rho_est==0
+    results_V_contraction=zeros(n_market,3);
+    results_V_contraction_spectral=zeros(n_market,3);
+    results_V_new=zeros(n_market,3);
+    results_V_new_spectral=zeros(n_market,3);
+else
+    results_IV_contraction=zeros(n_market,3);
+    results_IV_contraction_spectral=zeros(n_market,3);
+    results_IV_new=zeros(n_market,3);
+    results_IV_new_spectral=zeros(n_market,3);
+end
 
 results_BLP_contraction=zeros(n_market,3);
 results_BLP_contraction_spectral=zeros(n_market,3);
 results_BLP_new=zeros(n_market,3);
 results_BLP_new_spectral=zeros(n_market,3);
 
-results_IV_contraction=zeros(n_market,3);
-results_IV_contraction_spectral=zeros(n_market,3);
-results_IV_new=zeros(n_market,3);
-results_IV_new_spectral=zeros(n_market,3);
 
 results_r_mixed_spectral=zeros(n_market,3);
 results_r_mixed=zeros(n_market,3);
@@ -43,7 +46,7 @@ run DGP_ABLP.m
 %% Compute product market share, given parameters
 run solve_equil.m
 
-if G==1
+if rho_est==0
 run model_conv_stat.m
 end
 
@@ -70,7 +73,7 @@ TOL=1e-12;
 
 
 %%%%%%%%%%%%%
-if G==1 %%%%%%%%%%%%%%%%%%
+if rho_est==0 %%%%%%%%%%%%%%%%%%
 
     %% V_update static
     tune_param=0;
@@ -128,11 +131,11 @@ else %%%%% G>=2
     ratio_delta_IV_1=ratio_delta_IV;
 
 
-end % G==1 or G>=2
+end % rho_est==0 or others
 
 end % n_market
 
-if G==1
+if rho_est==0
 
 results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
     mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
@@ -140,16 +143,18 @@ results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spect
     mean(results_V_new,1);mean(results_V_new_spectral,1)];
 
 if isempty(results_r_mixed)==0
-results_temp=[results_temp;...
+    results_temp=[results_temp;...
     mean(results_r_mixed,1);%mean(results_r_mixed_spectral,1);...
     mean(results_r_conservative,1);%mean(results_r_conservative_spectral,1);...
      ];
 
 end
 
-elseif G>=2
+elseif rho_est>0
     results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
-    mean(results_BLP_new,1);mean(results_BLP_new_spectral,1)];
+    mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
+    mean(results_IV_contraction,1);mean(results_IV_contraction_spectral,1);...
+    mean(results_IV_new,1);mean(results_IV_new_spectral,1)];
 end
 
 if ns>=10

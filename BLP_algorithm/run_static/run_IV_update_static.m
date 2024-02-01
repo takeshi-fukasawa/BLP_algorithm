@@ -2,15 +2,17 @@
 
 if tune_param==0
     results_IV=results_IV_contraction;
-    results_IV_spectral=results_UIV_contraction_spectral;
+    results_IV_spectral=results_IV_contraction_spectral;
 else
     results_IV=results_IV_new;
     results_IV_spectral=results_IV_new_spectral;
 end
 
 %%%IV_initial0=IV_true;
-IV_initial0=log(S_gt_data)-log(S_0t_data);
+IV_initial0=repmat(log(S_gt_data)-log(S_0t_data),[1,ns,1,1]);%1*ns*G*T
+
 IV_initial=IV_initial0;
+IV_initial=IV_true;
 
 DIST_MAT=zeros(ITER_MAX,1);
 tic
@@ -61,7 +63,7 @@ n_iter_update_IV=iter_IV;
   share_func(delta_updated+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 results_IV(m,4)=log10(DIST_s_jt);
-results_IV(m,5)=(results_V(m,4)<log10(TOL));
+results_IV(m,5)=(results_IV(m,4)<log10(TOL));
 
      
 %% IV_update_func spectral

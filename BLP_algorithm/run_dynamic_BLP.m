@@ -10,7 +10,7 @@ addpath('./run_dynamic')
 
 large_hetero_spec=0;
 mistake_spec=0;
-durable_spec=0;
+durable_spec=1;
 
 n_dim_V=2;
 
@@ -30,7 +30,7 @@ GPU_spec=0;
 
 n_sim=1;
 I=1000;
-I=10;
+I=2;
 
 T=10;
 

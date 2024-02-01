@@ -11,7 +11,7 @@ durable_spec=0;
 
 n_sim=1;
 I=10;
-I=1000;
+%I=1000;
 n_dim_V=1;
 
 n_market=1;
@@ -51,3 +51,13 @@ if 1==0
 
     writematrix(results_no_nest,filename)
 end
+
+%% Simulation 3 (RCNL)
+J=25;% Number of products per nest
+G=2;
+beta_0=4;
+rho_true=0.5;
+rho_est=rho_true;%%%%%
+
+run run_RCNL_iterations_static.m
+results_2=results;
