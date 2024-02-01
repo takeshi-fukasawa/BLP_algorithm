@@ -33,7 +33,7 @@ results_1=results;
 %% Simulation 2
 J=25;% Number of products per nest
 G=1;
-beta_0=6;
+beta_0=4;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
