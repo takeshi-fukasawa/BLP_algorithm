@@ -12,7 +12,6 @@ beta_C=0.99;
 
 v_0=[0;0.0];
 
-ITER_MAX=1000;
 for iter=1:ITER_MAX
     prob_0=exp(v_0+beta_C*P*V_initial)./exp(V_initial);
     difference=log(exp(beta_C*P*V_initial)+exp(delta))-V_initial;

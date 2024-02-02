@@ -1,6 +1,5 @@
 global IV
 
-ITER_MAX=2000;
 
 if GPU_spec==1
     delta_jt_true=gpuArray(delta_jt_true);
@@ -59,6 +58,5 @@ S_0t_data=1-sum(S_jt_data,[1,3]);
 S_gt_data=sum(S_jt_data,1);%1*1*G
 S_jt_given_g_data=S_jt_data./S_gt_data;%J*1*G
 
-numer_1_without_delta=exp(mu_ijt_est./(1-rho_est));%J*ns
 
 V_true=V_updated;

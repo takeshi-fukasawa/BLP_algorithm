@@ -3,8 +3,6 @@ spectral_delta_spec=1;
 tune_param_BLP=1;
 %delta_fixed_spec=1;
 
-ITER_MAX=4000;
-
 %% Normal iteration
 %%%V_initial0=V_true;
 if delta_fixed_spec==0

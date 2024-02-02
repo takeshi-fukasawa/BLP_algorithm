@@ -15,7 +15,6 @@ tune_param=1;
 
 DIST_MAT=zeros(ITER_MAX,2);
 tic
-%ITER_MAX=1000;
 for k=1:ITER_MAX
     output=...
     V_IV_update_func(...
