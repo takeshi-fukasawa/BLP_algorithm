@@ -1,4 +1,4 @@
-global IV
+global IV_temp0
 
 
 if GPU_spec==1
@@ -37,7 +37,7 @@ n_draw=4;
     weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
 
-EV=compute_EV_func(V_updated,IV,weight_V,x_V);%1*ns*1*T*n_dim_V
+EV=compute_EV_func(V_updated,IV_temp0,weight_V,x_V);%1*ns*1*T*n_dim_V
 u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
 [s_jt_predict,ChoiceProb_true,s_ijt_given_g_ccp,s_igt_ccp_true,...

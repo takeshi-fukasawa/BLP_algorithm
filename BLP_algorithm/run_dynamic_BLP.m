@@ -23,14 +23,14 @@ I=2;
 
 ns=I;
 TOL=1e-14;%% Important??
-ITER_MAX=3000;
+ITER_MAX=1000;
 
 n_market=1;
 %%%%%%%%%%%%%%%%
 %% Simulation 1
 durable_spec=1;
 
-n_dim_V=1;
+n_dim_V=6;
 
 J=25;% Number of products per nest
 beta_0=4;
@@ -38,6 +38,6 @@ beta_0=4;
 beta_C=0.99;
 
 %%% T==1=> stationary;
-T=1;
+T=10;
 
 run run_RCNL_iterations_dynamic.m

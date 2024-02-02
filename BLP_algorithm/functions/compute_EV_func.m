@@ -49,7 +49,10 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
         reshape(IV_state_grid(1,1,1,1,:),n_grid_IV,1),...
         n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev
 
+    basis_t_grid
+    
     y=(reshape(V(1,:,1,1,2:end),ns,n_grid_IV))';%n_grid_IV*ns
+
     coef=inv(basis_t_grid'*basis_t_grid)*basis_t_grid'*y;%n_dim_Chebyshev*ns
 
     basis_t1=construct_Chebyshev_basis_func(...
@@ -60,8 +63,8 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
 
     EV=sum(V_t1_draw.*reshape(weight_V,1,1,1,1,1,n_draw),6);%1*ns*G*(T-1)*n_grid
     
-    EV=cat(4,V(:,:,:,2:T,1),V(:,:,:,T,1));
-    EV=repmat(EV(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
+    %EV=cat(4,V(:,:,:,2:T,1),V(:,:,:,T,1));
+    %EV=repmat(EV(:,:,:,:,1),1,1,1,1,n_dim_V);%%%%%
 
 end
 
