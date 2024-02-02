@@ -1,4 +1,7 @@
- function basis=construct_Chebyshev_basis_func(x,n_dim_Chebyshev)
+ function basis=...
+     construct_Chebyshev_basis_func(...
+     x,n_dim_Chebyshev)
+
     n_obs=size(x,1);
 
     basis=zeros(n_obs,n_dim_Chebyshev);

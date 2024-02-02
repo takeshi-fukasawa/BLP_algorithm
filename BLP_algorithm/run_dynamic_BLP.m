@@ -2,8 +2,6 @@
 %% Parameter settings
 clear
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
-global I_ig
-global delta_updated
 
 addpath('./functions')
 addpath('./run_dynamic')
@@ -32,10 +30,11 @@ n_sim=1;
 I=1000;
 I=2;
 
-T=5;
+%%% T==1=> stationary;
+T=1;
 
 ns=I;
-TOL=1e-12;
+TOL=1e-14;%% Important??
 ITER_MAX=3000;
 
 n_market=1;

@@ -1,3 +1,5 @@
+global IV
+
 ITER_MAX=2000;
 
 if GPU_spec==1
@@ -36,7 +38,6 @@ n_draw=4;
     weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
 
-IV=[];
 EV=compute_EV_func(V_updated,IV,weight_V,x_V);%1*ns*1*T*n_dim_V
 u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 

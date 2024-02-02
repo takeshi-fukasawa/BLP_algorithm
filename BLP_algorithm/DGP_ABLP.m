@@ -50,7 +50,9 @@ if eps_sd~=1
     beta_0=6;
 end
 
-p_jt=3+1.5*xi_jt+u_jt+reshape(sum(reshape(x_jt,J*G*T,3),2),J,1,G,T);
+p_jt=3+1.5*xi_jt+u_jt+...
+    reshape(sum(reshape(x_jt,J*G*T,3),2),...
+    J,1,G,T);%J*1*G*T
 
 if durable_spec==1
 rho_0=0.1;
@@ -79,6 +81,9 @@ p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
     u_jt;%J*1*G*T
 
 end
+
+
+p_mean=reshape(mean(p_jt,[1,3]),T,1);
 
 nu_i=randn(1,I,1);%1 by I; consumer heterogeneity
 weight=1/ns*ones(1,ns,1);%1*ns*1

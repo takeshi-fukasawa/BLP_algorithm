@@ -16,14 +16,14 @@ function output=...
     denom_1=sum(reshape(weight,1,ns,1,1).*reshape(numer_1,J,ns,1,T).*...
         reshape(exp(-V_initial_obs_pt),1,ns,1,T),2);%J*1*1*T
     exp_IV_new=sum(S_jt_data.*numer_1./denom_1,1);%1*ns*1*T
-     
+
 if n_dim_V==1
     IV_new=log(exp_IV_new);
 else
 %%% Inclusive value sufficiency
-IV_new_obs_pt=log(exp_IV_new);%1*1*G*T
-IV_new=IVS_compute_IV_func(IV_new_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
-exp_IV_new=exp(IV_new);%1*ns*1*T*n_dim_V
+    IV_new_obs_pt=log(exp_IV_new);%1*1*G*T
+    IV_new=IVS_compute_IV_func(IV_new_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
+    exp_IV_new=exp(IV_new);%1*ns*1*T*n_dim_V
 end
 
     EV=compute_EV_func(V_initial,IV_new,weight_V,x_V);%1*ns*1*T*n_dim_V
