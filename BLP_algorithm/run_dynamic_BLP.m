@@ -19,19 +19,20 @@ GPU_spec=0;
 
 n_sim=1;
 I=1000;
-I=2;
+I=1;
 
 ns=I;
 TOL=1e-14;%% Important??
-ITER_MAX=1000;
+ITER_MAX=2000;
 
 n_market=1;
 n_draw=4;
+
 %%%%%%%%%%%%%%%%
 %% Simulation 1
 durable_spec=1;
 
-n_dim_V=6;
+n_dim_V=10;
 
 J=25;% Number of products per nest
 beta_0=4;

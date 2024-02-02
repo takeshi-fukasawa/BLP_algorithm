@@ -37,8 +37,6 @@ end %for loop for solving V
 
 u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_updated;%J*I*G*T
 
-
-
 EV=compute_EV_func(V_updated,IV_temp0,weight_V,x_V);%1*ns*1*T*n_dim_V
 u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 
