@@ -8,18 +8,24 @@ if GPU_spec==1
     weight=gpuArray(weight);
 end
 
+[x_V,weight_V]=gausshermi(n_draw);
+x_V=x_V*sqrt(2);%n_draw*1
+weight_V=weight_V./sum(weight_V,1);%n_draw*1
+
 V_initial=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
 
+DIST_MAT=NaN(ITER_MAX,1);
 
 for iter=1:ITER_MAX
 
 resid_V=Bellman_update_func(...
     V_initial,delta_jt_true,mu_ijt_true,...
-    beta_C,L,rho_est,weight);
+    beta_C,L,rho_est,weight,weight_V,x_V);
 
 V_updated=V_initial-resid_V{1};
 
 DIST=max(abs(V_updated(:)-V_initial(:)));
+DIST_MAT(iter,1)=DIST;
 
 if beta_C==0 | DIST<TOL
     break;
@@ -31,10 +37,6 @@ end %for loop for solving V
 
 u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_updated;%J*I*G*T
 
-n_draw=4;
-[x_V,weight_V]=gausshermi(n_draw);
-    x_V=x_V*sqrt(2);%n_draw*1
-    weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
 
 EV=compute_EV_func(V_updated,IV_temp0,weight_V,x_V);%1*ns*1*T*n_dim_V

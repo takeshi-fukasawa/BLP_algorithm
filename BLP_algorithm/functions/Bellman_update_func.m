@@ -1,5 +1,6 @@
 function resid_V=Bellman_update_func(...
-    V_initial,delta,mu_ijt,beta_C,L,rho,weight)
+    V_initial,delta,mu_ijt,beta_C,L,rho,weight,...
+    weight_V,x_V)
 
 global IV_temp0
 %%% rho>0 allowed; Bellman update
@@ -19,8 +20,6 @@ global IV_temp0
         IV=IVS_compute_IV_func(IV_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
     end
 
-    weight_V=[];
-    x_V=[];
     EV=compute_EV_func(V_initial,IV,weight_V,x_V);%1*ns*1*T*n_dim_V
     u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
 

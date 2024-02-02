@@ -1,5 +1,6 @@
 function out=Bellman_middle_delta_inner_func(...
-    V_initial,delta_initial0,mu_ij,S_j_data,beta_C,L,...
+    V_initial,delta_initial0,mu_ij,S_j_data,weight_V,x_V,...
+    beta_C,L,...
     rho,weight,spectral_delta_spec,tune_param_BLP,delta_fixed_spec)
 
 global delta_updated count DIST
@@ -43,7 +44,8 @@ elseif delta_fixed_spec==1
     delta_updated=delta_initial0;
 end
 
- resid_V=Bellman_update_func(V_initial,delta_updated,mu_ij,beta_C,L,rho,weight);
+ resid_V=Bellman_update_func(V_initial,delta_updated,mu_ij,beta_C,L,rho,weight,...
+ weight_V,x_V);
 
  out=resid_V;
 

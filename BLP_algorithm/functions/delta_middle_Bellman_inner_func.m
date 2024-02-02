@@ -14,7 +14,8 @@ if spectral_V_spec==0
 for k=1:ITER_MAX
 
     out_V=Bellman_update_func(V_initial,delta_initial,...
-        mu_ij,beta_C,L,rho,weight);
+        mu_ij,beta_C,L,rho,weight,...
+        weight_V,x_V);
 
     resid_V=out_V{1};
     V_updated=V_initial-resid_V;
@@ -31,7 +32,8 @@ else %spectral_V_spec==1
         output_spectral=...
         spectral_func_cpu(@Bellman_update_func,1,V_initial0,...
         [],[],...
-        delta_initial,mu_ij,beta_C,L,rho,weight);
+        delta_initial,mu_ij,beta_C,L,rho,weight,...
+        weight_V,x_V);
 
         count;
         DIST_spectral=DIST;

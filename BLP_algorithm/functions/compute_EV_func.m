@@ -36,7 +36,9 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     
     y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
 
+
     n_draw=size(weight_V,1);
+    
     IV_t1_state_draw=...
         IV_state.*coef_1+coef_0+...
         reshape(x_V,1,1,1,1,1,n_draw);%1*ns*G*T*n_grid_IV*n_draw
@@ -45,18 +47,24 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     %%% Construct Chebyshev basis
     n_dim_Chebyshev=n_grid_IV;
 
-    basis_t_grid=construct_Chebyshev_basis_func(...
-        reshape(IV_state_grid(1,1,1,1,:),n_grid_IV,1),...
-        n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev
+    Chebyshev_extrema=cos([0:n_dim_Chebyshev-1]*pi/(n_dim_Chebyshev-1));% fixed in the iteration
 
-    basis_t_grid
+    basis_t_grid=construct_Chebyshev_basis_func(...
+        reshape(Chebyshev_extrema,n_grid_IV,1),...
+        n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev; fixed in the iteration
+
     
     y=(reshape(V(1,:,1,1,2:end),ns,n_grid_IV))';%n_grid_IV*ns
 
     coef=inv(basis_t_grid'*basis_t_grid)*basis_t_grid'*y;%n_dim_Chebyshev*ns
 
+  IV_max=IV_state_grid(1,1,1,1,2);
+  IV_min=IV_state_grid(1,1,1,1,end);
+  IV_t1_state_draw_scaled=reshape(IV_t1_state_draw-IV_min,ns*1*T*n_dim_V*n_draw,1)/(IV_max-IV_min);% in [0,1]
+IV_t1_state_draw_scaled=2*IV_t1_state_draw_scaled-1;%(ns*1*T*n_dim_V*n_draw)*1; in [-1,1]
+
     basis_t1=construct_Chebyshev_basis_func(...
-        reshape(IV_t1_state_draw,ns*1*T*n_dim_V*n_draw,1),n_dim_Chebyshev);%(ns*T*n_grid_IV*n_draw)*n_dim_Chebyshev
+        IV_t1_state_draw_scaled,n_dim_Chebyshev);%(ns*T*n_grid_IV*n_draw)*n_dim_Chebyshev
 
     V_t1_draw=sum(reshape(basis_t1,1,ns,1,T,n_dim_V,n_draw,n_dim_Chebyshev).*...
         reshape(coef',1,ns,1,1,1,1,n_dim_Chebyshev),7);%1*ns*G*T*n_grid_IV*n_draw

@@ -1,13 +1,12 @@
 function output=...
     BLP_Bellman_joint_update_func(...
     delta_initial,V_initial,weight,mu_ij,rho,...
-    S_j_data,beta_C,L,tune_param_BLP)
+    S_j_data,weight_V,x_V,beta_C,L,tune_param_BLP)
 
 
 
 u_ij_tilde=delta_initial+mu_ij+(beta_C^L).*V_initial;%J*I*G
 
-weight_V=[];x_V=[];
 EV=compute_EV_func(V_initial,[],weight_V,x_V);
 u_i0_tilde=beta_C*EV;%J*I*G
 
