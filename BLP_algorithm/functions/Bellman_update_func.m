@@ -12,9 +12,9 @@ global IV_temp0
     numer_1=exp(u_ijt_tilde./(1-rho));%J*ns*G*T*n_dim_V
     denom_1=sum(numer_1,1);%1*ns*G*T*n_dim_V
     IV=(1-rho).*log(denom_1);%1*ns*G*T*n_dim_V
-    IV_obs_pt=IV(:,:,:,:,1);%1*ns*G*T
 
     if n_dim_V>=2
+        IV_obs_pt=IV(:,:,:,:,1);%1*ns*G*T
         IV=IVS_compute_IV_func(IV_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
     end
 

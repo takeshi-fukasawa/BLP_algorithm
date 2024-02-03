@@ -27,7 +27,7 @@ V_updated=V_initial-resid_V{1};
 DIST=max(abs(V_updated(:)-V_initial(:)));
 DIST_MAT(iter,1)=DIST;
 
-if beta_C==0 | DIST<TOL
+if beta_C==0 | DIST<TOL | isnan(DIST)
     break;
 else
     V_initial=V_updated;

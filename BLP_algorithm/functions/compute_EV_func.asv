@@ -64,17 +64,10 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
         reshape(IV_t1_state_draw_scaled,...
         ns*1*T*n_dim_V*n_draw,1)-1;%(ns*1*T*n_dim_V*n_draw)*1; in [-1,1]
 
-    IV_t1_state_draw_scaled_true=IV_t1_state_draw_scaled;
     %%%%%%%%%%%%%%%%%%
-    %%% Use grid points as IV_t1 (for validation)
     IV_t1_state_draw_scaled=zeros(ns,1,T,n_dim_V,n_draw);
     IV_t1_state_draw_scaled(:,:,:,2:end,:)=repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[1,1,T,1,1,1]);
     IV_t1_state_draw_scaled=IV_t1_state_draw_scaled(:);
-
-    [max(IV_t1_state_draw_scaled_true(:)),...
-        median(IV_t1_state_draw_scaled_true(:)),...
-        min(IV_t1_state_draw_scaled_true(:))]
-
     %%%%%%%%%%%%%%
 
     basis_t1=construct_Chebyshev_basis_func(...
@@ -85,7 +78,7 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
 
     %%%%%%
     %V_t1_draw=repmat(V,[1,1,1,1,1,n_draw]);%1*ns*G*T*n_dim_V*n_draw
-    %%%%%%%
+    %%%%%%
 
     EV=sum(V_t1_draw.*reshape(weight_V,1,1,1,1,1,n_draw),6);%1*ns*G*(T-1)*n_dim_V
     
