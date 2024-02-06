@@ -2,7 +2,6 @@ function EV=compute_EV_func(V,IV_state,weight_V,x_V)
 
 [~,ns,~,T,n_dim_V]=size(V);
 
-EV=V;
 
 if T==1 & n_dim_V==1 %% stationary expec
    EV=V;
@@ -65,12 +64,20 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
         ns*1*T*n_dim_V*n_draw,1)-1;%(ns*1*T*n_dim_V*n_draw)*1; in [-1,1]
 
     IV_t1_state_draw_scaled_true=IV_t1_state_draw_scaled;
+
     %%%%%%%%%%%%%%%%%%
     %%% Use grid points as IV_t1 (for validation)
-    IV_t1_state_draw_scaled=zeros(ns,1,T,n_dim_V,n_draw);
-    IV_t1_state_draw_scaled(:,:,:,2:end,:)=...
+   
+    IV_t1_state_draw_scaled_temp=zeros(ns,1,T,n_dim_V,n_draw);
+    IV_t1_state_draw_scaled_temp(:,:,:,2:end,:)=...
         repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[ns,1,T,1,1,1]);
-    IV_t1_state_draw_scaled=IV_t1_state_draw_scaled(:);
+    IV_t1_state_draw_scaled_temp=IV_t1_state_draw_scaled(:);
+   
+    IV_t1_state_draw_scaled=IV_t1_state_draw_scaled_true;%%%%%
+   
+    %[max(IV_t1_state_draw_scale_temp(:)),...
+    %   min(IV_t1_state_draw_scaled_temp(:))]
+    %IV_t1_state_draw_scaled=IV_t1_state_draw_scaled_true;%%%%%
 
     %[max(IV_t1_state_draw_scaled_true(:)),...
     %    median(IV_t1_state_draw_scaled_true(:)),...

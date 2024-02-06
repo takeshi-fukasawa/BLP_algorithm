@@ -79,7 +79,7 @@ w_jt=randn(J,1,G,T);
 p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
     gamma_w*w_jt+gamma_xi*xi_jt-reshape(x_jt*gamma_p,J,1,G,T)+...
     u_jt;%J*1*G*T
-
+%p_jt=repmat(p_jt(:,:,:,1),[1,1,1,T]);
 end
 
 

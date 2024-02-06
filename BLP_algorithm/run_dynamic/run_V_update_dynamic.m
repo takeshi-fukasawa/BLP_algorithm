@@ -71,7 +71,7 @@ results_V(m,1)=n_iter_update_V;
 results_V(m,2)=t_update_V;
 results_V(m,3)=(results_V(m,1)<ITER_MAX);
 results_V(m,4)=log10(DIST_s_jt);
-results_V(m,5)=(results_V(m,4)<log10(TOL));
+results_V(m,5)=(results_V(m,4)<log10(TOL_DIST_s_jt));
 
 %%%%%%%%%%%%%%%%%%%%%
 %% V_update_func spectral
@@ -118,7 +118,7 @@ results_V_spectral(m,1)=n_iter_update_V_spectral;
 results_V_spectral(m,2)=t_update_V_spectral;
 results_V_spectral(m,3)=(results_V_spectral(m,1)<ITER_MAX);
 results_V_spectral(m,4)=log10(DIST_s_jt_spectral);
-results_V_spectral(m,5)=(results_V_spectral(m,4)<log10(TOL));
+results_V_spectral(m,5)=(results_V_spectral(m,4)<log10(TOL_DIST_s_jt));
 
 
 if tune_param==0

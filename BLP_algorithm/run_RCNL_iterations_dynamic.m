@@ -10,7 +10,7 @@ results_V_BLP_0_spectral=zeros(n_market,3);
 results_V_BLP_1=zeros(n_market,3);
 results_V_BLP_1_spectral=zeros(n_market,3);
 
-
+TOL_DIST_s_jt=1e-12;
 
 for m=1:n_market
 

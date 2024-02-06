@@ -1,5 +1,4 @@
 %% Compute delta, given nonlinear parameters (sigma)
-DIST=100;
 
 if tune_param_BLP==0
     results_BLP=results_BLP_contraction;
@@ -22,6 +21,7 @@ delta_initial=delta_initial+0*randn(size(delta_initial));
 
 %delta_initial=ones(size(delta_initial));
 %delta_initial=delta_jt_true*0.999;%%%%
+
 
 DIST_MAT=zeros(ITER_MAX,3);
 for iter_BLP=1:ITER_MAX
@@ -65,7 +65,7 @@ results_BLP(m,3)=(results_BLP(m,1)<ITER_MAX);
   share_func(delta_updated+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 results_BLP(m,4)=log10(DIST_s_jt);
-results_BLP(m,5)=(results_BLP(m,4)<log10(TOL));
+results_BLP(m,5)=(results_BLP(m,4)<log10(TOL_DIST_s_jt));
 
 DIST_MAT_BLP=DIST_MAT;
 
@@ -114,7 +114,7 @@ end
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 results_BLP_spectral(m,4)=log10(DIST_s_jt_spectral);
   
-results_BLP_spectral(m,5)=(results_BLP_spectral(m,4)<log10(TOL));
+results_BLP_spectral(m,5)=(results_BLP_spectral(m,4)<log10(TOL_DIST_s_jt));
 
     if mistake_spec==0
         results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX & max(abs(ratio_delta_BLP_spectral(:)-1))<1e-8);

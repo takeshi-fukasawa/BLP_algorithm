@@ -66,7 +66,7 @@ results_V_BLP(m,1)=n_iter_update_V_BLP;
 results_V_BLP(m,2)=t_V_BLP;
 results_V_BLP(m,3)=(results_V_BLP(m,1)<ITER_MAX);
 results_V_BLP(m,4)=log10(DIST_s_jt);
-results_V_BLP(m,5)=(results_V_BLP(m,4)<log10(TOL));
+results_V_BLP(m,5)=(results_V_BLP(m,4)<log10(TOL_DIST_s_jt));
 
 %% BLP_Bellman_joint_update_func Spectral
 tic
@@ -96,7 +96,7 @@ results_V_BLP_spectral(m,1)=n_iter_update_V_BLP_spectral;
 results_V_BLP_spectral(m,2)=t_V_BLP_spectral;
 results_V_BLP_spectral(m,3)=(results_V_BLP_spectral(m,1)<ITER_MAX);
 results_V_BLP_spectral(m,4)=log10(DIST_s_jt_spectral);
-results_V_BLP_spectral(m,5)=(results_V_BLP_spectral(m,4)<log10(TOL));
+results_V_BLP_spectral(m,5)=(results_V_BLP_spectral(m,4)<log10(TOL_DIST_s_jt));
 
 if tune_param_BLP==0
     results_V_BLP_0=results_V_BLP;

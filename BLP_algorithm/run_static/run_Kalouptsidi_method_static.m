@@ -26,7 +26,7 @@ for k=1:ITER_MAX
 
     r_updated=r_initial-resid;
 
-    %r_updated=r_normalize_func(r_updated,S_0t_data);%%%%%%%%
+    %r_updated=r_normalize_func(r_updated,S_0t_data);%%~=> Faster??
 
 
     DIST=max(abs(r_updated(:)-r_initial(:)));%scalar
