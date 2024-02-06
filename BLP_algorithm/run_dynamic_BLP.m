@@ -21,7 +21,7 @@ I=1000;
 I=2;
 
 ns=I;
-TOL=1e-14;%% Important??
+TOL=1e-13;%% Important??
 ITER_MAX=3000;
 %ITER_MAX=2000;
 
