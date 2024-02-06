@@ -10,7 +10,6 @@ tune_param=1;
 tune_param_BLP=0;
 durable_spec=0;
 
-GPU_spec=0;
 
 n_sim=1;
 I=1000;

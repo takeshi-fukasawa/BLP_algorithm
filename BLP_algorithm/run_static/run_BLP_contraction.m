@@ -78,12 +78,6 @@ end
 
     tic
     for kk=1:n_sim
-    if GPU_spec==1
-        output_BLP_spectral=...
-        spectral_func(@BLP_update_func,1,delta_initial0,...
-        [],[],...
-        weight,mu_ijt_est,rho_est,S_jt_data,tune_param_BLP);
-    else
         output_BLP_spectral=...
     spectral_func_cpu(@BLP_update_func,1,delta_initial0,...
     [],[],...
@@ -91,7 +85,6 @@ end
 
     delta_sol=output_BLP_spectral{1};
 
-    end
     end%% kk
 
     t_BLP_spectral=toc/n_sim;

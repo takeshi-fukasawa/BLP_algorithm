@@ -1,12 +1,6 @@
 global IV_temp0
 
 
-if GPU_spec==1
-    delta_jt_true=gpuArray(delta_jt_true);
-    mu_ijt_true=gpuArray(mu_ijt_true);
-    mu_ijt_est=gpuArray(mu_ijt_est);
-    weight=gpuArray(weight);
-end
 
 [x_V,weight_V]=gausshermi(n_draw);
 x_V=x_V*sqrt(2);%n_draw*1
