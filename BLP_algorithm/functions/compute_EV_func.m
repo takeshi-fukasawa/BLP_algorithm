@@ -68,12 +68,13 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     %%%%%%%%%%%%%%%%%%
     %%% Use grid points as IV_t1 (for validation)
     IV_t1_state_draw_scaled=zeros(ns,1,T,n_dim_V,n_draw);
-    IV_t1_state_draw_scaled(:,:,:,2:end,:)=repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[1,1,T,1,1,1]);
+    IV_t1_state_draw_scaled(:,:,:,2:end,:)=...
+        repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[ns,1,T,1,1,1]);
     IV_t1_state_draw_scaled=IV_t1_state_draw_scaled(:);
 
-    [max(IV_t1_state_draw_scaled_true(:)),...
-        median(IV_t1_state_draw_scaled_true(:)),...
-        min(IV_t1_state_draw_scaled_true(:))]
+    %[max(IV_t1_state_draw_scaled_true(:)),...
+    %    median(IV_t1_state_draw_scaled_true(:)),...
+    %    min(IV_t1_state_draw_scaled_true(:))]
 
     %%%%%%%%%%%%%%
 

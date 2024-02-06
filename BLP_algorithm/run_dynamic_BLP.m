@@ -19,21 +19,21 @@ GPU_spec=0;
 
 n_sim=1;
 I=1000;
-I=1;
+I=2;
 
 ns=I;
 TOL=1e-14;%% Important??
-ITER_MAX=2000;
-I%TER_MAX=20;
+ITER_MAX=3000;
+%ITER_MAX=20;
 
 n_market=1;
 n_draw=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
-durable_spec=1;
+durable_spec=0;
 
-n_dim_V=5;
+n_dim_V=10;
 
 J=25;% Number of products per nest
 beta_0=4;
@@ -41,6 +41,6 @@ beta_0=4;
 beta_C=0.99;
 
 %%% T==1=> stationary;
-T=5;
+T=70;
 
 run run_RCNL_iterations_dynamic.m

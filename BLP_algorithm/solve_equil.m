@@ -35,10 +35,19 @@ end
 
 end %for loop for solving V
 
+if iter==ITER_MAX
+    warning("Not converge")
+end
+
 u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_updated;%J*I*G*T
 
 EV=compute_EV_func(V_updated,IV_temp0,weight_V,x_V);%1*ns*1*T*n_dim_V
 u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
+
+
+V_true=V_updated;
+V_data_true=V_updated(:,:,:,:,1);
+
 
 [s_jt_predict,ChoiceProb_true,s_ijt_given_g_ccp,s_igt_ccp_true,...
     numer_1,denom_1,numer_2,denom_2]=...
@@ -58,5 +67,3 @@ S_0t_data=1-sum(S_jt_data,[1,3]);
 S_gt_data=sum(S_jt_data,1);%1*1*G
 S_jt_given_g_data=S_jt_data./S_gt_data;%J*1*G
 
-
-V_true=V_updated;
