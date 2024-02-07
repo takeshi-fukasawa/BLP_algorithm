@@ -12,7 +12,8 @@ function [x_sol_cell,DIST_table,fun_k_cell]=...
 global DEBUG FLAG_ERROR DIST count ITER_MAX TOL
 global k
 
-alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
+alpha_0=1;
+%alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
 
 ITER_MAX=3000;
 
@@ -62,6 +63,7 @@ for k=1:ITER_MAX
     eps_val=1e-14;%%%%%%
     eps_val=0;%%%%%%%
 
+    vec=4*ones(n_var,1);
      if isempty(vec)==1
        sign_i=sign(sum(delta_x_i.*delta_fun_i,'all','omitnan'));%scalar
        numer_i=sqrt(sum(delta_x_i.^2,'all','omitnan'))+eps_val;
@@ -77,9 +79,9 @@ for k=1:ITER_MAX
        denom_i=sqrt(sum_delta_fun_fun)+eps_val;
 
        %%% Nonstationary
-       sign_i(2:end)=sign(sum(sum_delta_x_fun(2:end),'all','omitnan'));%scalar
-       numer_i(2:end)=sqrt(sum(sum_delta_x_x(2:end),'all','omitnan'))+eps_val;
-       denom_i(2:end)=sqrt(sum(sum_delta_fun_fun(2:end),'all','omitnan'))+eps_val;
+       %sign_i(2:end)=sign(sum(sum_delta_x_fun(2:end),'all','omitnan'));%scalar
+       %numer_i(2:end)=sqrt(sum(sum_delta_x_x(2:end),'all','omitnan'))+eps_val;
+       %denom_i(2:end)=sqrt(sum(sum_delta_fun_fun(2:end),'all','omitnan'))+eps_val;
 
      end
 
@@ -137,7 +139,7 @@ for k=1:ITER_MAX
    
     
 end %% end of for loop wrt iter:1:ITER_MAX
-%count=k
+count=k;
 %DIST_vec
 
 %% Output
