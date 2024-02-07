@@ -43,6 +43,6 @@ beta_C=0.99;
 %%% T==1=> stationary;
 T=100;
 %%T=70;
-T=2;
+%T=2;
 
 run run_RCNL_iterations_dynamic.m

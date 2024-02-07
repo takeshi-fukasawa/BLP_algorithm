@@ -57,9 +57,9 @@ ratio_delta_V_BLP=delta_updated./delta_jt_true;
 
 n_iter_update_V_BLP=k;
 
-EV=compute_EV_func(V_sol,[],weight_V,x_V);
+EV=compute_EV_func(V_updated,[],weight_V,x_V);
 [s_jt_predict,~]=...
-  share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+  share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 results_V_BLP(m,1)=n_iter_update_V_BLP;

@@ -13,7 +13,7 @@ global DEBUG FLAG_ERROR DIST count ITER_MAX TOL
 global k
 
 alpha_0=1;
-%alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
+alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
 
 ITER_MAX=3000;
 
@@ -78,7 +78,8 @@ for k=1:ITER_MAX
        numer_i=sqrt(sum_delta_x_x)+eps_val;
        denom_i=sqrt(sum_delta_fun_fun)+eps_val;
 
-       %%% Nonstationary
+       %%% Nonstationary: Not implementing the following code => Faster
+       %%% convergence (Dynamic BLP nonstationary code)
        %sign_i(2:end)=sign(sum(sum_delta_x_fun(2:end),'all','omitnan'));%scalar
        %numer_i(2:end)=sqrt(sum(sum_delta_x_x(2:end),'all','omitnan'))+eps_val;
        %denom_i(2:end)=sqrt(sum(sum_delta_fun_fun(2:end),'all','omitnan'))+eps_val;
