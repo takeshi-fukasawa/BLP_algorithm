@@ -14,6 +14,7 @@ global k
 
 alpha_0=1;
 alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
+%alpha_0=1e-2; %% large alpha_0 lead to divergence or slow convergence...
 
 ITER_MAX=3000;
 

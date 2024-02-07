@@ -33,7 +33,7 @@ n_draw=1;
 durable_spec=1;
 
 n_dim_V=20;
-n_dim_V=1;
+%n_dim_V=1;
 
 J=25;% Number of products per nest
 beta_0=4;
@@ -42,7 +42,7 @@ beta_C=0.99;
 
 %%% T==1=> stationary;
 T=100;
-%%T=70;
+T=70;
 %T=2;
 
 run run_RCNL_iterations_dynamic.m
