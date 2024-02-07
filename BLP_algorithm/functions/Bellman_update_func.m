@@ -7,7 +7,7 @@ global IV_temp0
 
     n_dim_V=size(V_initial,5);
 
-    u_ijt_tilde=delta+mu_ijt+(beta_C^L).*V_initial;%J*I*G*T*n_dim_V
+    u_ijt_tilde=delta+mu_ijt;%J*I*G*T*n_dim_V (1 ??)
 
     numer_1=exp(u_ijt_tilde./(1-rho));%J*ns*G*T*n_dim_V
     denom_1=sum(numer_1,1);%1*ns*G*T*n_dim_V

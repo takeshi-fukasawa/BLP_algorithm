@@ -1,5 +1,7 @@
 %% Generate variables (x_j,xi_j,z_j,p_j,nu_i)
 
+n_state=1;
+
 gpurng(100);% set seed of random number generation
 w_jt=randn(J,1,G,T);
 
@@ -98,6 +100,9 @@ mu_ijt_true=sigma_const*randn(1,ns,1,1)+...
     sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
 
 mu_ijt_true=reshape(mu_ijt_true,J,ns,G,T)./eps_sd;
+mu_i0t_true=zeros(1,ns,1,T,n_state)./eps_sd;
+mu_i0t_est=mu_i0t_true;
+
 
 if 1==0
 %%%%% same char over time %%%%%%
