@@ -37,7 +37,8 @@ end
 
 end
 %%%%%%%%
-V_initial=zeros(1,ns,1,T,n_dim_V);
+V_initial=ones(1,ns,1,T,n_dim_V);
+%%V_initial=V_updated;
 [output_spectral,DIST_table_Bellman]=...
         spectral_func(@Bellman_update_func,1,t_dim_id,[],V_initial,...
         delta_jt_true,mu_ijt_true,...
