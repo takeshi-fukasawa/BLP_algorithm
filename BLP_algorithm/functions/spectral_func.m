@@ -84,7 +84,7 @@ for k=1:ITER_MAX
       sum_dim_ids=1:size(vec(:),1);
       sum_dim_ids=sum_dim_ids(sum_dim_ids~=vec(i));
 
-      %%sum_dim_ids=[3,5];
+      sum_dim_ids=[1:3,5];%%%%%
 
       sum_Delta_x_fun=sum(Delta_x_i.*Delta_fun_i,sum_dim_ids,'omitnan');%vector
       sum_Delta_x_x=sum(Delta_x_i.^2,sum_dim_ids,'omitnan');
