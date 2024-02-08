@@ -9,6 +9,8 @@ mistake_spec=0;
 tune_param=1;
 tune_param_BLP=0;
 durable_spec=0;
+n_draw=1;
+n_dim_V=1;
 
 
 n_sim=1;

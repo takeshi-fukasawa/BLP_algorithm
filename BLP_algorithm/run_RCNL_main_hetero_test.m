@@ -8,7 +8,7 @@ mistake_spec=0;
 large_hetero_spec=1;
 durable_spec=0;
 
-
+n_draw=1;
 n_sim=1;
 
 %%I=100;
@@ -45,7 +45,7 @@ plot(diff(temp))
 ylim([-0.001,0.001])
 saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
 
-CCP_table=round([s_ijt_true;s_i0t_true]./weight,4);
+CCP_table=round([s_ijt_ccp_true;s_i0t_ccp_true],4);
 filename=append(BLP_paper_figure_path,'Large_hetero_CCP.csv');
 writematrix(CCP_table,filename)
 

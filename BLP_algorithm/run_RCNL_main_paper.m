@@ -12,6 +12,7 @@ n_sim=1;
 I=10;
 %I=1000;
 n_dim_V=1;
+n_draw=1;
 
 n_market=1;
 T=1;

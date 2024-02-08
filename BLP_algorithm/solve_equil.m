@@ -1,6 +1,6 @@
 global IV_temp0
 
-
+ITER_MAX=3000;
 
 [x_V,weight_V]=gausshermi(n_draw);
 x_V=x_V*sqrt(2);%n_draw*1

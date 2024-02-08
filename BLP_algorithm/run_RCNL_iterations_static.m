@@ -7,6 +7,7 @@ ITER_MAX=1000;
 %ITER_MAX=100;
 Newton_spec=0;
 
+t_dim_id=4;
 TOL_DIST_s_jt=1e-12;
 
 results_data=zeros(n_market,1);

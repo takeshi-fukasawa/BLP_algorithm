@@ -19,12 +19,13 @@ alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
 
 if isempty(vec)==0
     if sum(vec(:))==0
-         alpha_0=1;
+         alpha_0=0.1;
     end
 end
 
 
 ITER_MAX=3000;
+%ITER_MAX=120;
 
 % varargin:1*XXX
 
@@ -37,7 +38,7 @@ for i=1:n_var
    x_0_cell{1,i}=varargin{1,i};
 end
 
-DIST_table=zeros(ITER_MAX,n_var);
+DIST_table=NaN(ITER_MAX,n_var);
 
 %% Compute fun_0,fun_1
 
@@ -136,6 +137,9 @@ for k=1:ITER_MAX
 
 
     if DIST<TOL
+        if DIST==0
+            warning("zero convergence")
+        end
         %DIST
       FLAG_ERROR=0;
         break;
