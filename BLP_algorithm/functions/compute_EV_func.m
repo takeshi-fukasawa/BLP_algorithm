@@ -6,7 +6,7 @@ function EV=compute_EV_func(V,IV_state,weight_V,x_V)
 if T==1 & n_dim_V==1 %% stationary expec
    EV=V;
 elseif T>=2 & n_dim_V==1 %% Perfect foresight
-   EV=cat(4,V(:,:,:,2:T),zeros(1,ns,1,1));% After the terminal period, no market ...?
+   %EV=cat(4,V(:,:,:,2:T),zeros(1,ns,1,1));% After the terminal period, no market ...?
    EV=cat(4,V(:,:,:,2:T),V(:,:,:,T)); % After the terminal period, stationary environment
    
 else % Inclusive value sufficiency (IVS); Currently, G==1 case only
@@ -26,14 +26,16 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     
     y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
     R2=corr(y_predict(:),y(:));
+
+    sigma=sum((y-y_predict).^2,4)./(T-1);%1*ns*G*1; std of y
     
     n_draw=size(weight_V,1);
 
-    x_V=x_V*0;%%%%%test %%%%%
+    sigma=sigma.*0;%%%%%%% test %%%%%
 
     IV_t1_state_draw=...
         IV_state.*coef_1+coef_0+...
-        reshape(x_V,1,1,1,1,1,n_draw);%1*ns*G*T*n_grid_IV*n_draw
+        sigma.*reshape(x_V,1,1,1,1,1,n_draw);%1*ns*G*T*n_grid_IV*n_draw
 
     %[min(IV_t1_state_draw(:)),max(IV_t1_state_draw(:))]
 

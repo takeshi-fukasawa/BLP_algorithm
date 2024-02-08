@@ -5,7 +5,7 @@ function output=...
     S_jt_data,S_0t_data,...
     weight_V,x_V,beta_C,L,tune_param,Newton_spec)
  
-    %%% G==1 case only
+    %%% G==1 & rho==0 case only
     [J,ns,~,T]=size(mu_ijt);
     n_dim_V=size(V_initial,5);
     n_state=size(weight,5);
@@ -37,7 +37,9 @@ end
 
     v_i0t_tilde_obs_pt=v_i0t_tilde(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t_tilde at obs data pts
 
-    s_0t_predict=sum(reshape(weight,1,ns,1,1,n_state).*reshape(exp(v_i0t_tilde_obs_pt-V_initial_obs_pt),1,ns,1,T,n_state),[2,5]);%1*1*1*T
+    s_i0t_ccp=reshape(exp(v_i0t_tilde_obs_pt-V_initial_obs_pt),1,ns,1,T,n_state);
+    s_0t_predict=sum(reshape(weight,1,ns,1,1,n_state).*s_i0t_ccp,[2,5]);%1*1*1*T %%%Pr0 not incorporated???
+
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
 
@@ -53,4 +55,6 @@ end
     resid=V_initial-V_updated;
 
     output={resid};
+    other_vars.s_i0t_ccp=s_i0t_ccp;
+
 end
