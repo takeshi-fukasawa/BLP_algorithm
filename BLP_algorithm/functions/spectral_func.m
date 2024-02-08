@@ -1,7 +1,7 @@
-%%%function [x_sol_cell,other_output_k,DIST_table,fun_k_cell]=...
-%%%    spectral_func(fun,n_var,vec,dampening_param,varargin)
-function [x_sol_cell,DIST_table,fun_k_cell]=...
-        spectral_func(fun,n_var,vec,dampening_param,varargin)
+function [x_sol_cell,other_output_k,DIST_table,fun_k_cell]=...
+    spectral_func(fun,n_var,vec,dampening_param,varargin)
+%%%function [x_sol_cell,DIST_table,fun_k_cell]=...
+%%%        spectral_func(fun,n_var,vec,dampening_param,varargin)
 
 %%% Allow output of additional vars %%%%
 %%% Input %%%%
@@ -42,8 +42,8 @@ DIST_table=NaN(ITER_MAX,n_var);
 
 %% Compute fun_0,fun_1
 
-%%%[fun_0_cell,other_output_0]=fun(x_0_cell{:},other_input_cell{:});
-fun_0_cell=fun(x_0_cell{:},other_input_cell{:});
+[fun_0_cell,other_output_0]=fun(x_0_cell{:},other_input_cell{:});
+%%%fun_0_cell=fun(x_0_cell{:},other_input_cell{:});
 
 for i=1:n_var
     x_1_cell{1,i}=x_0_cell{1,i}-alpha_0.*fun_0_cell{1,i};
@@ -53,8 +53,8 @@ end
 
 if ITER_MAX>1 & DIST>TOL
 
-%%%[fun_1_cell,other_output_1]=fun(x_1_cell{:},other_input_cell{:});
-fun_1_cell=fun(x_1_cell{:},other_input_cell{:});
+[fun_1_cell,other_output_1]=fun(x_1_cell{:},other_input_cell{:});
+%%%%fun_1_cell=fun(x_1_cell{:},other_input_cell{:});
 
 %% Update x_k
 x_k_cell=x_1_cell;
@@ -150,8 +150,8 @@ for k=1:ITER_MAX
 	x_k_cell=x_k_plus_1_cell;
 	fun_k_minus_1_cell=fun_k_cell;
 
-   %%%[fun_k_cell,other_output_k]=fun(x_k_cell{:},other_input_cell{:});
-   fun_k_cell=fun(x_k_cell{:},other_input_cell{:});
+   [fun_k_cell,other_output_k]=fun(x_k_cell{:},other_input_cell{:});
+   %%%fun_k_cell=fun(x_k_cell{:},other_input_cell{:});
    
     
 end %% end of for loop wrt iter=1:ITER_MAX
@@ -161,13 +161,13 @@ count=k;
 %% Output
 x_sol_cell=x_k_plus_1_cell;
 
-%%%if isempty(other_output_k)==1
-%%%    other_output_k=other_output_1;
-%%%end
+if isempty(other_output_k)==1
+    other_output_k=other_output_1;
+end
 
 else % no further iteration case
     x_sol_cell=x_1_cell;
-    %%%other_output_k=other_output_0;
+    other_output_k=other_output_0;
     DIST_MAT=[];
     fun_k_cell=fun_0_cell;
 end

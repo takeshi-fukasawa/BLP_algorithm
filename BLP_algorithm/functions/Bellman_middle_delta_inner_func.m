@@ -1,4 +1,4 @@
-function out=Bellman_middle_delta_inner_func(...
+function [out,other_vars]=Bellman_middle_delta_inner_func(...
     V_initial,delta_initial0,mu_ij,S_j_data,weight_V,x_V,...
     beta_C,L,...
     rho,weight,spectral_delta_spec,tune_param_BLP,delta_fixed_spec)
@@ -47,5 +47,7 @@ end
  weight_V,x_V);
 
  out=resid_V;
+
+other_vars=[];
 
 end

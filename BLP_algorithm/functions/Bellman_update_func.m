@@ -1,4 +1,4 @@
-function resid_V=Bellman_update_func(...
+function [resid_V,other_vars]=Bellman_update_func(...
     V_initial,delta,mu_ijt,beta_C,L,rho,weight,...
     weight_V,x_V)
 
@@ -26,5 +26,6 @@ global IV_temp0
     IV_temp0=IV;
 
 resid_V={V_initial-V_updated};
+other_vars=[];
 
 end
