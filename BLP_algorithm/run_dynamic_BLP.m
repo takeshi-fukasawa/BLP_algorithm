@@ -2,6 +2,7 @@
 %% Parameter settings
 clear
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
+global R2
 
 addpath('./functions')
 addpath('./run_dynamic')

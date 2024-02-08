@@ -1,5 +1,7 @@
 function EV=compute_EV_func(V,IV_state,weight_V,x_V)
 
+global R2
+
 [~,ns,~,T,n_dim_V]=size(V);
 
 
@@ -31,7 +33,9 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     
     n_draw=size(weight_V,1);
 
-    sigma=sigma.*0;%%%%%%% test %%%%%
+    if n_draw==1
+        sigma=sigma.*0;%%%%%%% test %%%%%
+    end
 
     IV_t1_state_draw=...
         IV_state.*coef_1+coef_0+...
@@ -72,7 +76,7 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
    
     IV_t1_state_draw_scaled_temp=zeros(ns,1,T,n_dim_V,n_draw);
     IV_t1_state_draw_scaled_temp(:,:,:,2:end,:)=...
-        repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[ns,1,T,1,1,1]);
+        repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[ns,1,T,1,1,n_draw]);
     IV_t1_state_draw_scaled_temp=IV_t1_state_draw_scaled(:);
    
     IV_t1_state_draw_scaled=IV_t1_state_draw_scaled_true;%%%%%

@@ -25,7 +25,7 @@ end
 
 
 ITER_MAX=3000;
-%ITER_MAX=120;
+%%ITER_MAX=118;
 
 % varargin:1*XXX
 
@@ -117,7 +117,7 @@ for k=1:ITER_MAX
     
     x_k_plus_1_cell{1,i}=x_k_cell{1,i}-alpha_k_i.*fun_k_cell{1,i};
         
-   DIST_vec(1,i)=max(abs(fun_k_cell{1,i}),[],'all','omitnan');  
+   DIST_vec(1,i)=max(abs(fun_k_cell{1,i}),[],'all','omitnan');
 
     end % for loop wrt i 
 
