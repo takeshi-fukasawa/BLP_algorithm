@@ -78,8 +78,11 @@ gamma_p=[0.1;0.1;0.1];
 
 u_jt=0.01*randn(J,1,G,T);
 w_jt=randn(J,1,G,T);
+
+%%% Competitors' char ??? %%%%%%
 p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
-    gamma_w*w_jt+gamma_xi*xi_jt-reshape(x_jt*gamma_p,J,1,G,T)+...
+    gamma_w*w_jt+gamma_xi*xi_jt...
+    -reshape(x_jt*gamma_p,J,1,G,T)+...
     u_jt;%J*1*G*T
 %p_jt=repmat(p_jt(:,:,:,1),[1,1,1,T]);
 end
@@ -102,6 +105,10 @@ mu_ijt_true=sigma_const*randn(1,ns,1,1)+...
 mu_ijt_true=reshape(mu_ijt_true,J,ns,G,T)./eps_sd;
 mu_i0t_true=zeros(1,ns,1,T,n_state)./eps_sd;
 mu_i0t_est=mu_i0t_true;
+
+IV_true=log(sum(exp(delta_jt_true+mu_ijt_true)./eps_sd,1));%1*ns*G*T
+
+
 
 
 if 1==0

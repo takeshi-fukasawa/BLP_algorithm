@@ -1,6 +1,6 @@
 function EV=compute_EV_func(V,IV_state,weight_V,x_V)
 
-global R2
+global R2 y_mat
 
 [~,ns,~,T,n_dim_V]=size(V);
 
@@ -28,6 +28,8 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     
     y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
     R2=corr(y_predict(:),y(:));
+
+    y_mat=[y_predict(:),y(:)];
 
     sigma=sum((y-y_predict).^2,4)./(T-1);%1*ns*G*1; std of y
     
