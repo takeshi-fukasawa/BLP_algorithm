@@ -29,14 +29,9 @@ ITER_MAX=3000;
 
 line_search_spec=0;
 
-
 ITER_MAX_LINE_SEARCH=1;
 rho=0.5;
 M=10;gamma=10^(-4);
-
-if line_search_spec==0
-    ITER_MAX_LINE_SEARCH=1;
-end
 
 % varargin:1*XXX
 
@@ -130,6 +125,8 @@ for k=0:ITER_MAX-1
    end % for loop wrt i
 
 
+   DIST_PAST_MAX_vec=max(DIST_table(max(1,k+1-M+1):k+1,:),[],1);
+
     %%% Update variables %%%%%%%%%%%%%%%
    for n=1:ITER_MAX_LINE_SEARCH
     for i=1:n_var
@@ -145,8 +142,6 @@ for k=0:ITER_MAX-1
 
     
     if line_search_spec==1
-       DIST_PAST_MAX_vec=max(DIST_table(max(1,k+1-M+1):k+1,:),[],1);
-
         id=1;
         eta_k=DIST_table(1,id)/((1+k)^2);
         LHS=DIST_vec(id);
@@ -157,8 +152,8 @@ for k=0:ITER_MAX-1
         else
             break;
         end
-    end% line search spec==1
-
+    end
+    
     end % end n=1:ITER_MAX_LINE_SEARCH loop
        
     DIST_table(k+2,:)=DIST_vec;

@@ -8,7 +8,7 @@ w_jt=randn(J,1,G,T);
 Cov_mat=[1 -0.8 0.3; -0.8 1 0.3; 0.3 0.3 1];
 
 if durable_spec==1
-Cov_mat=0.5*ones(3,3);
+Cov_mat=0.5*eye(3);
 end
 
 xi_sd=1;
@@ -82,7 +82,7 @@ w_jt=randn(J,1,G,T);
 %%% Competitors' char ??? %%%%%%
 p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
     gamma_w*w_jt+gamma_xi*xi_jt...
-    -reshape(x_jt*gamma_p,J,1,G,T)+...
+    -sum(reshape(x_jt*gamma_p,J,1,G,T),1)+... %%% reshape(x_jt*gamma_p,J,1,G,T),1)+...
     u_jt;%J*1*G*T
 %p_jt=repmat(p_jt(:,:,:,1),[1,1,1,T]);
 end
