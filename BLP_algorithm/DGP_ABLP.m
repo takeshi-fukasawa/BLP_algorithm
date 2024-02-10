@@ -16,6 +16,10 @@ xi_sd=1;
 
 x_jt=mvnrnd([0,0,0],Cov_mat,J*G*T);%(J*G*T)*3; obs. product char.
 
+if durable_spec==1
+    x_jt=repmat(mvnrnd([0,0,0],Cov_mat,J*G),T,1);%(J*G*T)*3
+end
+
 xi_jt=1*randn(J,1,G,T);
 
 u_jt=5*rand(J,1,G,T);
