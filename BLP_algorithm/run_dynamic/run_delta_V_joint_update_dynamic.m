@@ -12,8 +12,8 @@ end
 delta_initial=delta_initial0;
 V_initial=V_initial0;
 
-delta_initial=delta_jt_true;
-%V_initial=V_true;
+%%delta_initial=delta_jt_true;
+%%V_initial=V_true;
 
 DIST_MAT_V_BLP=zeros(ITER_MAX,2);
 
@@ -21,7 +21,7 @@ dump=[];
 tic
 for k=1:ITER_MAX
 
- out=BLP_Bellman_joint_update_func(...
+ [out,other_vars]=BLP_Bellman_joint_update_func(...
     delta_initial,V_initial,weight,mu_ijt_est,rho_est,...
     S_jt_data,weight_V,x_V,beta_C,L,tune_param_BLP);
 
@@ -59,9 +59,11 @@ ratio_delta_V_BLP=delta_updated./delta_jt_true;
 
 n_iter_update_V_BLP=k;
 
-EV=compute_EV_func(V_updated,[],weight_V,x_V);
+IV_state=other_vars.IV;
+
+EV=compute_EV_func(V_updated,IV_state,weight_V,x_V);
 [s_jt_predict,~]=...
-  share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+  share_func(delta_updated+mu_ijt_est,beta_C*EV(:,:,:,:,1),rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 results_V_BLP(m,1)=n_iter_update_V_BLP;
@@ -72,9 +74,9 @@ results_V_BLP(m,5)=(results_V_BLP(m,4)<log10(TOL_DIST_s_jt));
 
 %% BLP_Bellman_joint_update_func Spectral
 tic
-output_spectral=...
-        spectral_func(@BLP_Bellman_joint_update_func,2,[],dump,...
-        delta_jt_true,V_initial0,...
+[output_spectral,other_vars]=...
+        spectral_func(@BLP_Bellman_joint_update_func,2,t_dim_id*ones(1,2),dump,...
+        delta_initial0,V_initial0,...
         weight,mu_ijt_est,rho_est,...
     S_jt_data,weight_V,x_V,beta_C,L,tune_param_BLP);
     
@@ -83,13 +85,15 @@ output_spectral=...
     V_sol=output_spectral{2};
 t_V_BLP_spectral=toc;
 
+IV_state=other_vars.IV;
+
 ratio_delta_V_BLP_spectral=delta_sol./delta_jt_true;
 DIST_MAT_V_BLP_spectral=DIST_table;
 n_iter_update_V_BLP_spectral=count;
 
-EV=compute_EV_func(V_sol,[],weight_V,x_V);
+EV=compute_EV_func(V_sol,IV_state,weight_V,x_V);
 [s_jt_predict,~]=...
-  share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+  share_func(delta_sol+mu_ijt_est,beta_C*EV(:,:,:,:,1),rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 

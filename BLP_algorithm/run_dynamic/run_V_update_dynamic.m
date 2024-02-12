@@ -20,7 +20,7 @@ DIST_MAT=zeros(ITER_MAX,1);
 tic
 for k=1:ITER_MAX
 
-    output=...
+    [output,other_vars]=...
     V_update_func(...
     V_initial,weight,mu_ijt_est,...
     S_jt_data,S_0t_data,weight_V,x_V,beta_C,tune_param,Newton_spec);
@@ -58,13 +58,15 @@ delta_updated=compute_delta_from_V_func(mu_ijt_est,weight,...
         S_jt_data,rho_est,...
         V_updated(:,:,:,:,1));%J*1
 
+IV_state=other_vars.IV;
+
 ratio_delta_V=delta_updated./delta_jt_true;
 
 n_iter_update_V=k;
 
-EV=compute_EV_func(V_updated,[],weight_V,x_V);
+EV=compute_EV_func(V_updated,IV_state,weight_V,x_V);
 [s_jt_predict,~]=...
-  share_func(delta_updated+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+  share_func(delta_updated+mu_ijt_est,beta_C*EV(:,:,:,:,1),rho_est,weight);%J*1*G*T
 DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 results_V(m,1)=n_iter_update_V;
@@ -89,13 +91,14 @@ for kk=1:n_sim
 end%%kk
 t_update_V_spectral=toc/n_sim;
 
+IV_state=other_vars.IV;
 
 delta_sol=compute_delta_from_V_func(...
         mu_ijt_est,weight,S_jt_data,rho_est,V_sol);
 
-EV=compute_EV_func(V_sol,[],weight_V,x_V);
+EV=compute_EV_func(V_sol,IV_state,weight_V,x_V);
 [s_jt_predict,~]=...
-  share_func(delta_sol+mu_ijt_est,beta_C*EV,rho_est,weight);%J*1*G*T
+  share_func(delta_sol+mu_ijt_est,beta_C*EV(:,:,:,:,1),rho_est,weight);%J*1*G*T
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 

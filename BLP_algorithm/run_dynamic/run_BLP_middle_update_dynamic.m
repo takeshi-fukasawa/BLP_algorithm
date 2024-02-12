@@ -43,6 +43,7 @@ output_spectral=...
     delta_sol=output_spectral{1};
 
 t_delta_middle_spectral=toc;
+IV_state=other_vars.IV;
 
 ratio_delta_middle_spectral=delta_sol./delta_jt_true;
 DIST_MAT_delta_middle_spectral=DIST_table;

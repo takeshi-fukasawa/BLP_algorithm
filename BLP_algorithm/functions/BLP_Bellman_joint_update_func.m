@@ -3,15 +3,22 @@ function [output,other_vars]=...
     delta_initial,V_initial,weight,mu_ij,rho,...
     S_j_data,weight_V,x_V,beta_C,L,tune_param_BLP)
 
-u_ij_tilde=delta_initial+mu_ij+(beta_C^L).*V_initial;%J*I*G
+n_dim_V=size(V_initial,5);
+u_ij_tilde=delta_initial+mu_ij+(beta_C^L).*V_initial;%J*I*G*T*n_dim_V
 
-EV=compute_EV_func(V_initial,[],weight_V,x_V);
+IV=(1-rho).*log(sum(exp(u_ij_tilde./(1-rho)),1));%1*ns*G*T*n_dim_V
+IV=IVS_compute_IV_func(IV(:,:,:,:,1),n_dim_V-1);%1*ns*1*T*n_dim_V
+
+EV=compute_EV_func(V_initial,IV,weight_V,x_V);
+
+
 u_i0_tilde=beta_C*EV;%J*I*G
 
     [s_j_predict,ChoiceProb,s_ij_given_g_ccp,s_ig_ccp,...
     numer_1,denom_1,numer_2,denom_2]=...
     share_func(u_ij_tilde,u_i0_tilde,rho,weight);
 
+    IV_state=log(numer_2);
 V_updated=log(denom_2);
 
 speed_param=1-rho; %speed_param=1;
@@ -32,5 +39,5 @@ resid_V=V_initial-V_updated;
 
 
     output={resid_delta,resid_V};
-    other_vars=[];
+    other_vars.IV=IV_state;
 end

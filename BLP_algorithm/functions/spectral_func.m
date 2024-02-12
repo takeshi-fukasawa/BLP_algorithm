@@ -204,7 +204,7 @@ else % no iteration
     count=1;
     k=0;
     x_k_plus_1_cell=x_k_cell;
-            x_sol_cell=x_1_cell;
+            x_sol_cell=x_0_cell;
         other_output_k=other_output_0;
         DIST_MAT=[];
         fun_k_cell=fun_0_cell;
