@@ -15,13 +15,14 @@ global k
 
 alpha_0=1;
 alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
-%alpha_0=1e-2; %% large alpha_0 lead to divergence or slow convergence...
 
 if isempty(vec)==0
     if sum(vec(:))==0
          alpha_0=0.1;
     end
 end
+
+%%alpha_0=1e-2; %% large alpha_0 lead to divergence or slow convergence...
 
 
 ITER_MAX=3000;

@@ -10,6 +10,7 @@ if delta_fixed_spec==0
 else
     delta_initial00=delta_jt_true;
 end
+V_initial0=zeros(1,ns,G,T,n_dim_V);
 V_initial=V_initial0;
 %V_initial=V_true;%%%%%%%%%%%%%%
 
@@ -41,6 +42,8 @@ for k=1:ITER_MAX
 end% for loop
 t_V_middle=toc;
 ratio_V_middle=delta_updated./delta_jt_true;
+ratio_temp_V=V_updated(:)./V_true(:);
+
 n_iter_update_V_middle=k;
 
 %% Spectral
@@ -51,7 +54,7 @@ else
 end
 
 tic
-output_spectral=...
+[output_spectral,~,DIST_table]=...
         spectral_func(@Bellman_middle_delta_inner_func,...
         1,t_dim_id,[],V_initial0,...
         delta_initial00,mu_ijt_est,S_jt_data,...

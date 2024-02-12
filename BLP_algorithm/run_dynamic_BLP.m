@@ -3,6 +3,10 @@
 clear
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 global R2 y_mat
+global coef_1_true coef_0_true
+
+coef_0_true=[];
+coef_1_true=[];
 
 addpath('./functions')
 addpath('./run_dynamic')
@@ -33,7 +37,7 @@ n_draw=1;
 durable_spec=1;
 %durable_spec=0;
 
-n_dim_V=1;
+n_dim_V=20;
 %n_dim_V=1;
 
 J=25;% Number of products per nest

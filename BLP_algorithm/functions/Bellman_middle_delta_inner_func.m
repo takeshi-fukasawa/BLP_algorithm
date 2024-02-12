@@ -10,21 +10,21 @@ TOL=1e-12;
 delta_initial=delta_initial0;
 
 if delta_fixed_spec==0
-if spectral_delta_spec==0
+    if spectral_delta_spec==0
 
-for iter=1:ITER_MAX
+    for iter=1:ITER_MAX
 
-    out_delta=BLP_update_func(delta_initial,weight,....
-        mu_ij+(beta_C.^L).*V_initial-beta_C.*V_initial,rho,S_j_data,tune_param_BLP);
+        out_delta=BLP_update_func(delta_initial,weight,....
+            mu_ij+(beta_C.^L).*V_initial-beta_C.*V_initial,rho,S_j_data,tune_param_BLP);
 
-    resid_delta=out_delta{1};
-    delta_updated=delta_initial-resid_delta;
-    if max(abs(resid_delta(:)))<TOL
-      break;
-   else
-      delta_initial=delta_updated;
-   end
-end % for loop
+        resid_delta=out_delta{1};
+        delta_updated=delta_initial-resid_delta;
+        if max(abs(resid_delta(:)))<TOL
+          break;
+        else
+          delta_initial=delta_updated;
+        end
+    end % for loop
 
 
 else %spectral_delta_spec==1

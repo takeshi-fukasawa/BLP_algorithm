@@ -12,10 +12,12 @@ end
 delta_initial=delta_initial0;
 V_initial=V_initial0;
 
-%delta_initial=delta_jt_true;
+delta_initial=delta_jt_true;
 %V_initial=V_true;
 
 DIST_MAT_V_BLP=zeros(ITER_MAX,2);
+
+dump=[];
 tic
 for k=1:ITER_MAX
 
@@ -71,8 +73,8 @@ results_V_BLP(m,5)=(results_V_BLP(m,4)<log10(TOL_DIST_s_jt));
 %% BLP_Bellman_joint_update_func Spectral
 tic
 output_spectral=...
-        spectral_func(@BLP_Bellman_joint_update_func,2,t_dim_id*ones(2,1),[],...
-        delta_initial0,V_initial0,...
+        spectral_func(@BLP_Bellman_joint_update_func,2,[],dump,...
+        delta_jt_true,V_initial0,...
         weight,mu_ijt_est,rho_est,...
     S_jt_data,weight_V,x_V,beta_C,L,tune_param_BLP);
     

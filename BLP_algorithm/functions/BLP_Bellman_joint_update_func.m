@@ -3,8 +3,6 @@ function [output,other_vars]=...
     delta_initial,V_initial,weight,mu_ij,rho,...
     S_j_data,weight_V,x_V,beta_C,L,tune_param_BLP)
 
-
-
 u_ij_tilde=delta_initial+mu_ij+(beta_C^L).*V_initial;%J*I*G
 
 EV=compute_EV_func(V_initial,[],weight_V,x_V);

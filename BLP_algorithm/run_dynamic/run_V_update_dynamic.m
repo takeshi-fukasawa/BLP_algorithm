@@ -56,7 +56,7 @@ t_update_V=toc;
 
 delta_updated=compute_delta_from_V_func(mu_ijt_est,weight,...
         S_jt_data,rho_est,...
-        V_updated);%J*1
+        V_updated(:,:,:,:,1));%J*1
 
 ratio_delta_V=delta_updated./delta_jt_true;
 

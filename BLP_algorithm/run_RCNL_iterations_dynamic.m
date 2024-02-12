@@ -25,7 +25,7 @@ mu_ij_est=mu_ijt_true*1;
 
 run solve_equil.m
 
-V_initial0=-log(S_0t_data.*weight);
+%V_initial0=-log(S_0t_data.*weight);
 delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);% Initial value of delta
 
 %% Update V (rho==0 & G==1 case only)

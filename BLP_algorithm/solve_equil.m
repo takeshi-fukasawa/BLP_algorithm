@@ -37,7 +37,8 @@ end
 
 end
 %%%%%%%%
-V_initial=zeros(1,ns,1,T,n_dim_V);
+V_initial0=zeros(1,ns,1,T,n_dim_V);
+V_initial=V_initial0;
 %%V_initial=V_updated;
 [output_spectral,other_vars,DIST_table_Bellman,fun_k_cell]=...
         spectral_func(@Bellman_update_func,1,t_dim_id,[],V_initial,...
@@ -88,3 +89,19 @@ S_0t_data=1-sum(S_jt_data,[1,3]);%1*1*1*T
 S_gt_data=sum(S_jt_data,1);%1*1*G*T
 S_jt_given_g_data=S_jt_data./S_gt_data;%J*1*G*T
 
+IV_state_obs_pt=IV_true(:,:,:,:,1);%1*ns*G*T
+IV_state_grid=IV_true(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
+n_grid_IV=size(IV_state_grid,5);
+
+%%%% Estimate AR1 coefficients of IV state transitions %%%%%%
+X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
+y=IV_state_obs_pt(:,:,:,2:end);%1*ns*G*(T-1)
+X_mean=mean(X,4);%1*ns*G*1
+y_mean=mean(y,4);%1*ns*G*1
+Var_X=sum((X-X_mean).^2,4);%1*ns*G*1; not divided by the number of elements; not normalized
+Cov_X_y=sum((X-X_mean).*(y-y_mean),4);%1*ns*G*1; not divided by the number of elements; not normalized
+coef_1_true=Cov_X_y./Var_X;%1*ns*G*1
+coef_0_true=y_mean-coef_1_true.*X_mean;%1*ns*G*1
+
+y_predict=X.*coef_1_true+coef_0_true;%1*ns*G*(T-1)
+R2=corr(y_predict(:),y(:));
