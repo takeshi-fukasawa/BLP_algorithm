@@ -36,23 +36,17 @@ if G==1 & rho_est==0
     tune_param=0;Newton_spec=0;
     run run_V_update_dynamic.m
     
-    ratio_delta_V_0=ratio_delta_V;
-    ratio_delta_V_spectral_0=ratio_delta_V_spectral;
     
     %%% tune_param==1
     tune_param=1;Newton_spec=0;
     
     run run_V_update_dynamic.m
     
-     ratio_delta_V_1=ratio_delta_V;
-    ratio_delta_V_spectral_1=ratio_delta_V_spectral;
     
     %%% tune_param==1/(1-beta_C)
     tune_param=1/(1-beta_C);Newton_spec=0;
     run run_V_update_dynamic.m
     
-    ratio_delta_V_2=ratio_delta_V;
-    ratio_delta_V_spectral_2=ratio_delta_V_spectral;
     
     %%% Newton iteration
     if 1==0

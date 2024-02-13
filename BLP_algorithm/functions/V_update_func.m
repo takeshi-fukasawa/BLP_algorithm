@@ -59,4 +59,6 @@ end
     output={resid};
     other_vars.s_i0t_ccp=s_i0t_ccp;
     other_vars.IV=IV_new;
+    other_vars.exp_delta_jt=exp_delta_jt;
+    
 end
