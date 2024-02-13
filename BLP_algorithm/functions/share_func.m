@@ -13,7 +13,7 @@ function [s_jt_predict,ChoiceProb,s_ijt_given_g_ccp,s_igt_ccp,...
     ChoiceProb=s_ijt_given_g_ccp.*s_igt_ccp;%J*ns*G*T*n_state
 
     if isempty(weight)==0
-        s_jt_predict=sum(ChoiceProb.*weight,[2,5]);%J*1*G*T
+        s_jt_predict=sum(ChoiceProb.*weight,2);%J*1*G*T
     end
 
 

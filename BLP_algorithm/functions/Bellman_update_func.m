@@ -2,7 +2,7 @@ function [resid_V,other_vars]=Bellman_update_func(...
     V_initial,delta,mu_ijt,beta_C,L,rho,weight,...
     weight_V,x_V)
 
-%%% rho>0 allowed; Bellman update
+    %%% rho>0 allowed; Bellman update
 
     n_dim_V=size(V_initial,5);
 

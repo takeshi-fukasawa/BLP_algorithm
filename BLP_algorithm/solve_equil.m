@@ -36,6 +36,7 @@ if iter==ITER_MAX
 end
 
 end
+DIST_MAT_Bellman=DIST_MAT;
 %%%%%%%%
 V_initial0=zeros(1,ns,1,T,n_dim_V);
 V_initial=V_initial0;
@@ -55,11 +56,12 @@ V_data_true=V_updated(:,:,:,:,1);
 IV_true=other_vars.IV;
 
 s_igt_ccp_true=exp(IV_true(:,:,:,:,1)-V_true(:,:,:,:,1));
-s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);
 
 s_ijt_given_g_ccp_true=...
     other_vars.numer_1(:,:,:,:,1)./other_vars.denom_1(:,:,:,:,1);
 s_ijt_ccp_true=s_ijt_given_g_ccp_true.*s_igt_ccp_true;
+
+s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);
 
 if 1==1
     S_jt_data=sum(s_ijt_ccp_true.*weight,2);
