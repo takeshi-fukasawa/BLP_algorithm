@@ -44,7 +44,7 @@ V_initial=V_initial0;
 
 dump=[];
 %%%dump=0.1;
-[output_spectral,other_vars,DIST_table_Bellman,fun_k_cell]=...
+[output_spectral,other_vars,DIST_table_Bellman_spectral,fun_k_cell]=...
         spectral_func(@Bellman_update_func,1,t_dim_id,dump,V_initial,...
         delta_jt_true,mu_ijt_true,...
     beta_C,L,rho_est,weight,weight_V,x_V);
@@ -79,7 +79,7 @@ for t=1:T
      S_jt_data(:,:,:,t)=S_jt_data_temp;
     s_ijt_ccp_true(:,:,:,t)=s_ijt_ccp_temp;
     s_igt_ccp_true(:,:,:,t)=s_igt_ccp_temp;
-     
+
     if t<=T-1
     Pr0(:,:,:,t+1)=Pr0(:,:,:,t).*(1-sum(s_ijt_ccp_temp,[1,3]));%1*ns*1*1
     end
@@ -97,16 +97,16 @@ IV_state_grid=IV_true(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
 n_grid_IV=size(IV_state_grid,5);
 
 if T>=2
-%%%% Estimate AR1 coefficients of IV state transitions %%%%%%
-X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
-y=IV_state_obs_pt(:,:,:,2:end);%1*ns*G*(T-1)
-X_mean=mean(X,4);%1*ns*G*1
-y_mean=mean(y,4);%1*ns*G*1
-Var_X=sum((X-X_mean).^2,4);%1*ns*G*1; not divided by the number of elements; not normalized
-Cov_X_y=sum((X-X_mean).*(y-y_mean),4);%1*ns*G*1; not divided by the number of elements; not normalized
-coef_1_true=Cov_X_y./Var_X;%1*ns*G*1
-coef_0_true=y_mean-coef_1_true.*X_mean;%1*ns*G*1
-
-y_predict=X.*coef_1_true+coef_0_true;%1*ns*G*(T-1)
-R2=corr(y_predict(:),y(:));
+    %%%% Estimate AR1 coefficients of IV state transitions %%%%%%
+    X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
+    y=IV_state_obs_pt(:,:,:,2:end);%1*ns*G*(T-1)
+    X_mean=mean(X,4);%1*ns*G*1
+    y_mean=mean(y,4);%1*ns*G*1
+    Var_X=sum((X-X_mean).^2,4);%1*ns*G*1; not divided by the number of elements; not normalized
+    Cov_X_y=sum((X-X_mean).*(y-y_mean),4);%1*ns*G*1; not divided by the number of elements; not normalized
+    coef_1_true=Cov_X_y./Var_X;%1*ns*G*1
+    coef_0_true=y_mean-coef_1_true.*X_mean;%1*ns*G*1
+    
+    y_predict=X.*coef_1_true+coef_0_true;%1*ns*G*(T-1)
+    R2=corr(y_predict(:),y(:));
 end
