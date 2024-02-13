@@ -4,6 +4,8 @@ global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 addpath('./functions')
 addpath('./run_static')
 
+save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
+
 large_hetero_spec=0;
 mistake_spec=0;
 tune_param=1;

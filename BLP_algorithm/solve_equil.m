@@ -96,6 +96,7 @@ IV_state_obs_pt=IV_true(:,:,:,:,1);%1*ns*G*T
 IV_state_grid=IV_true(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
 n_grid_IV=size(IV_state_grid,5);
 
+if T>=2
 %%%% Estimate AR1 coefficients of IV state transitions %%%%%%
 X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
 y=IV_state_obs_pt(:,:,:,2:end);%1*ns*G*(T-1)
@@ -108,3 +109,4 @@ coef_0_true=y_mean-coef_1_true.*X_mean;%1*ns*G*1
 
 y_predict=X.*coef_1_true+coef_0_true;%1*ns*G*(T-1)
 R2=corr(y_predict(:),y(:));
+end

@@ -10,6 +10,7 @@ coef_1_true=[];
 
 addpath('./functions')
 addpath('./run_dynamic')
+save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
 
 large_hetero_spec=0;
 mistake_spec=0;
@@ -35,10 +36,10 @@ n_draw=1;
 %%%%%%%%%%%%%%%%
 %% Simulation 1
 durable_spec=1;
-%durable_spec=0;
+durable_spec=0;
 
-n_dim_V=20;
-%n_dim_V=1;
+n_dim_V=1;
+%%n_dim_V=1;
 
 J=25;% Number of products per nest
 beta_0=4;
@@ -49,6 +50,6 @@ beta_C=0.99;
 T=100;
 T=30;
 %T=2;
-%T=1;
+T=1;
 
 run run_RCNL_iterations_dynamic.m

@@ -45,13 +45,15 @@ end
 
         V_updated=log(exp(v_i0t_tilde)+exp_IV_new.*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
 
+%%%%%%%%%%%%%%%%%%%%%%%
     if Newton_spec==1 & n_grid_V==1
         %%% Newton iteration
         prob_0=reshape(exp(v_i0t_tilde),1,ns,1,T)./reshape(exp(V_initial),1,ns,1,T);%1*ns*1*T
         diff=log(exp(v_i0t_tilde)+temp_1.*(temp_2))-V_initial;
         V_updated=V_initial+diff./(1-beta_C*prob_0);%1*ns*1*T
     end
-    
+    %%%%%%%%%%%%%%%%%%%%%%%%
+
     resid=V_initial-V_updated;
 
     output={resid};

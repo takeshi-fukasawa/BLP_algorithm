@@ -41,7 +41,7 @@ else %spectral_V_spec==1
 end
 
 resid_delta=BLP_update_func(delta_initial,weight,....
-    mu_ij+(beta_C.^L).*V_updated-beta_C.*V_updated,rho,S_j_data,tune_param_BLP);
+    mu_ij-beta_C.*V_updated,rho,S_j_data,tune_param_BLP);
 
  out=resid_delta;
 

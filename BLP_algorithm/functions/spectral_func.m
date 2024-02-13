@@ -1,4 +1,4 @@
-function [x_sol_cell,other_output_k,DIST_table,fun_k_cell]=...
+function [x_sol_cell,other_output_k,DIST_table,iter_info,fun_k_cell]=...
     spectral_func(fun,n_var,vec,dampening_param,varargin)
 %%%function [x_sol_cell,DIST_table,fun_k_cell]=...
 %%%        spectral_func(fun,n_var,vec,dampening_param,varargin)
@@ -12,6 +12,8 @@ function [x_sol_cell,other_output_k,DIST_table,fun_k_cell]=...
 
 global DEBUG FLAG_ERROR DIST count ITER_MAX TOL
 global k
+
+tic
 
 alpha_0=1;
 alpha_0=1e-1; %% large alpha_0 lead to divergence or slow convergence...
@@ -206,13 +208,18 @@ else % no iteration
     x_k_plus_1_cell=x_k_cell;
             x_sol_cell=x_0_cell;
         other_output_k=other_output_0;
-        DIST_MAT=[];
+        DIST_table=[];
         fun_k_cell=fun_0_cell;
 
 end
 
 %% Output
 x_sol_cell=x_k_plus_1_cell;
+
+t_cpu=toc ;
+iter_info.t_cpu=t_cpu;
+iter_info.n_iter=k;
+iter_info.ITER_MAX=ITER_MAX;
 
 return
 
