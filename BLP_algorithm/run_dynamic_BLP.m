@@ -36,9 +36,9 @@ n_draw=1;
 %%%%%%%%%%%%%%%%
 %% Simulation 1
 durable_spec=1;
-durable_spec=0;
+%%durable_spec=0;
 
-n_dim_V=1;
+n_dim_V=20;
 %%n_dim_V=1;
 
 J=25;% Number of products per nest
@@ -50,6 +50,6 @@ beta_C=0.99;
 T=100;
 T=30;
 %T=2;
-T=1;
+%%T=1;
 
 run run_RCNL_iterations_dynamic.m

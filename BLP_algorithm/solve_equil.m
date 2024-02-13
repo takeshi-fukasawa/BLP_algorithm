@@ -49,21 +49,21 @@ dump=[];
     beta_C,L,rho_est,weight,weight_V,x_V);
 V_updated2=output_spectral{1};
 
-u_ijt_tilde=delta_jt_true+mu_ijt_true+(beta_C^L).*V_updated;%J*I*G*T
-
-EV=compute_EV_func(V_updated,IV_temp0,weight_V,x_V);%1*ns*1*T*n_dim_V
-u_i0t_tilde=beta_C*EV;%J*I*1*T*n_dim_V
-
-
 V_true=V_updated;
 V_data_true=V_updated(:,:,:,:,1);
 
-if 1==1
-[S_jt_data,s_ijt_ccp_true,s_ijt_given_g_ccp,s_igt_ccp_true,...
-    numer_1,denom_1,numer_2,denom_2]=...
-    share_func(u_ijt_tilde(:,:,:,:,1),u_i0t_tilde(:,:,:,:,1),rho_true,weight);
-IV_true=log(numer_2);
+IV_true=other_vars.IV;
 
+s_igt_ccp_true=exp(IV_true(:,:,:,:,1)-V_true(:,:,:,:,1));
+s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);
+
+s_ijt_given_g_ccp_true=...
+    other_vars.numer_1(:,:,:,:,1)./other_vars.denom_1(:,:,:,:,1);
+s_ijt_ccp_true=s_ijt_given_g_ccp_true.*s_igt_ccp_true;
+
+if 1==1
+    S_jt_data=sum(s_ijt_ccp_true.*weight,2);
+    
 else
 Pr0=ones(1,ns,1,T);
 S_jt_data=NaN(J,1,G,T);
@@ -84,8 +84,6 @@ for t=1:T
 end % for loop
 end % if else statement
 
-
-s_i0t_ccp_true=1-sum(s_igt_ccp_true,3);%1*ns*1*T
 
 S_0t_data=1-sum(S_jt_data,[1,3]);%1*1*1*T
 

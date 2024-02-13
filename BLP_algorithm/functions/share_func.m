@@ -12,8 +12,9 @@ function [s_jt_predict,ChoiceProb,s_ijt_given_g_ccp,s_igt_ccp,...
     s_igt_ccp=numer_2./denom_2;%J*ns*G*T*n_state; prob of purchasing anything
     ChoiceProb=s_ijt_given_g_ccp.*s_igt_ccp;%J*ns*G*T*n_state
 
-    s_jt_predict=sum(ChoiceProb.*weight,[2,5]);%J*1*G*T
-
+    if isempty(weight)==0
+        s_jt_predict=sum(ChoiceProb.*weight,[2,5]);%J*1*G*T
+    end
 
 
 end

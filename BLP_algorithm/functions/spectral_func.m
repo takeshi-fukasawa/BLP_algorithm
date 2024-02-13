@@ -195,6 +195,7 @@ for k=0:ITER_MAX-1
 	x_k_cell=x_k_plus_1_cell;
 	fun_k_minus_1_cell=fun_k_cell;
     fun_k_cell=fun_k_plus_1_cell;
+    other_output_k=other_output_k_plus_1;
 
    
     
