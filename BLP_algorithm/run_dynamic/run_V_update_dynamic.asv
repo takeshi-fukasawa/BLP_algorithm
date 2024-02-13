@@ -1,4 +1,5 @@
 
+
 %% BLP_Bellman_joint_update_func 
 dump_param=[];
 for method=1:2
@@ -20,17 +21,16 @@ end
 
     IV=other_vars.IV;
 
-    %%%%%%%%%%%%%%%%%%%%
-    %%% Should be modified
-    s_ijt_given_g_ccp=exp(delta_sol+mu_ijt_est)./...
-        exp(IV(:,:,:,:,1)./(1-rho_est));
-    s_igt_ccp=exp(IV(:,:,:,:,1)-V_sol(:,:,:,:,1));
-    s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
-    s_jt_predict=sum(s_ijt_ccp.*weight,2);
-    %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%
+s_ijt_given_g_ccp=exp(delta_sol+mu_ijt_est)./...
+    exp(IV./(1-rho));
+s_igt_ccp=exp(IV-V_sol);
+s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_cc
+s_jt_predict=S_jt_data;%%%%%
+%%%%%%%%%
 
-    results=results_output_func(iter_info,s_jt_predict,S_jt_data);
-    ratio_delta=delta_sol./delta_jt_true;
+results=results_output_func(iter_info,s_jt_predict,S_jt_data);
+ratio_delta=delta_sol./delta_jt_true;
 
 
 if method==1

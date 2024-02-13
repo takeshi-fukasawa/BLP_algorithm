@@ -6,7 +6,8 @@ ITER_MAX=3000;
 x_V=x_V*sqrt(2);%n_draw*1
 weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
-V_initial=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
+V_initial0=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
+V_initial=V_initial0;
 
 %%%%%%%%%
 if 1==1
@@ -38,9 +39,8 @@ end
 end
 DIST_MAT_Bellman=DIST_MAT;
 %%%%%%%%
-V_initial0=zeros(1,ns,1,T,n_dim_V);
+
 V_initial=V_initial0;
-%%V_initial=V_updated;
 
 dump=[];
 %%%dump=0.1;
