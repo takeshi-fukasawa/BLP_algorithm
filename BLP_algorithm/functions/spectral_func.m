@@ -27,7 +27,7 @@ end
 %%alpha_0=1e-2; %% large alpha_0 lead to divergence or slow convergence...
 
 
-ITER_MAX=2000;
+ITER_MAX=3000;
 %%ITER_MAX=118;
 
 line_search_spec=0;

@@ -17,7 +17,7 @@ for iter=1:ITER_MAX
 
 resid_V=Bellman_update_func(...
     V_initial,delta_jt_true,mu_ijt_true,...
-    beta_C,L,rho_est,weight,weight_V,x_V);
+    beta_C,rho_est,weight_V,x_V);
 
 V_updated=V_initial-resid_V{1};
 
@@ -47,7 +47,7 @@ dump=[];
 [output_spectral,other_vars,DIST_table_Bellman_spectral,fun_k_cell]=...
         spectral_func(@Bellman_update_func,1,t_dim_id,dump,V_initial,...
         delta_jt_true,mu_ijt_true,...
-    beta_C,L,rho_est,weight,weight_V,x_V);
+    beta_C,rho_est,weight_V,x_V);
 V_updated2=output_spectral{1};
 
 V_true=V_updated;

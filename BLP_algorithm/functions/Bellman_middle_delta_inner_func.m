@@ -43,7 +43,7 @@ elseif delta_fixed_spec==1
     delta_updated=delta_initial0;
 end
 
- resid_V=Bellman_update_func(V_initial,delta_updated,mu_ij,beta_C,L,rho,weight,...
+ resid_V=Bellman_update_func(V_initial,delta_updated,mu_ij,beta_C,rho,...
  weight_V,x_V);
 
  out=resid_V;

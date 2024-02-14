@@ -16,34 +16,28 @@ function [output,other_vars]=...
        V_initial_obs_pt=V_initial;%1*ns*1*T*n_state
     end
 
+    %% Compute delta
     exp_mu_ijt=exp(mu_ijt);
-    denom_1=sum(reshape(weight,1,ns,1,1,n_state).*...
+    s_jt_predict_up_to_scale=sum(reshape(weight,1,ns,1,1,n_state).*...
         reshape(exp_mu_ijt,J,ns,1,T).*...
         reshape(exp(-V_initial_obs_pt),1,ns,1,T,n_state),[2,5]);%J*1*1*T
-    exp_delta_jt=S_jt_data./denom_1;%J*1*J*T
-    exp_IV_new=sum(exp_delta_jt.*exp_mu_ijt,1);%1*ns*1*T*n_state
+    exp_delta_jt=S_jt_data./s_jt_predict_up_to_scale;%J*1*J*T
+    
 
-if n_state>1 & n_dim_V==1 % Setting other than IVS 
-    IV_new=log(exp_IV_new);%1*ns*1*T*n_state
-else
-%%% Inclusive value sufficiency: Construct IV grid
-    IV_new_obs_pt=log(exp_IV_new);%1*1*G*T
-    IV_new=IVS_compute_IV_func(IV_new_obs_pt,n_dim_V-1);%1*ns*1*T*n_dim_V
-    exp_IV_new=exp(IV_new);%1*ns*1*T*n_dim_V
-end
+    %% Update V
+    rho=0;
 
-    EV=compute_EV_func(V_initial,IV_new,weight_V,x_V);%1*ns*1*T*n_dim_V
-    v_i0t_tilde=beta_C*EV;%1*ns*1*T*n_dim_V
+    [numer_1,denom_1,IV_new,EV]=compute_IV_EV_func(...
+            V_initial,log(exp_delta_jt)+mu_ijt,beta_C,rho,weight_V,x_V);
 
-    v_i0t_tilde_obs_pt=v_i0t_tilde(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t_tilde at obs data pts
+    v_i0t_tilde=beta_C*EV;
 
-    s_i0t_ccp=reshape(exp(v_i0t_tilde_obs_pt-V_initial_obs_pt),1,ns,1,T,n_state);
+    s_i0t_ccp=reshape(exp(v_i0t_tilde(:,:,:,:,1)-V_initial(:,:,:,:,1)),1,ns,1,T,n_state);
     s_0t_predict=sum(reshape(weight,1,ns,1,1,n_state).*s_i0t_ccp,[2,5]);%1*1*1*T %%%Pr0 not incorporated???
 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
-
-        V_updated=log(exp(v_i0t_tilde)+exp_IV_new.*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
+    V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
 
 %%%%%%%%%%%%%%%%%%%%%%%
     if Newton_spec==1 & n_grid_V==1
