@@ -19,6 +19,7 @@ end
     delta_sol=log(other_vars.exp_delta_jt);
 
     IV=other_vars.IV;
+    v_i0t_tilde=other_vars.v_i0t_tilde;
 
     %%%%%%%%%%%%%%%%%%%%
     %%% Should be modified
@@ -27,6 +28,8 @@ end
     s_igt_ccp=exp(IV(:,:,:,:,1)-V_sol(:,:,:,:,1));
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
     s_jt_predict=sum(s_ijt_ccp.*weight,2);
+
+    s_jt_predict=share_func(delta_sol+mu_ijt_est,v_i0t_tilde(:,:,:,:,1),rho_est,weight);
     %%%%%%%%%%%%%%%%%%%%
 
     results=results_output_func(iter_info,s_jt_predict,S_jt_data);

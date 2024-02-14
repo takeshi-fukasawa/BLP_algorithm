@@ -16,12 +16,12 @@ function [output,other_vars]=...
        V_initial_obs_pt=V_initial;%1*ns*1*T*n_state
     end
 
-    v_ijt_tilde=mu_ijt;%J*ns*1*T*n_state %%%%%%%% add beta_C*EV %%%%%%%
-    exp_v_ijt_tilde=exp(v_ijt_tilde);%J*ns*1*T
-    denom_1=sum(reshape(weight,1,ns,1,1,n_state).*reshape(exp_v_ijt_tilde,J,ns,1,T).*...
+    exp_mu_ijt=exp(mu_ijt);
+    denom_1=sum(reshape(weight,1,ns,1,1,n_state).*...
+        reshape(exp_mu_ijt,J,ns,1,T).*...
         reshape(exp(-V_initial_obs_pt),1,ns,1,T,n_state),[2,5]);%J*1*1*T
     exp_delta_jt=S_jt_data./denom_1;%J*1*J*T
-    exp_IV_new=sum(exp_delta_jt.*exp_v_ijt_tilde,1);%1*ns*1*T*n_state
+    exp_IV_new=sum(exp_delta_jt.*exp_mu_ijt,1);%1*ns*1*T*n_state
 
 if n_state>1 & n_dim_V==1 % Setting other than IVS 
     IV_new=log(exp_IV_new);%1*ns*1*T*n_state
@@ -58,6 +58,7 @@ end
 
     output={resid};
     other_vars.s_i0t_ccp=s_i0t_ccp;
+    other_vars.v_i0t_tilde=v_i0t_tilde;
     other_vars.IV=IV_new;
     other_vars.exp_delta_jt=exp_delta_jt;
     
