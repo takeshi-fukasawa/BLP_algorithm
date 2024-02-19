@@ -6,6 +6,7 @@ if method==1 % fixed point iteration
     vec=0;
 elseif method==2 % spectral
    vec=t_dim_id*ones(1,2);
+   %vec=[];
 end
 
 [output_spectral,other_vars,DIST_table_spectral,iter_info]=...

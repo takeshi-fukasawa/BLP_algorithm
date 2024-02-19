@@ -88,7 +88,15 @@ for k=0:ITER_MAX-1
      Delta_fun_i=fun_k_cell{i}-fun_k_minus_1_cell{i};
 
     %%vec=4*ones(n_var,1);%%%%%
-     if isempty(vec)==1 
+
+    %%%%%%%%%%%%%%%
+    sum_Delta_x_fun=sum(Delta_x_i.*Delta_fun_i,'all','omitnan');%vector
+      sum_Delta_x_x=sum(Delta_x_i.^2,'all','omitnan');
+      sum_Delta_fun_fun=sum(Delta_fun_i.^2,'all','omitnan');
+%%%%%%%%%%%%%%%%%
+
+    if isempty(vec)==1 
+
        sign_i=sign(sum(Delta_x_i.*Delta_fun_i,'all','omitnan'));%scalar
        numer_i=sqrt(sum(Delta_x_i.^2,'all','omitnan'))+eps_val;
        denom_i=sqrt(sum(Delta_fun_i.^2,'all','omitnan'))+eps_val;
@@ -106,7 +114,26 @@ for k=0:ITER_MAX-1
        sign_i=sign(sum_Delta_x_fun);%1*1*n_dim etc.
        numer_i=sqrt(sum_Delta_x_x)+eps_val;
        denom_i=sqrt(sum_Delta_fun_fun)+eps_val;
-     else % vec==0
+
+     end
+
+     %%%%%%%%%%%%%%
+     %%% BB (otherwise, Varadnahn Roland 2008)
+     %%% Worse performance???
+     %sign_i=1;
+
+     %numer_i=sum_Delta_x_x;
+     %denom_i=sum_Delta_x_fun;
+
+     %%% BB second
+     %%% Better than the first, but worse than the VR??
+     %numer_i=sum_Delta_x_fun;
+     %denom_i=sum_Delta_fun_fun;
+
+     
+    %%%%%%%%%%%%%%%%%%%%
+
+     if vec==0
         sign_i=1;
         numer_i=1;
         denom_i=1;
@@ -117,6 +144,12 @@ for k=0:ITER_MAX-1
     alpha_k_i((isnan(alpha_k_i)==1))=1;%%%
     alpha_k_i((isinf(alpha_k_i)==1))=1;%%%
     alpha_k_i(((alpha_k_i==0)))=1;%%%
+
+    %%%%%%%%%%%%%%%%%%%
+    if (abs(alpha_k_i)<1e-2 |abs(alpha_k_i)>100) & vec~=0
+        %warning("too small")
+    end
+    %%%%%%%%%%%%%%%
 
    else%% k==1
      alpha_k_i=alpha_0;  
@@ -133,7 +166,7 @@ for k=0:ITER_MAX-1
    end % for loop wrt i
 
 
-    %%% Update variables %%%%%%%%%%%%%%%
+   %%% Update variables %%%%%%%%%%%%%%%
    for n=1:ITER_MAX_LINE_SEARCH
     for i=1:n_var
         x_k_plus_1_cell{1,i}=x_k_cell{1,i}-alpha_k{1,i}.*fun_k_cell{1,i};
