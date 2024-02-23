@@ -8,6 +8,8 @@ mistake_spec=0;
 large_hetero_spec=0;
 durable_spec=0;
 
+global alpha_table
+
 n_sim=1;
 I=10;
 %I=1000;
@@ -27,8 +29,8 @@ beta_0=0;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-run run_RCNL_iterations_static.m
-results_1=results;
+%run run_RCNL_iterations_static.m
+%results_1=results;
 
 %% Simulation 2
 J=25;% Number of products per nest

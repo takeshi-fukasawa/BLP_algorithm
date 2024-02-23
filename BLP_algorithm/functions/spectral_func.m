@@ -11,7 +11,7 @@ function [x_sol_cell,other_output_k,DIST_table,iter_info,fun_k_cell]=...
 % dampening_param
 
 global DEBUG FLAG_ERROR DIST count ITER_MAX TOL
-global k
+global k alpha_table
 
 tic
 
@@ -45,6 +45,7 @@ end
 
 fun_k_cell={};
 
+
 %% Read inputs
 other_input_cell=varargin(n_var+1:length(varargin));
 
@@ -53,7 +54,7 @@ for i=1:n_var
 end
 
 DIST_table=NaN(ITER_MAX,n_var);
-
+alpha_table=NaN(ITER_MAX,n_var);
 
    [fun_0_cell,other_output_0]=fun(x_0_cell{:},other_input_cell{:});
     
@@ -65,7 +66,7 @@ DIST_table=NaN(ITER_MAX,n_var);
 
     DIST=nanmax(DIST_vec);
     DIST_table(1,:)=DIST_vec;
-
+    alpha_table(1,:)=alpha_0;
 
 x_k_cell=x_0_cell;
 fun_k_cell=fun_0_cell;
@@ -120,7 +121,7 @@ for k=0:ITER_MAX-1
      %%%%%%%%%%%%%%
      %%% BB (otherwise, Varadnahn Roland 2008)
      %%% Worse performance???
-     %sign_i=1;
+     sign_i=1;%%%%%
 
      %numer_i=sum_Delta_x_x;
      %denom_i=sum_Delta_x_fun;
@@ -162,6 +163,8 @@ for k=0:ITER_MAX-1
     end
 
       alpha_k{1,i}=alpha_k_i;
+
+      alpha_table(k+1,i)=mean(alpha_k_i(:));
 
    end % for loop wrt i
 

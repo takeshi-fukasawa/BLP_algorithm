@@ -1,5 +1,6 @@
 clear
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
+global alpha_table
 
 addpath('./functions')
 addpath('./run_static')
@@ -33,7 +34,7 @@ beta_0=-1;
 run run_RCNL_iterations_static.m
 results_1=results;
 
-u_ijt_1=u_ijt_tilde;
+%u_ijt_1=u_ijt_tilde;
 
 BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
 temp=(log10(DISTMAT_BLP_1(:,1)));
