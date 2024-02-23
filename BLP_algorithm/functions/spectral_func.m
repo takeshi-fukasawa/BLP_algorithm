@@ -121,7 +121,7 @@ for k=0:ITER_MAX-1
      %%%%%%%%%%%%%%
      %%% BB (otherwise, Varadnahn Roland 2008)
      %%% Worse performance???
-     sign_i=1;%%%%%
+     %sign_i=1;%%%%%
 
      %numer_i=sum_Delta_x_x;
      %denom_i=sum_Delta_x_fun;
@@ -140,6 +140,8 @@ for k=0:ITER_MAX-1
         denom_i=1;
      end
 
+    sign_i=1;%%%%%% S3 spec (const sign) %%%%
+    
     alpha_k_i=sign_i.*numer_i./denom_i;%scalar or vector (wrt the dimension specified in "vec")
 
     alpha_k_i((isnan(alpha_k_i)==1))=1;%%%

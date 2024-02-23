@@ -10,7 +10,7 @@ function [output,other_vars]=...
     V_updated=V_initial-resid_V{1};
     
     IV=other_vars.IV;
-    s_igt_ccp=exp(IV(:,:,:,:,1)-V_updated(:,:,:,:,1));
+    s_igt_ccp=exp(IV(:,:,:,:,1)-V_initial(:,:,:,:,1));
 
     s_ijt_given_g_ccp=...
     other_vars.numer_1(:,:,:,:,1)./other_vars.denom_1(:,:,:,:,1);

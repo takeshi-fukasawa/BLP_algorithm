@@ -7,48 +7,26 @@ x_V=x_V*sqrt(2);%n_draw*1
 weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
 V_initial0=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
-V_initial=V_initial0;
-
-%%%%%%%%%
-if 1==1
-DIST_MAT=NaN(ITER_MAX,1);
-
-for iter=1:ITER_MAX
-
-resid_V=Bellman_update_func(...
-    V_initial,delta_jt_true,mu_ijt_true,...
-    beta_C,rho_est,weight_V,x_V);
-
-V_updated=V_initial-resid_V{1};
-
-DIST=max(abs(V_updated(:)-V_initial(:)));
-DIST_MAT(iter,1)=DIST;
-
-if beta_C==0 | DIST<TOL | isnan(DIST)
-    break;
-else
-    V_initial=V_updated;
-end
-
-end %for loop for solving V
-
-if iter==ITER_MAX
-    warning("Not converge")
-end
-
-end
-DIST_MAT_Bellman=DIST_MAT;
-%%%%%%%%
-
-V_initial=V_initial0;
 
 dump=[];
-%%%dump=0.1;
-[output_spectral,other_vars,DIST_table_Bellman_spectral,fun_k_cell]=...
-        spectral_func(@Bellman_update_func,1,t_dim_id,dump,V_initial,...
+[output_spectral,other_vars,DIST_MAT_Bellman,...
+    iter_info_Bellman,fun_k_cell]=...
+        spectral_func(@Bellman_update_func,1,0,dump,V_initial0,...
         delta_jt_true,mu_ijt_true,...
     beta_C,rho_est,weight_V,x_V);
-V_updated2=output_spectral{1};
+V_updated=output_spectral{1};
+
+
+%%%%%%%%
+
+dump=[];
+[output_spectral,other_vars,...
+    DIST_table_Bellman_spectral,...
+    iter_info_Bellman_spectral,fun_k_cell]=...
+        spectral_func(@Bellman_update_func,1,t_dim_id,dump,V_initial0,...
+        delta_jt_true,mu_ijt_true,...
+    beta_C,rho_est,weight_V,x_V);
+V_updated_true_spectral=output_spectral{1};
 
 V_true=V_updated;
 V_data_true=V_updated(:,:,:,:,1);

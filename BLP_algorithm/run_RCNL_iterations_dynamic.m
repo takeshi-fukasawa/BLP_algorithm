@@ -71,10 +71,6 @@ run run_delta_V_joint_update_dynamic.m
 tune_param_BLP=1;
 run run_delta_V_joint_update_dynamic.m
 
-%% delta fixed convergence
-delta_fixed_spec=1;
-run run_Bellman_middle_update_dynamic.m
-
 end
 
 
