@@ -1,7 +1,7 @@
 
 %% BLP_Bellman_joint_update_func 
 dump_param=[];
-for method=1:2
+for method=1:1
 if method==1 % fixed point iteration
     vec=0;
 elseif method==2 % spectral
@@ -9,9 +9,25 @@ elseif method==2 % spectral
    %vec=[];
 end
 
+[delta_jt_temp,Pr0_temp,s_ijt_ccp_up_to_scale_temp]=compute_delta_from_V_func(...
+       mu_ijt_true,weight,S_jt_data,V_true(:,:,:,:,1));
+
+%%%%%%%%%%%%%%%%%%%%%%
+s_ijt_ccp_up_to_scale_temp2=exp(reshape(mu_ijt_true,J,ns,G,T,1)-...
+     reshape(V_true(:,:,:,:,1),1,ns,1,T));%J*ns*G*T
+s_ijt_ccp_temp=s_ijt_ccp_up_to_scale_temp.*exp(delta_jt_temp);
+ratio=s_ijt_ccp_temp./s_ijt_ccp_true-1
+
+%%%%%%%%%%%%%
+s_ijt_ccp_temp0=exp(delta_jt_true+...
+    reshape(mu_ijt_true,J,ns,G,T,1)-...
+        reshape(V_true(:,:,:,:,1),1,ns,1,T,1));%J*ns*G*T*n_dim_V
+s_ijt_ccp_temp0./s_ijt_ccp_true-1
+%%%%%%%%%%%%%%%%
+
 [output_spectral,other_vars,DIST_table_spectral,iter_info]=...
         spectral_func(@V_update_func,1,vec,dump_param,...
-        V_initial0,...
+        V_true,...
         weight,mu_ijt_est,...
         S_jt_data,S_0t_data,...
         weight_V,x_V,beta_C,tune_param,Newton_spec);
@@ -21,17 +37,12 @@ end
 
     IV=other_vars.IV;
     v_i0t_tilde=other_vars.v_i0t_tilde;
+    v_ijt_tilde=other_vars.v_ijt_tilde;
+    
+    s_jt_predict=...
+    share_func(v_ijt_tilde(:,:,:,:,1),...
+        v_i0t_tilde(:,:,:,:,1),rho_est,weight);
 
-    %%%%%%%%%%%%%%%%%%%%
-    %%% Should be modified
-    s_ijt_given_g_ccp=exp(delta_sol+mu_ijt_est)./...
-        exp(IV(:,:,:,:,1)./(1-rho_est));
-    s_igt_ccp=exp(IV(:,:,:,:,1)-V_sol(:,:,:,:,1));
-    s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
-    s_jt_predict=sum(s_ijt_ccp.*weight,2);
-
-    s_jt_predict=share_func(delta_sol+mu_ijt_est,v_i0t_tilde(:,:,:,:,1),rho_est,weight);
-    %%%%%%%%%%%%%%%%%%%%
 
     results=results_output_func(iter_info,s_jt_predict,S_jt_data);
     ratio_delta=delta_sol./delta_jt_true;

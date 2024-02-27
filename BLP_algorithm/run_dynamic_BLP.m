@@ -13,7 +13,7 @@ addpath('./run_dynamic')
 save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
 
 large_hetero_spec=0;
-mistake_spec=1;
+mistake_spec=0;
 
 rho_true=0;
 rho_est=rho_true;

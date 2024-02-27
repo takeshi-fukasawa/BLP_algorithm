@@ -1,5 +1,5 @@
 global Pr0_spec
-Pr0_spec=0;
+Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
 n_col_results=5;
 
@@ -38,7 +38,6 @@ if G==1 & rho_est==0
     %%% tune_param==0
     tune_param=0;Newton_spec=0;
     run run_V_update_dynamic.m
-    
     
     %%% tune_param==1
     tune_param=1;Newton_spec=0;
