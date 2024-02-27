@@ -1,5 +1,3 @@
-global IV_temp0
-
 ITER_MAX=3000;
 
 [x_V,weight_V]=gausshermi(n_draw);
@@ -8,25 +6,8 @@ weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
 V_initial0=zeros(1,ns,1,T,n_dim_V);%1*ns*1*T*n_dim_V
 
-dump=[];
-[output_spectral,other_vars,DIST_MAT_Bellman,...
-    iter_info_Bellman,fun_k_cell]=...
-        spectral_func(@Bellman_update_func,1,0,dump,V_initial0,...
-        delta_jt_true,mu_ijt_true,...
-    beta_C,rho_est,weight_V,x_V);
-V_updated=output_spectral{1};
-
-
-%%%%%%%%
-
-dump=[];
-[output_spectral,other_vars,...
-    DIST_table_Bellman_spectral,...
-    iter_info_Bellman_spectral,fun_k_cell]=...
-        spectral_func(@Bellman_update_func,1,t_dim_id,dump,V_initial0,...
-        delta_jt_true,mu_ijt_true,...
-    beta_C,rho_est,weight_V,x_V);
-V_updated_true_spectral=output_spectral{1};
+mu_ijt=mu_ijt_true;
+run run_Bellman.m
 
 V_true=V_updated;
 V_data_true=V_updated(:,:,:,:,1);

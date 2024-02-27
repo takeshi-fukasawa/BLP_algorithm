@@ -73,10 +73,11 @@ run run_delta_V_joint_update_dynamic.m
 
 end
 
-
-if 1==0
-    run run_BLP_middle_update_dynamic.m
+if mistake_spec==1
+    mu_ijt=mu_ijt_est;
+    run run_Bellman.m %%%%%
 end
+
 
 results_table=[...
     results_V_0;results_V_0_spectral;...
