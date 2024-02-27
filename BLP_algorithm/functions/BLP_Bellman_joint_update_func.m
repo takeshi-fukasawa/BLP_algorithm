@@ -11,13 +11,12 @@ function [output,other_vars]=...
     
     IV=other_vars.IV;
     s_igt_ccp=exp(IV(:,:,:,:,1)-V_initial(:,:,:,:,1));
-
+    
     s_ijt_given_g_ccp=...
     other_vars.numer_1(:,:,:,:,1)./other_vars.denom_1(:,:,:,:,1);
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
 
-    s_jt_predict=sum(s_ijt_ccp(:,:,:,:,1).*weight,2);
-    
+    s_jt_predict=compute_s_jt_func(s_ijt_ccp,weight);
 
     delta_updated=delta_update_func(...
         delta_initial,S_j_data,s_jt_predict,rho,tune_param_BLP);
@@ -25,7 +24,6 @@ function [output,other_vars]=...
 
 resid_delta=delta_initial-delta_updated;
 resid_V=V_initial-V_updated;
-%%%%%%%%%%%%%%%%%
 
 
     output={resid_delta,resid_V};

@@ -17,18 +17,15 @@ function [output,other_vars]=...
     end
 
     %% Compute delta
-    exp_mu_ijt=exp(mu_ijt);
-    s_jt_predict_up_to_scale=sum(reshape(weight,1,ns,1,1,n_state).*...
-        reshape(exp_mu_ijt,J,ns,1,T).*...
-        reshape(exp(-V_initial_obs_pt),1,ns,1,T,n_state),[2,5]);%J*1*1*T
-    exp_delta_jt=S_jt_data./s_jt_predict_up_to_scale;%J*1*J*T
-    
+    delta_jt=compute_delta_from_V_func(...
+       mu_ijt,weight,S_jt_data,V_initial_obs_pt);
+
 
     %% Update V
     rho=0;
 
     [numer_1,denom_1,IV_new,EV]=compute_IV_EV_func(...
-            V_initial,log(exp_delta_jt)+mu_ijt,beta_C,rho,weight_V,x_V);
+            V_initial,delta_jt+mu_ijt,beta_C,rho,weight_V,x_V);
 
     v_i0t_tilde=beta_C*EV;
 
@@ -54,6 +51,6 @@ function [output,other_vars]=...
     other_vars.s_i0t_ccp=s_i0t_ccp;
     other_vars.v_i0t_tilde=v_i0t_tilde;
     other_vars.IV=IV_new;
-    other_vars.exp_delta_jt=exp_delta_jt;
+    other_vars.delta_jt=delta_jt;
     
 end

@@ -1,3 +1,5 @@
+global Pr0_spec
+Pr0_spec=0; % not use Pr0 (only for dynamic BLP)
 
 %% Parameter settings
 

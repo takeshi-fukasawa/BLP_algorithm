@@ -3,6 +3,8 @@ function [output,other_vars]=...
     V_initial,IV_initial,weight,mu_ijt,rho,...
     S_jt_data,S_0t_data,weight_V,x_V,beta_C,L,tune_param)
     
+    %%% Currently static only?? (Pr0 not introduced??)
+
     [J,ns,G,T]=size(mu_ijt);   
     n_dim_V=size(V_initial,5);
    

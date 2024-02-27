@@ -1,3 +1,6 @@
+global Pr0_spec
+Pr0_spec=0;
+
 n_col_results=5;
 
 results_V_0=zeros(n_market,n_col_results);

@@ -17,25 +17,7 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     IV_state_obs_pt=IV_state(:,:,:,:,1);%1*ns*G*T
     IV_state_grid=IV_state(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
     n_grid_IV=size(IV_state_grid,5);
-
-    %%%% Estimate AR1 coefficients of IV state transitions %%%%%%
-    X=IV_state_obs_pt(:,:,:,1:end-1);%1*ns*G*(T-1)
-    y=IV_state_obs_pt(:,:,:,2:end);%1*ns*G*(T-1)
-    X_mean=mean(X,4);%1*ns*G*1
-    y_mean=mean(y,4);%1*ns*G*1
-    Var_X=sum((X-X_mean).^2,4);%1*ns*G*1; not divided by the number of elements; not normalized
-    Cov_X_y=sum((X-X_mean).*(y-y_mean),4);%1*ns*G*1; not divided by the number of elements; not normalized
-    coef_1=Cov_X_y./Var_X;%1*ns*G*1
-    coef_0=y_mean-coef_1.*X_mean;%1*ns*G*1
-    
-    if isempty(coef_1_true)==0
-        %coef_1=coef_1_true;
-        %coef_0=coef_0_true;
-        %%%warning(XXX)
-    end
-
-    y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
-    R2=corr(y_predict(:),y(:));
+ [coef_0,coef_1,y,y_predict,R2]=estimate_IV_AR1_transition_func(IV_state_obs_pt);
 
     y_mat=[y_predict(:),y(:)];
 

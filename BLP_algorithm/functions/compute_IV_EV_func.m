@@ -1,4 +1,4 @@
-    function [numer_1,denom_1,IV,EV]=compute_IV_EV_func(...
+function [numer_1,denom_1,IV,EV]=compute_IV_EV_func(...
             V,u_ijt_tilde,beta_C,rho,weight_V,x_V);
 
     n_dim_V=size(V,5);
@@ -19,5 +19,5 @@
         EV=0;
     end
     
-    end
+end
     

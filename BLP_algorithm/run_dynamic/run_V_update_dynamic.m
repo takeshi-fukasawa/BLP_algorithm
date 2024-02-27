@@ -17,7 +17,7 @@ end
         weight_V,x_V,beta_C,tune_param,Newton_spec);
 
     V_sol=output_spectral{1};
-    delta_sol=log(other_vars.exp_delta_jt);
+    delta_sol=other_vars.delta_jt;
 
     IV=other_vars.IV;
     v_i0t_tilde=other_vars.v_i0t_tilde;

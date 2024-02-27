@@ -19,5 +19,6 @@ other_vars.IV=IV;
 other_vars.numer_1=numer_1;
 other_vars.denom_1=denom_1;
 other_vars.v_i0t_tilde=v_i0t_tilde;
+other_vars.u_ijt_tilde=u_ijt_tilde;
 
 end

@@ -33,7 +33,7 @@ for k=1:ITER_MAX
  
     V_updated_1=log(weight)-r_updated;
     delta_updated_1=compute_delta_from_V_func(...
-        mu_ijt_est,weight,S_jt_data,rho_est,V_updated_1);
+        mu_ijt_est,weight,S_jt_data,V_updated_1);
 
     %%delta_updated_1=compute_delta_func(numer_1_without_delta,I_igt,weight,S_jt_data,rho_est,0);%J*1
 
@@ -60,7 +60,7 @@ r_updated=r_normalize_func(r_updated,S_0t_data);%%%%%%%%
 
 V_updated_1=log(weight)-r_updated;
 delta_updated_1=compute_delta_from_V_func(...
-        mu_ijt_est,weight,S_jt_data,rho_est,V_updated_1);
+        mu_ijt_est,weight,S_jt_data,V_updated_1);
 
 t_update_s=toc/n_sim;
 
@@ -100,7 +100,7 @@ r_sol_temp=r_normalize_func(r_sol,S_0t_data);
 V_updated_1=log(weight)-r_updated;
 
 delta_sol=compute_delta_from_V_func(...
-        mu_ijt_est,weight,S_jt_data,rho_est,V_updated_1);
+        mu_ijt_est,weight,S_jt_data,V_updated_1);
 
 
 end%%kk
