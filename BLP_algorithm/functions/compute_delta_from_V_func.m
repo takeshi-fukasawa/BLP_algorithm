@@ -29,16 +29,16 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
        for t=1:T
            s_jt_up_to_scale_t=...
                sum(reshape(weight,1,ns,1,1).*Pr0(:,:,:,t,:).*...
-               s_ijt_ccp_up_to_scale(:,:,:,t),2);%J*1*G*T
+               s_ijt_ccp_up_to_scale(:,:,:,t),2);%J*1*G*1
     
-          exp_delta_t=S_jt_data(:,:,:,t)./s_jt_up_to_scale_t;%J*1*G*T
-          delta(:,:,:,t)=log(exp_delta_t);%J*1*G*T
+          exp_delta_t=S_jt_data(:,:,:,t)./s_jt_up_to_scale_t;%J*1*G*1
+          delta(:,:,:,t)=log(exp_delta_t);%J*1*G*1
       
-          s_ijt_ccp_t=s_ijt_ccp_up_to_scale(:,:,:,1,:).*...
-              exp_delta_t;%J*ns*G*T
+          s_ijt_ccp_t=s_ijt_ccp_up_to_scale(:,:,:,t,:).*...
+              exp_delta_t;%J*ns*G*1
           s_i0t_ccp_t=1-sum(s_ijt_ccp_t,[1,3]);%1*ns*1*1
 
-          Pr0(:,:,:,t+1)=Pr0(:,:,:,t).*s_i0t_ccp_t;
+          Pr0(:,:,:,t+1)=Pr0(:,:,:,t).*s_i0t_ccp_t;%1*ns*1*1
 
        end % for loop
     end % if statement

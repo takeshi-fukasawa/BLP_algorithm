@@ -1,7 +1,7 @@
 
 %% BLP_Bellman_joint_update_func 
 dump_param=[];
-for method=1:1
+for method=1:2
 if method==1 % fixed point iteration
     vec=0;
 elseif method==2 % spectral
@@ -9,25 +9,10 @@ elseif method==2 % spectral
    %vec=[];
 end
 
-[delta_jt_temp,Pr0_temp,s_ijt_ccp_up_to_scale_temp]=compute_delta_from_V_func(...
-       mu_ijt_true,weight,S_jt_data,V_true(:,:,:,:,1));
-
-%%%%%%%%%%%%%%%%%%%%%%
-s_ijt_ccp_up_to_scale_temp2=exp(reshape(mu_ijt_true,J,ns,G,T,1)-...
-     reshape(V_true(:,:,:,:,1),1,ns,1,T));%J*ns*G*T
-s_ijt_ccp_temp=s_ijt_ccp_up_to_scale_temp.*exp(delta_jt_temp);
-ratio=s_ijt_ccp_temp./s_ijt_ccp_true-1
-
-%%%%%%%%%%%%%
-s_ijt_ccp_temp0=exp(delta_jt_true+...
-    reshape(mu_ijt_true,J,ns,G,T,1)-...
-        reshape(V_true(:,:,:,:,1),1,ns,1,T,1));%J*ns*G*T*n_dim_V
-s_ijt_ccp_temp0./s_ijt_ccp_true-1
-%%%%%%%%%%%%%%%%
 
 [output_spectral,other_vars,DIST_table_spectral,iter_info]=...
         spectral_func(@V_update_func,1,vec,dump_param,...
-        V_true,...
+        V_initial0,...
         weight,mu_ijt_est,...
         S_jt_data,S_0t_data,...
         weight_V,x_V,beta_C,tune_param,Newton_spec);

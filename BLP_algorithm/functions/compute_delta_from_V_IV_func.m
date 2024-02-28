@@ -5,6 +5,7 @@ function [delta,s_ijt_up_to_scale,s_igt]=compute_delta_from_V_IV_func(...
 %%% rho>0 case allowed
 %%% IV,V => delta
 %%% If V empty, compute V from IV (static (beta_C==0) case)
+%%% Currently, Pr0_spec==0 case only
 
     [J,ns,G,T]=size(mu_ijt);
 
