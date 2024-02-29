@@ -5,8 +5,11 @@ for method=1:2
 if method==1 % fixed point iteration
     vec=0;
 elseif method==2 % spectral
-   vec=t_dim_id*ones(1,2);
-   %vec=[];
+   if t_dependent_alpha_spec==1
+    vec=t_dim_id;
+   else
+    vec=[];%%%%%%
+   end
 end
 
 
