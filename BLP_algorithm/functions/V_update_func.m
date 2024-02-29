@@ -32,8 +32,8 @@ function [output,other_vars]=...
 
     s_i0t_ccp=reshape(exp(v_i0t_tilde(:,:,:,:,1)-V_initial(:,:,:,:,1)),1,ns,1,T,n_state);
 
-    s_0t_predict=1-Pr0+...
-        sum(reshape(weight,1,ns,1,1,n_state).*Pr0.*s_i0t_ccp,[2,5]);%1*1*1*T 
+    s_0t_predict=...
+        sum(reshape(weight,1,ns,1,1,n_state).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
     V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
