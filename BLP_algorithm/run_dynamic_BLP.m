@@ -10,7 +10,7 @@ coef_1_true=[];
 
 addpath('./functions')
 addpath('./run_dynamic')
-%%addpath('C:/Users/fukas/Dropbox/git/spectral')
+addpath('C:/Users/fukas/Dropbox/git/spectral')
 save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
 
 large_hetero_spec=0;

@@ -1,5 +1,5 @@
 function [x_sol_cell,other_output_k,DIST_table,iter_info,fun_k_cell]=...
-    spectral_func(fun,n_var,vec,dampening_param,varargin)
+    spectral_func2(fun,n_var,vec,dampening_param,varargin)
 %%%function [x_sol_cell,DIST_table,fun_k_cell]=...
 %%%        spectral_func(fun,n_var,vec,dampening_param,varargin)
 
