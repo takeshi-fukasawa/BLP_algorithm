@@ -1,5 +1,3 @@
-global Pr0_spec
-Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
 n_col_results=5;
 

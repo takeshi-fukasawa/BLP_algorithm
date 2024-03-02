@@ -4,13 +4,14 @@ clear
 global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 global R2 y_mat
 global coef_1_true coef_0_true
+global Pr0_spec
 
 coef_0_true=[];
 coef_1_true=[];
 
 addpath('./functions')
 addpath('./run_dynamic')
-%%addpath('C:/Users/fukas/Dropbox/git/spectral')
+addpath('C:/Users/fukas/Dropbox/git/spectral')
 save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
 
 large_hetero_spec=0;
@@ -38,6 +39,8 @@ n_draw=1;
 %% Simulation 1
 durable_spec=1;
 %%durable_spec=0;
+
+Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
 t_dependent_alpha_spec=0;
 
