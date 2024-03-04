@@ -1,20 +1,19 @@
 
 %% BLP_Bellman_joint_update_func 
-dump_param=[];
 for method=1:2
 if method==1 % fixed point iteration
-    vec=0;
+    spec.vec=0;
 elseif method==2 % spectral
    if t_dependent_alpha_spec==1
-    vec=t_dim_id;
+    spec.vec=t_dim_id;
    else
-    vec=[];%%%%%%
+    spec.vec=[];%%%%%%
    end
 end
 
 
 [output_spectral,other_vars,DIST_table_spectral,iter_info]=...
-        spectral_func(@V_update_func,1,vec,dump_param,...
+        spectral_func(@V_update_func,spec,...
         {V_initial0},...
         weight,mu_ijt_est,...
         S_jt_data,S_0t_data,...

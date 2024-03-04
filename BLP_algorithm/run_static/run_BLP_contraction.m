@@ -76,10 +76,11 @@ end
     %% BLP spectral
     delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
+    spec=[];
     tic
     for kk=1:n_sim
         output_BLP_spectral=...
-    spectral_func(@BLP_update_func,1,[],[],{delta_initial0},...
+    spectral_func(@BLP_update_func,spec,{delta_initial0},...
     weight,mu_ijt_est,rho_est,S_jt_data,tune_param_BLP);
 
     delta_sol=output_BLP_spectral{1};

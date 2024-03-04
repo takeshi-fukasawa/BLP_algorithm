@@ -5,13 +5,13 @@ function [out,other_vars]=delta_middle_Bellman_inner_func(...
 global count DIST
 
 if spectral_V_spec==1
-    t_loc_id_temp=4;
+    spec.vec=4;
 else
-    t_loc_id_temp=0;
+    spec.vec=0;
 end
 
         output_spectral=...
-        spectral_func(@Bellman_update_func,1,[],t_loc_id_temp,{V_initial0},...
+        spectral_func(@Bellman_update_func,spec,{V_initial0},...
         delta_initial,mu_ij,beta_C,rho,...
         weight_V,x_V);
 
