@@ -27,6 +27,8 @@ S_0t_data=1-sum(S_jt_data,[1,3]);%1*1*1*T
 S_gt_data=sum(S_jt_data,1);%1*1*G*T
 S_jt_given_g_data=S_jt_data./S_gt_data;%J*1*G*T
 
+s_i0t_ccp_true=1-sum(s_ijt_ccp_true,[1,3]);%1*ns*1*T
+
 IV_state_obs_pt=IV_true(:,:,:,:,1);%1*ns*G*T
 IV_state_grid=IV_true(:,:,:,:,2:end);%1*ns*G*T*n_grid_IV
 n_grid_IV=size(IV_state_grid,5);

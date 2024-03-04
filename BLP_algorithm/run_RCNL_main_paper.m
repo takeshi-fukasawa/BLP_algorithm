@@ -3,6 +3,7 @@ global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 
 addpath('./functions')
 addpath('./run_static')
+addpath('C:/Users/fukas/Dropbox/git/spectral')
 
 mistake_spec=0;
 large_hetero_spec=0;
@@ -29,8 +30,8 @@ beta_0=0;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-%run run_RCNL_iterations_static.m
-%results_1=results;
+run run_RCNL_iterations_static.m
+results_1=results;
 
 %% Simulation 2
 J=25;% Number of products per nest

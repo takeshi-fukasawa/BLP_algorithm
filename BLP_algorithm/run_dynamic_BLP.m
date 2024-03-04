@@ -42,7 +42,7 @@ durable_spec=1;
 
 Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
-t_dependent_alpha_spec=0;
+t_dependent_alpha_spec=1;
 
 n_dim_V=20;
 %n_dim_V=1;

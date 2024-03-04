@@ -4,6 +4,7 @@ global alpha_table
 
 addpath('./functions')
 addpath('./run_static')
+addpath('C:/Users/fukas/Dropbox/git/spectral')
 
 mistake_spec=0;
 large_hetero_spec=1;
