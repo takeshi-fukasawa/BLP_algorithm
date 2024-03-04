@@ -2,13 +2,14 @@
 
 %% BLP_Bellman_joint_update_func 
 for method=1:2
+    spec=[];
 if method==1 % fixed point iteration
-    spec.vec=0;
+    spec.update_spec=0;
 elseif method==2 % spectral
    if t_dependent_alpha_spec==1
-    spec.vec=t_dim_id*ones(1,2);
+    spec.update_spec=t_dim_id*ones(1,2);
    else
-    spec.vec=[];%%%%%%
+    spec.update_spec=[];%%%%%%
    end
    
    %dump_param=[0.1,0.5];

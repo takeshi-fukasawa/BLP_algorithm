@@ -4,10 +4,11 @@ function [out,other_vars]=delta_middle_Bellman_inner_func(...
 
 global count DIST
 
+spec=[];
 if spectral_V_spec==1
-    spec.vec=4;
+    spec.update_spec=4;
 else
-    spec.vec=0;
+    spec.update_spec=0;
 end
 
         output_spectral=...
