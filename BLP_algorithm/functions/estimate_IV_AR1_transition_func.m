@@ -11,6 +11,8 @@ function [coef_0,coef_1,y,y_predict,R2]=estimate_IV_AR1_transition_func(IV_state
     coef_0=y_mean-coef_1.*X_mean;%1*ns*G*1
 
     y_predict=X.*coef_1+coef_0;%1*ns*G*(T-1)
-    R2=corr(y_predict(:),y(:));
-
+    
+    %R2=corr(y_predict(:),y(:));
+    R2=[];
+    
 end
