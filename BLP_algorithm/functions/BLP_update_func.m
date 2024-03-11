@@ -17,6 +17,9 @@ S_jt_data,s_jt_predict,rho,tune_param_BLP);
   resid=delta_initial-delta_updated;
 
     output={resid};
+
+    %%%%output={delta_updated};
+
     other_vars=[];
     
 end

@@ -115,5 +115,5 @@ results_BLP_spectral(m,5)=(results_BLP_spectral(m,4)<log10(TOL_DIST_s_jt));
         results_BLP_new=results_BLP;
         results_BLP_new_spectral=results_BLP_spectral;
     end
-        
+
 %%%%%%%%%%%%%%
