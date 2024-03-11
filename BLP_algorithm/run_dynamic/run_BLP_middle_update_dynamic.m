@@ -10,11 +10,11 @@ DIST_MAT=zeros(ITER_MAX,1);
 tic
 for k=1:ITER_MAX
 
-    resid_cell=delta_middle_Bellman_inner_func(delta_initial,...
+    out_cell=delta_middle_Bellman_inner_func(delta_initial,...
         V_initial0,mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
         weight,spectral_V_spec,tune_param_BLP);
 
-    delta_updated=delta_initial-resid_cell{1};
+    delta_updated=out_cell{1};
     DIST=max(abs(delta_updated(:)-delta_initial(:)));%scalar
     DIST_MAT(k,:)=DIST;
 

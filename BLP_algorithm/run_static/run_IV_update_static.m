@@ -22,9 +22,8 @@ for iter_IV=1:ITER_MAX
     IV_update_func(...
     IV_initial,weight,mu_ijt_est,rho_est,...
     S_jt_data,S_0t_data,tune_param);
-    resid=output{1};
-
-    IV_updated=IV_initial-resid;
+    
+    IV_updated=output{1};
 
     DIST=max(abs(IV_updated(:)-IV_initial(:)));%scalar
     DIST_MAT(iter_IV,:)=DIST;

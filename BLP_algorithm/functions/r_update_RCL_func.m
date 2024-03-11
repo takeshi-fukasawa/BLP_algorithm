@@ -45,8 +45,6 @@ function [output,other_vars]=...
 
     %%%%%%%%%%%%%%%%%%%%
     
-    resid=r_initial-r_updated;
-
-    output={resid};
+    output={r_updated};
     other_vars=[];
 end

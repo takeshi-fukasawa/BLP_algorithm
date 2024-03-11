@@ -21,10 +21,8 @@ for k=1:ITER_MAX
     V_initial,IV_initial,weight,mu_ijt_est,rho_est,...
     S_jt_data,S_0t_data,weigth_V,x_V,beta_C,L,tune_param);
     
-    resid_V=output{1};
-    resid_IV=output{2};
-    V_updated=V_initial-resid_V;
-    IV_updated=IV_initial-resid_IV;
+    V_updated=output{1};
+    IV_updated=output{2};
     
     DIST_IV=max(abs(IV_updated(:)-IV_initial(:)));%scalar
     DIST_V=max(abs(V_updated(:)-V_initial(:)));%scalar

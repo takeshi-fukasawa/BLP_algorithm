@@ -47,9 +47,7 @@ function [output,other_vars]=...
     end
     %%%%%%%%%%%%%%%%%%%%%%%%
 
-    resid=V_initial-V_updated;
-
-    output={resid};
+    output={V_updated};
     other_vars.s_i0t_ccp=s_i0t_ccp;
     other_vars.v_i0t_tilde=v_i0t_tilde;
     other_vars.IV=IV_new;

@@ -62,13 +62,11 @@ end
             tune_param.*log(s_0_ratio);%1*ns*G*T       
     end
 
-    resid_IV=IV_initial-IV_updated;
 
     %% Update V
 %% Use IV_updated => faster
     V_updated=log(exp(v_i0t)+sum(exp(IV_updated),3));
-    resid_V=V_initial-V_updated;%1*ns*1*T*n_dim_V
-
-    output={resid_V,resid_IV};
+    
+    output={V_updated,IV_updated};
     other_vars=[];
 end

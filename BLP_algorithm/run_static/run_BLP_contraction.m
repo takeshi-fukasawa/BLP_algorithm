@@ -30,9 +30,7 @@ for iter_BLP=1:ITER_MAX
     delta_initial,weight,mu_ijt_est,rho_est,...
     S_jt_data,tune_param_BLP);
 
-   resid=output{1};
-
-   delta_updated=delta_initial-resid;
+   delta_updated=output{1};
   
   DIST=max(abs(delta_updated(:)-delta_initial(:)));%scalar
   
@@ -77,6 +75,7 @@ end
     delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
     spec=[];
+    spec.fixed_point_iter_spec=1;
     for kk=1:n_sim
         [output_BLP_spectral,other_output_k,iter_info]=...
     spectral_func(@BLP_update_func,spec,{delta_initial0},...

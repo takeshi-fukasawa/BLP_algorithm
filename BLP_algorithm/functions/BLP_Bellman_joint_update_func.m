@@ -3,11 +3,11 @@ function [output,other_vars]=...
     delta_initial,V_initial,weight,mu_ijt,rho,...
     S_j_data,weight_V,x_V,beta_C,L,tune_param_BLP)
 
-    [resid_V,other_vars]=Bellman_update_func(...
+    [out,other_vars]=Bellman_update_func(...
     V_initial,delta_initial,mu_ijt,beta_C,rho,...
     weight_V,x_V);
 
-    V_updated=V_initial-resid_V{1};
+    V_updated=out{1};
     
     IV=other_vars.IV;
     s_igt_ccp=exp(IV(:,:,:,:,1)-V_initial(:,:,:,:,1));
@@ -21,14 +21,8 @@ function [output,other_vars]=...
     delta_updated=delta_update_func(...
         delta_initial,S_j_data,s_jt_predict,rho,tune_param_BLP);
 
-
-resid_delta=delta_initial-delta_updated;
-resid_V=V_initial-V_updated;
-
-
-    output={resid_delta,resid_V};
+    output={delta_updated,V_updated};
     other_vars.IV=IV;
     other_vars.s_jt_predict=s_jt_predict;
-    other_vars.resid_delta=resid_delta;
-    
+
 end

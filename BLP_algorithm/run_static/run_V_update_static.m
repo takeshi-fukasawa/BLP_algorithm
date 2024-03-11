@@ -24,9 +24,7 @@ for iter_V=1:ITER_MAX
     V_update_func(...
     V_initial,weight,mu_ijt_est,...
     S_jt_data,S_0t_data,weight_V,x_V,beta_C,tune_param,Newton_spec);
-    resid=output{1};
-
-    V_updated=V_initial-resid;
+    V_updated=output{1};
 
     %%% The operation is equivalent to multiply (S_0_predict/S_0_data)
     if 1==0

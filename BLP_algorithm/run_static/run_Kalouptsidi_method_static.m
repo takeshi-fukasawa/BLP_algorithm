@@ -22,9 +22,8 @@ for k=1:ITER_MAX
     r_initial,weight,mu_ijt_est,rho_est,...
     S_jt_data,S_0t_data,numer_1_without_delta,...
     switch_r_spec);
-    resid=output{1};
-
-    r_updated=r_initial-resid;
+    
+    r_updated=output{1};
 
     %r_updated=r_normalize_func(r_updated,S_0t_data);%%~=> Faster??
 

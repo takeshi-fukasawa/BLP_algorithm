@@ -48,8 +48,6 @@ function [output,other_vars]=...
             tune_param.*log(s_0_ratio);%1*ns*G*T       
     end
 
-    resid_IV=IV_initial-IV_updated;
-
-    output={resid_IV};
+    output={IV_updated};
     other_vars=[];
 end
