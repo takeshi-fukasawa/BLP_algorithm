@@ -36,7 +36,7 @@ n_iter_update_delta_middle=k;
 spec.update_spec=t_dim_id;
 
 tic
-output_spectral=...
+    [output_spectral,other_vars,iter_info]=...
         spectral_func(@delta_middle_Bellman_inner_func,...
         spec,{delta_initial0},V_initial0,...
         mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
@@ -44,9 +44,9 @@ output_spectral=...
     
     delta_sol=output_spectral{1};
 
-t_delta_middle_spectral=toc;
+t_delta_middle_spectral=iter_info.t_cpu;
 IV_state=other_vars.IV;
 
 ratio_delta_middle_spectral=delta_sol./delta_jt_true;
 DIST_MAT_delta_middle_spectral=DIST_table;
-n_iter_update_delta_middle_spectral=count;
+n_iter_update_delta_middle_spectral=iter_info.n_iter;

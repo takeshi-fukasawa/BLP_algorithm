@@ -77,9 +77,8 @@ end
     delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
     spec=[];
-    tic
     for kk=1:n_sim
-        output_BLP_spectral=...
+        [output_BLP_spectral,other_output_k,iter_info]=...
     spectral_func(@BLP_update_func,spec,{delta_initial0},...
     weight,mu_ijt_est,rho_est,S_jt_data,tune_param_BLP);
 
@@ -87,13 +86,9 @@ end
 
     end%% kk
 
-    t_BLP_spectral=toc/n_sim;
+    t_BLP_spectral=iter_info.t_cpu/n_sim;
 
-    n_iter_BLP_spectral=count;
-    DIST_MAT_BLP_spectral=DIST_table;
-    
-
-    log_dist_BLP_spectral=log10(DIST_MAT_BLP_spectral);
+    n_iter_BLP_spectral=iter_info.n_iter;
 
     ratio_delta_BLP_spectral=delta_sol./delta_jt_true;
     delta_check_BLP_spectral=[min(ratio_delta_BLP_spectral),max(ratio_delta_BLP_spectral)];

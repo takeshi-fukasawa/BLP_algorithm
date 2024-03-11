@@ -79,7 +79,7 @@ results_V(m,5)=(results_V(m,4)<log10(TOL_DIST_s_jt));
 spec=[];
 tic
 for kk=1:n_sim
-        output_spectral=...
+        [output_spectral,other_vars,iter_info]=...
         spectral_func(@V_update_func,spec,{V_initial0},...
         weight,mu_ijt_est,...
         S_jt_data,S_0t_data,weight_V,x_V,...
@@ -88,14 +88,13 @@ for kk=1:n_sim
     V_sol=output_spectral{1};
 
 end%%kk
-t_update_V_spectral=toc/n_sim;
+t_update_V_spectral=iter_info.t_cpu/n_sim;
 
 
 delta_sol=compute_delta_from_V_func(mu_ijt_est,weight,...
         S_jt_data,V_sol);%J*1
 
-n_iter_update_V_spectral=count;
-DIST_MAT_V_spectral=DIST_table;
+n_iter_update_V_spectral=iter_info.n_iter;
 ratio_delta_V_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_V_spectral),max(ratio_delta_V_spectral)]
 

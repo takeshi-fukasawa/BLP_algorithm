@@ -86,9 +86,8 @@ log_dist_new=log10(DIST_MAT);
 if 1==0
 %% New spectral (Kalouptsidi method)
 spec=[];
-tic
 for kk=1:n_sim
-        output_spectral=...
+        [output_spectral,other_vars,iter_info]=...
         spectral_func(@r_update_RCL_func,spec,{r_initial0},...
         weight,mu_ijt_est,rho_est,...
         S_jt_data,S_0t_data,numer_1_without_delta,switch_r_spec);
@@ -105,10 +104,9 @@ delta_sol=compute_delta_from_V_func(...
 
 
 end%%kk
-t_update_s_spectral=toc/n_sim;
+t_update_s_spectral=iter_info.t_cpu/n_sim;
 
-n_iter_update_s_spectral=count;
-DIST_MAT_spectral=DIST_table;
+n_iter_update_s_spectral=iter_info.n_iter;
 ratio_delta_s_spectral=delta_sol./delta_jt_true;
 
 log_dist_spectral=log10(DIST_MAT_spectral);
