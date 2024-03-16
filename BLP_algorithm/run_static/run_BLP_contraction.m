@@ -103,9 +103,9 @@ results_BLP_spectral(m,4)=log10(DIST_s_jt_spectral);
   
 results_BLP_spectral(m,5)=(results_BLP_spectral(m,4)<log10(TOL_DIST_s_jt));
 
-    if mistake_spec==0
-        results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX & max(abs(ratio_delta_BLP_spectral(:)-1))<1e-8);
-    end
+    %if mistake_spec==0
+    %    results_BLP_spectral(m,3)=(results_BLP_spectral(m,1)<ITER_MAX & max(abs(ratio_delta_BLP_spectral(:)-1))<1e-8);
+    %end
 
     if tune_param_BLP==0
         results_BLP_contraction=results_BLP;

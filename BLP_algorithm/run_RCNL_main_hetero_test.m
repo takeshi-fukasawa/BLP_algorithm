@@ -1,16 +1,20 @@
 clear
 addpath('./functions')
 addpath('./run_static')
+addpath('./run_static_dynamic')
+
 addpath('C:/Users/fukas/Dropbox/git/spectral')
 
 
 spec_default=[];
-spec_default.compute_alpha_spec=1;
+spec_default.compute_alpha_spec=3;
+spec_default.SQUAREM_spec=0;
 
 mistake_spec=0;
-large_hetero_spec=1;
+large_hetero_spec=2;
 durable_spec=0;
 t_dependent_alpha_spec=0;
+
 
 n_draw=1;
 n_sim=1;
@@ -39,23 +43,24 @@ results_1=results;
 
 %u_ijt_1=u_ijt_tilde;
 
-BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
-temp=(log10(DISTMAT_BLP_1(:,1)));
-plot(temp)
-saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
-
-
-plot(diff(temp))
-ylim([-0.001,0.001])
-saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
-
-CCP_table=round([s_ijt_ccp_true;s_i0t_ccp_true],4);
-filename=append(BLP_paper_figure_path,'Large_hetero_CCP.csv');
-writematrix(CCP_table,filename)
-
-filename=append(BLP_paper_figure_path,'Large_hetero_results.csv');
-writematrix(results_1,filename)
-
+if 1==0
+    BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
+    temp=(log10(DISTMAT_BLP_1(:,1)));
+    plot(temp)
+    saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
+    
+    
+    plot(diff(temp))
+    ylim([-0.001,0.001])
+    saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
+    
+    CCP_table=round([s_ijt_ccp_true;s_i0t_ccp_true],4);
+    filename=append(BLP_paper_figure_path,'Large_hetero_CCP.csv');
+    writematrix(CCP_table,filename)
+    
+    filename=append(BLP_paper_figure_path,'Large_hetero_results.csv');
+    writematrix(results_1,filename)
+end
 
 if 1==0
 
@@ -111,4 +116,15 @@ beta_0=20;
 run run_RCNL_iterations_static.m
 results_3=results;
 
+end
+
+if 1==1
+    %% Simulation 1- SQUAREM
+I=2;
+J=2;% Number of products per nest
+
+spec_default.SQUAREM_spec=1;
+
+run run_RCNL_iterations_static.m
+results_1_SQUAREM=results;
 end

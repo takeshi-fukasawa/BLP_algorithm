@@ -1,5 +1,4 @@
 %% Generate variables (x_j,xi_j,z_j,p_j,nu_i)
-
 n_state=1;
 
 gpurng(100);% set seed of random number generation
@@ -142,11 +141,28 @@ if large_hetero_spec==1
     %delta_jt_true(1)=delta_jt_true(1)+0.5;
     
     delta_jt_true(1)=0;
+    delta_jt_true(2)=-1;
     weight=[0.5,0.5];
     %weight=[0.1,0.9];
     weight=[0.1,0.9];
 end
 
+if large_hetero_spec==2
+   %%% Test ill-condition problem case %%%%
+    delta_jt_true=[-10;10];
+    weight=[0.5,0.5];
+    J=size(delta_jt_true,1);
+
+    mu_ijt_true=[0,1;0,0];
+    mu_ijt_true=1*rand(J,ns,1,1,1);
+    mu_ijt_true(1,2)=0;
+
+    mu_ijt_true=zeros(J,ns,1,1,1);
+    mu_ijt_true(1,1)=5;
+    mu_ijt_true(2,2)=0;
+    
+    
+end
 
 
 if mistake_spec==0
