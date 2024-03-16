@@ -1,15 +1,15 @@
 clear
-global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
 
 addpath('./functions')
 addpath('./run_static')
+addpath('./run_static_dynamic')
+
 addpath('C:/Users/fukas/Dropbox/git/spectral')
 
 mistake_spec=0;
 large_hetero_spec=0;
 durable_spec=0;
-
-global alpha_table
+t_dependent_alpha_spec=0;
 
 n_sim=1;
 I=10;

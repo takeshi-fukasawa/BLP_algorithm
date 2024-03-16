@@ -82,20 +82,10 @@ if rho_est==0 %%%%%%%%%%%%%%%%%%
 
     %% V_update static
     tune_param=0;
-    run run_V_update_static.m
-    results_V_contraction=results_V;
-    results_V_contraction_spectral=results_V_spectral;
-    
-    DISTMAT_V_0=DIST_MAT_V;
-    ratio_delta_V_0=ratio_delta_V;
+    run run_V_update.m
 
     tune_param=1;
-    run run_V_update_static.m
-    results_V_new=results_V;
-    results_V_new_spectral=results_V_spectral;
-
-    DISTMAT_V_1=DIST_MAT_V;
-    ratio_delta_V_1=ratio_delta_V;
+    run run_V_update.m
 
 
     if 1==0
@@ -144,8 +134,8 @@ if rho_est==0
 
 results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
     mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
-    mean(results_V_contraction,1);mean(results_V_contraction_spectral,1);...
-    mean(results_V_new,1);mean(results_V_new_spectral,1)];
+    mean(results_V_0,1);mean(results_V_0_spectral,1);...
+    mean(results_V_1,1);mean(results_V_1_spectral,1)];
 
 if isempty(results_r_mixed)==0
     results_temp=[results_temp;...

@@ -32,33 +32,33 @@ for method=1:2
         v_i0t_tilde(:,:,:,:,1),rho_est,weight);
 
 
-    results=results_output_func(iter_info,s_jt_predict,S_jt_data);
+    results_V=results_output_func(iter_info,s_jt_predict,S_jt_data);
     ratio_delta=delta_sol./delta_jt_true;
 
 
 if method==1
 
 if tune_param==0
-results_V_0(m,:)=results;
+results_V_0(m,:)=results_V;
 ratio_delta_V_0=ratio_delta;
 elseif tune_param==1
-results_V_1(m,:)=results;
+results_V_1(m,:)=results_V;
 ratio_delta_V_1=ratio_delta;
 elseif tune_param>1
-results_V_2(m,:)=results;
+results_V_2(m,:)=results_V;
 ratio_delta_V_2=ratio_delta;
 end
 
 elseif method==2
 
 if tune_param==0
-results_V_0_spectral(m,:)=results;
+results_V_0_spectral(m,:)=results_V;
 ratio_delta_V_0_spectral=ratio_delta;
 elseif tune_param==1
-results_V_1_spectral(m,:)=results;
+results_V_1_spectral(m,:)=results_V;
 ratio_delta_V_1_spectral=ratio_delta;
 elseif tune_param>1
-results_V_2_spectral(m,:)=results;
+results_V_2_spectral(m,:)=results_V;
 ratio_delta_V_2_spectral=ratio_delta;
 
 end% tune_param==0 or 1 or others

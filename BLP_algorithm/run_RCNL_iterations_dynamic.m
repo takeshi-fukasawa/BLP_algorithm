@@ -35,23 +35,23 @@ delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);% I
 if G==1 & rho_est==0
     %%% tune_param==0
     tune_param=0;Newton_spec=0;
-    run run_V_update_dynamic.m
+    run run_V_update.m
     
     %%% tune_param==1
     tune_param=1;Newton_spec=0;
     
-    run run_V_update_dynamic.m
+    run run_V_update.m
     
     
     %%% tune_param==1/(1-beta_C)
     tune_param=1/(1-beta_C);Newton_spec=0;
-    run run_V_update_dynamic.m
+    run run_V_update.m
     
     
     %%% Newton iteration
     if 1==0
         tune_param=1;Newton_spec=1;
-        run run_V_update_dynamic.m
+        run run_V_update.m
      end
 
 end

@@ -1,9 +1,7 @@
 %%%%%%%%%%%%%%%%%
 %% Parameter settings
 clear
-global DEBUG FLAG_ERROR DIST DIST_table count ITER_MAX TOL
-global R2 y_mat
-global coef_1_true coef_0_true
+
 global Pr0_spec
 
 coef_0_true=[];
