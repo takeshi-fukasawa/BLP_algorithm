@@ -33,6 +33,7 @@ t_delta_middle=toc;
 ratio_delta_middle=delta_updated./delta_jt_true;
 n_iter_update_delta_middle=k;
 
+spec=spec_default;
 spec.update_spec=t_dim_id;
 
 tic

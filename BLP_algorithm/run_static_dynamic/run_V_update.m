@@ -1,7 +1,7 @@
 
 %% BLP_Bellman_joint_update_func 
 for method=1:2
-    spec=[];
+    spec=spec_default;
     if method==1 % fixed point iteration
         spec.update_spec=0;
     elseif method==2 % spectral

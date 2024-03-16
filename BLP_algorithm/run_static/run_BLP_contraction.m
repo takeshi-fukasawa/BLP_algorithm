@@ -74,7 +74,7 @@ end
     %% BLP spectral
     delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
-    spec=[];
+    spec=spec_default;
     
     for kk=1:n_sim
         [output_BLP_spectral,other_output_k,iter_info]=...

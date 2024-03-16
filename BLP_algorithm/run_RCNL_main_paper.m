@@ -11,6 +11,9 @@ large_hetero_spec=0;
 durable_spec=0;
 t_dependent_alpha_spec=0;
 
+spec_default=[];
+spec_default.compute_alpha_spec=3;
+
 n_sim=1;
 I=10;
 %I=1000;

@@ -84,7 +84,7 @@ log_dist_new=log10(DIST_MAT);
 %%%%%%%%%%%%%%%%%
 if 1==0
 %% New spectral (Kalouptsidi method)
-spec=[];
+spec=spec_default;
 for kk=1:n_sim
         [output_spectral,other_vars,iter_info]=...
         spectral_func(@r_update_RCL_func,spec,{r_initial0},...

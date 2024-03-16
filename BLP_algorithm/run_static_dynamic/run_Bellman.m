@@ -1,4 +1,4 @@
-spec=[];
+spec=spec_default;
 spec.update_spec=0;
 [output_spectral,other_vars,iter_info_Bellman]=...
         spectral_func(@Bellman_update_func,spec,{V_initial0},...
@@ -6,7 +6,7 @@ spec.update_spec=0;
     beta_C,rho_est,weight_V,x_V);
 V_updated=output_spectral{1};
 
-spec=[];
+spec=spec_default;
 spec.update_spec=1;
 
 [output_spectral,other_vars_spectral,...

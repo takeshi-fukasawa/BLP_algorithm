@@ -12,6 +12,10 @@ addpath('./run_dynamic')
 addpath('C:/Users/fukas/Dropbox/git/spectral')
 save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
 
+
+spec_default=[];
+spec_default.compute_alpha_spec=2;
+
 large_hetero_spec=0;
 mistake_spec=0;
 

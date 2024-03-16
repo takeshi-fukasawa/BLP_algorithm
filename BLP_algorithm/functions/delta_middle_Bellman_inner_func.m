@@ -2,7 +2,7 @@ function [out,other_vars]=delta_middle_Bellman_inner_func(...
     delta_initial,V_initial0,mu_ij,S_j_data,beta_C,L,...
     rho,weight,spectral_V_spec,tune_param_BLP)
 
-spec=[];
+spec=spec_default;
 if spectral_V_spec==1
     spec.update_spec=4;
 else

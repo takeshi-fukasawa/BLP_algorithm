@@ -66,7 +66,7 @@ results_IV(m,5)=(results_IV(m,4)<log10(TOL_DIST_s_jt));
 
      
 %% IV_update_func spectral
-spec=[];
+spec=spec_default;
 
 for kk=1:n_sim
         [output_spectral,other_vars,iter_info]=...
