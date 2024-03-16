@@ -4,9 +4,6 @@ Pr0_spec=0; % not use Pr0 (only for dynamic BLP)
 %% Parameter settings
 
 ns=I;
-TOL=1e-12;
-ITER_MAX=1000;
-%ITER_MAX=100;
 Newton_spec=0;
 
 t_dim_id=4;
@@ -55,8 +52,6 @@ if rho_est==0
 run model_conv_stat.m
 end
 
-DIST_MAT=zeros(ITER_MAX,3);
-
 results_data(m,1)=round(median(S_0t_data(:)),3);
 
 
@@ -65,13 +60,8 @@ results_data(m,1)=round(median(S_0t_data(:)),3);
 tune_param_BLP=0;
 run run_BLP_contraction.m
 
-DISTMAT_BLP_0=DIST_MAT_BLP;
-ratio_delta_BLP_0=ratio_delta_BLP;
-
 tune_param_BLP=1;
 run run_BLP_contraction.m
-DISTMAT_BLP_1=DIST_MAT_BLP;
-ratio_delta_BLP_1=ratio_delta_BLP;
 
 
 TOL=1e-12;

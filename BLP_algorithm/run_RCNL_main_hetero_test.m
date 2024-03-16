@@ -9,9 +9,10 @@ addpath('C:/Users/fukas/Dropbox/git/spectral')
 spec_default=[];
 spec_default.compute_alpha_spec=3;
 spec_default.SQUAREM_spec=0;
+spec_default.ITER_MAX=2000;
 
 mistake_spec=0;
-large_hetero_spec=2;
+large_hetero_spec=1;
 durable_spec=0;
 t_dependent_alpha_spec=0;
 

@@ -1,5 +1,3 @@
-ITER_MAX=3000;
-
 [x_V,weight_V]=gausshermi(n_draw);
 x_V=x_V*sqrt(2);%n_draw*1
 weight_V=weight_V./sum(weight_V,1);%n_draw*1
