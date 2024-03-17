@@ -35,17 +35,23 @@ end
     
     if method==1
         results_BLP=results_BLP_temp;
+        iter_info_BLP=iter_info;
     elseif method==2
         results_BLP_spectral=results_BLP_temp;
+        iter_info_BLP_spectral=iter_info;
     end
     end% method=1 or 2
 
     if tune_param_BLP==0
         results_BLP_contraction=results_BLP;
         results_BLP_contraction_spectral=results_BLP_spectral;
+        iter_info_BLP_contraction=iter_info_BLP;
+        iter_info_BLP_contraction_spectral=iter_info_BLP_spectral;
     else
         results_BLP_new=results_BLP;
         results_BLP_new_spectral=results_BLP_spectral;
+        iter_info_BLP_new=iter_info_BLP;
+        iter_info_BLP_new_spectral=iter_info_BLP_spectral;
     end
 
 %%%%%%%%%%%%%%

@@ -128,4 +128,6 @@ spec_default.SQUAREM_spec=1;
 
 run run_RCNL_iterations_static.m
 results_1_SQUAREM=results;
+
+semilogy(iter_info_V_0_spectral.alpha_table)
 end
