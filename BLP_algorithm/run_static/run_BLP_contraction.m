@@ -9,10 +9,10 @@ else
 end
 
 
-    %% BLP spectral
-    delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
+%% BLP spectral
+delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
-    for method=1:2
+for method=1:2
     spec=spec_default;
 
     if method==1
@@ -40,7 +40,7 @@ end
         results_BLP_spectral=results_BLP_temp;
         iter_info_BLP_spectral=iter_info;
     end
-    end% method=1 or 2
+end% method=1 or 2
 
     if tune_param_BLP==0
         results_BLP_contraction=results_BLP;

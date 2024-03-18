@@ -1,5 +1,5 @@
 
-%% BLP_Bellman_joint_update_func 
+%% V_update_func 
 for method=1:2
     spec=spec_default;
     if method==1 % fixed point iteration

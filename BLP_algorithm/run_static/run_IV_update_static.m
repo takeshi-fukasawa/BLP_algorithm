@@ -1,113 +1,69 @@
-%% IV_update_func
 
-if tune_param==0
-    results_IV=results_IV_contraction;
-    results_IV_spectral=results_IV_contraction_spectral;
-else
-    results_IV=results_IV_new;
-    results_IV_spectral=results_IV_new_spectral;
+%% IV_update_func 
+for method=1:2
+    spec=spec_default;
+    if method==1 % fixed point iteration
+        spec.update_spec=0;
+    elseif method==2 % spectral
+    if t_dependent_alpha_spec==1
+        spec.update_spec=t_dim_id;
+    else
+        spec.update_spec=[];%%%%%%
+    end
 end
 
-%%%IV_initial0=IV_true;
 IV_initial0=repmat(log(S_gt_data)-log(S_0t_data),[1,ns,1,1]);%1*ns*G*T
 
-IV_initial=IV_initial0;
-%%IV_initial=IV_true;
-
-DIST_MAT=zeros(ITER_MAX,1);
-tic
-for iter_IV=1:ITER_MAX
-  
-    output=...
-    IV_update_func(...
-    IV_initial,weight,mu_ijt_est,rho_est,...
-    S_jt_data,S_0t_data,tune_param);
-    
-    IV_updated=output{1};
-
-    DIST=max(abs(IV_updated(:)-IV_initial(:)));%scalar
-    DIST_MAT(iter_IV,:)=DIST;
-
-
-    %%%%%
-      if DIST<TOL
-          break;% end the for loop
-      elseif isnan(DIST)==1
-          iter_IV=ITER_MAX;
-          break;
-      else
-          IV_initial=IV_updated;%J by 1
-      end
-
-
-end% for loop
-
-delta_updated=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
-        S_jt_data,rho_est,...
-        [],IV_updated);%J*1
-t_update_IV=toc;
-
-
-ratio_delta_IV=delta_updated./delta_jt_true;
-
-DIST_MAT_IV=DIST_MAT;
-
-feval_update_IV=iter_IV;
-
-      results_IV(m,1)=feval_update_IV;
-      results_IV(m,2)=t_update_IV;
-      results_IV(m,3)=(results_IV(m,1)<ITER_MAX);
-
-[s_jt_predict,~]=...
-  share_func(delta_updated+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
-DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
-results_IV(m,4)=log10(DIST_s_jt);
-results_IV(m,5)=(results_IV(m,4)<log10(TOL_DIST_s_jt));
-
-     
-%% IV_update_func spectral
-spec=spec_default;
-
-for kk=1:n_sim
-        [output_spectral,other_vars,iter_info]=...
-        spectral_func(@IV_update_func,spec,{IV_initial0},...
+[output_spectral,other_vars,iter_info]=...
+        spectral_func(@IV_update_func,spec,...
+        {IV_initial0},...
         weight,mu_ijt_est,rho_est,...
         S_jt_data,S_0t_data,tune_param);
 
-    IV_sol=output_spectral{1};
 
-end%%kk
-t_update_IV_spectral=iter_info.t_cpu/n_sim;
-
-
-delta_updated=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
+    delta_sol=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
         S_jt_data,rho_est,...
         [],IV_sol);%J*1
 
 
-feval_update_IV_spectral=iter_info.feval;
-ratio_delta_IV_spectral=delta_sol./delta_jt_true;
-
-results_IV_spectral(m,1)=feval_update_IV_spectral;
-results_IV_spectral(m,2)=t_update_IV_spectral;
-results_IV_spectral(m,3)=(results_IV_spectral(m,1)<ITER_MAX);
-
-[s_jt_predict,~]=...
+    [s_jt_predict,~]=...
   share_func(delta_sol+mu_ijt_est,zeros(1,ns,1,T),rho_est,weight);%J*1*G*T
-DIST_s_jt=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
-results_IV_spectral(m,4)=log10(DIST_s_jt);
-results_IV_spectral(m,5)=(results_IV_spectral(m,4)<log10(TOL_DIST_s_jt));
 
-if mistake_spec==0
-    results_IV_spectral(m,3)=(results_IV_spectral(m,1)<ITER_MAX & ...
-        max(abs(ratio_delta_IV_spectral(:)-1))<1e-8);
-end
+    results_IV=results_output_func(iter_info,s_jt_predict,S_jt_data);
+    ratio_delta=delta_sol./delta_jt_true;
+
+
+if method==1
 
 if tune_param==0
-    results_IV_contraction=results_IV;
-    results_IV_contraction_spectral=results_IV_spectral;
-else
-    results_IV_new=results_IV;
-    results_IV_new_spectral=results_IV_spectral;
+    results_IV_0(m,:)=results_V;
+    ratio_delta_IV_0=ratio_delta;
+    iter_info_IV_0=iter_info;
+elseif tune_param==1
+    results_IV_1(m,:)=results_IV;
+    ratio_delta_IV_1=ratio_delta;
+    iter_info_IV_1=iter_info;
+elseif tune_param>1
+    results_IV_2(m,:)=results_IV;
+    ratio_delta_IV_2=ratio_delta;
+    iter_info_IV_2=iter_info;
 end
-       
+
+elseif method==2
+
+if tune_param==0
+    results_IV_0_spectral(m,:)=results_IV;
+    ratio_delta_IV_0_spectral=ratio_delta;
+    iter_info_IV_0_spectral=iter_info;
+elseif tune_param==1
+    results_IV_1_spectral(m,:)=results_IV;
+    ratio_delta_IV_1_spectral=ratio_delta;
+    iter_info_IV_1_spectral=iter_info;
+elseif tune_param>1
+    results_IV_2_spectral(m,:)=results_IV;
+    ratio_delta_IV_2_spectral=ratio_delta;
+    iter_info_IV_2_spectral=iter_info;
+end% tune_param==0 or 1 or others
+end
+
+end % method
