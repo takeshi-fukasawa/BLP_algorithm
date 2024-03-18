@@ -12,10 +12,9 @@ spec_default=[];
 spec_default.compute_alpha_spec=3;
 spec_default.SQUAREM_spec=0;
 spec_default.ITER_MAX=2000;
-spec_default.TOL=1e-14;
 
 mistake_spec=0;
-large_hetero_spec=1;%%%%
+large_hetero_spec=2;%%%%
 durable_spec=0;
 t_dependent_alpha_spec=0;
 

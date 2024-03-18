@@ -11,22 +11,23 @@ TOL_DIST_s_jt=1e-12;
 
 results_data=zeros(n_market,1);
 
+n_col_results=5;
 if rho_est==0
-    results_V_contraction=zeros(n_market,3);
-    results_V_contraction_spectral=zeros(n_market,3);
-    results_V_new=zeros(n_market,3);
-    results_V_new_spectral=zeros(n_market,3);
+    results_V_contraction=zeros(n_market,n_col_results);
+    results_V_contraction_spectral=zeros(n_market,n_col_results);
+    results_V_new=zeros(n_market,n_col_results);
+    results_V_new_spectral=zeros(n_market,n_col_results);
 else
-    results_IV_contraction=zeros(n_market,3);
-    results_IV_contraction_spectral=zeros(n_market,3);
-    results_IV_new=zeros(n_market,3);
-    results_IV_new_spectral=zeros(n_market,3);
+    results_IV_0=zeros(n_market,n_col_results);
+    results_IV_0_spectral=zeros(n_market,n_col_results);
+    results_IV_1=zeros(n_market,n_col_results);
+    results_IV_1_spectral=zeros(n_market,n_col_results);
 end
 
-results_BLP_contraction=zeros(n_market,3);
-results_BLP_contraction_spectral=zeros(n_market,3);
-results_BLP_new=zeros(n_market,3);
-results_BLP_new_spectral=zeros(n_market,3);
+results_BLP_contraction=zeros(n_market,n_col_results);
+results_BLP_contraction_spectral=zeros(n_market,n_col_results);
+results_BLP_new=zeros(n_market,n_col_results);
+results_BLP_new_spectral=zeros(n_market,n_col_results);
 
 
 results_r_mixed_spectral=zeros(n_market,3);
@@ -101,19 +102,9 @@ else %%%%% G>=2
     %% IV_update static
     tune_param=0;
     run run_IV_update_static.m
-    results_IV_contraction=results_IV;
-    results_IV_contraction_spectral=results_IV_spectral;
-    
-    DISTMAT_IV_0=DIST_MAT_IV;
-    ratio_delta_IV_0=ratio_delta_IV;
 
     tune_param=1;
     run run_IV_update_static.m
-    results_IV_new=results_IV;
-    results_IV_new_spectral=results_IV_spectral;
-
-    DISTMAT_IV_1=DIST_MAT_IV;
-    ratio_delta_IV_1=ratio_delta_IV;
 
 
 end % rho_est==0 or others
@@ -138,8 +129,8 @@ end
 elseif rho_est>0
     results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
     mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
-    mean(results_IV_contraction,1);mean(results_IV_contraction_spectral,1);...
-    mean(results_IV_new,1);mean(results_IV_new_spectral,1)];
+    mean(results_IV_0,1);mean(results_IV_0_spectral,1);...
+    mean(results_IV_1,1);mean(results_IV_1_spectral,1)];
 end
 
 if ns>=10
