@@ -46,8 +46,6 @@ beta_0=-1;
 run run_RCNL_iterations_static.m
 results_1=results;
 
-iter_info_BLP_0_spectral0=iter_info_BLP_0_spectral;
-
 if large_hetero_spec==1
     %% Noncontraction figure-1
     temp=(log10(iter_info_BLP_1.DIST_table(:,1)));
