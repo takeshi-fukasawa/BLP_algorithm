@@ -12,9 +12,10 @@ spec_default=[];
 spec_default.compute_alpha_spec=3;
 spec_default.SQUAREM_spec=0;
 spec_default.ITER_MAX=2000;
+%%spec_default.norm_spec=2;
 
 mistake_spec=0;
-large_hetero_spec=2;%%%%
+large_hetero_spec=1;%%%%
 durable_spec=0;
 t_dependent_alpha_spec=0;
 
@@ -46,14 +47,11 @@ results_1=results;
 
 iter_info_BLP_contraction_spectral0=iter_info_BLP_contraction_spectral;
 
-%u_ijt_1=u_ijt_tilde;
-
-if 1==0
-    temp=(log10(DISTMAT_BLP_1(:,1)));
+if 1==1
+    temp=(log10(iter_info_BLP_new.DIST_table(:,1)));
     plot(temp)
     saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
-    
-    
+   
     plot(diff(temp))
     ylim([-0.001,0.001])
     saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
@@ -66,7 +64,7 @@ if 1==0
     writematrix(results_1,filename)
 end
 
-if 1==0
+if 1==1
 
 %%%%%%%%%%%%%
 %% Simulation 1_temp
@@ -83,8 +81,6 @@ beta_0=0;
 run run_RCNL_iterations_static.m
 results_1_temp=results;
 
-u_ijt_1_temp=u_ijt_tilde;
-
 %%%%%%%%%%%
 
 temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j-prob_i_given_0);%J*ns
@@ -94,13 +90,13 @@ temp=(1-s_i0t_ccp_true).*abs(prob_i_given_j);%J*ns
 conv_const_delta_old=max(sum(temp,2))
 
 %%% G==1 case
-temp1=sum(s_ijt_given_g_ccp.*(prob_i_given_j-prob_i_given_0),2);%J*1
+temp1=sum(s_ijt_given_g_ccp_true.*(prob_i_given_j-prob_i_given_0),2);%J*1
 modulus=sum(abs(temp1),1)
 
-temp1_temp=sum(abs(s_ijt_given_g_ccp.*(prob_i_given_j-prob_i_given_0)),2);%J*1
+temp1_temp=sum(abs(s_ijt_given_g_ccp_true.*(prob_i_given_j-prob_i_given_0)),2);%J*1
 modulus_temp=sum(abs(temp1_temp),1);
 
-%plot(diff(log10(DISTMAT_BLP_1)))
+%plot(diff(log10(iter_info_BLP_contraction.DIST_table)))
 
 %% Simulation 2
 I=2;
@@ -111,6 +107,7 @@ beta_0=-1;
 run run_RCNL_iterations_static.m
 results_2=results;
 
+if 1==0
 %% Simulation 3
 I=100;
 J=10;% Number of products per nest
@@ -119,6 +116,7 @@ beta_0=20;
 
 run run_RCNL_iterations_static.m
 results_3=results;
+end% 1==
 
 end
 
