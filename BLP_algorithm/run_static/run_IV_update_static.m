@@ -52,9 +52,9 @@ ratio_delta_IV=delta_updated./delta_jt_true;
 
 DIST_MAT_IV=DIST_MAT;
 
-n_iter_update_IV=iter_IV;
+feval_update_IV=iter_IV;
 
-      results_IV(m,1)=n_iter_update_IV;
+      results_IV(m,1)=feval_update_IV;
       results_IV(m,2)=t_update_IV;
       results_IV(m,3)=(results_IV(m,1)<ITER_MAX);
 
@@ -85,10 +85,10 @@ delta_updated=compute_delta_from_V_IV_func(mu_ijt_est,weight,...
         [],IV_sol);%J*1
 
 
-n_iter_update_IV_spectral=iter_info.n_iter;
+feval_update_IV_spectral=iter_info.feval;
 ratio_delta_IV_spectral=delta_sol./delta_jt_true;
 
-results_IV_spectral(m,1)=n_iter_update_IV_spectral;
+results_IV_spectral(m,1)=feval_update_IV_spectral;
 results_IV_spectral(m,2)=t_update_IV_spectral;
 results_IV_spectral(m,3)=(results_IV_spectral(m,1)<ITER_MAX);
 

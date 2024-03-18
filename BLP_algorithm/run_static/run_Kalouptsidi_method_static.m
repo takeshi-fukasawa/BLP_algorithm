@@ -63,12 +63,12 @@ delta_updated_1=compute_delta_from_V_func(...
 
 t_update_s=toc/n_sim;
 
-n_iter_update_s=k;
+feval_update_s=k;
 ratio_delta_update_s=delta_updated_1./delta_jt_true;
 [min(ratio_delta_update_s),max(ratio_delta_update_s)];
 
 
-results_s(m,1)=n_iter_update_s;
+results_s(m,1)=feval_update_s;
 results_s(m,2)=t_update_s;
 
 results_s(m,3)=(results_s(m,1)<ITER_MAX);
@@ -105,12 +105,12 @@ delta_sol=compute_delta_from_V_func(...
 end%%kk
 t_update_s_spectral=iter_info.t_cpu/n_sim;
 
-n_iter_update_s_spectral=iter_info.n_iter;
+feval_update_s_spectral=iter_info.feval;
 ratio_delta_s_spectral=delta_sol./delta_jt_true;
 
 log_dist_spectral=log10(DIST_MAT_spectral);
 
-results_s_spectral(m,1)=n_iter_update_s_spectral;
+results_s_spectral(m,1)=feval_update_s_spectral;
 results_s_spectral(m,2)=t_update_s_spectral;
 results_s_spectral(m,3)=(results_s_spectral(m,1)<ITER_MAX);
 

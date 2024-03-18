@@ -62,7 +62,7 @@ EV=compute_EV_func(V_updated,[],weight_V,x_V);
 DIST_s_jt_spectral=max(abs(log(s_jt_predict(:))-log(S_jt_data(:))));
 
 
-n_iter_update_IV=k;
+feval_update_IV=k;
 %%%%%%%%%%%%%%%%%%%%%
 
 %% V_IV_update_func spectral
@@ -82,14 +82,14 @@ for kk=1:n_sim
     
 end%%kk
 
-n_iter_update_IV=k;
+feval_update_IV=k;
 t_update_IV_spectral=toc/n_sim;
 
 delta_sol=compute_delta_from_V_IV_func(...
         mu_ijt_est,weight,S_jt_data,rho_est,...
         V_sol,IV_sol);
 
-n_iter_update_IV_spectral=count;
+feval_update_IV_spectral=count;
 DIST_MAT_IV_spectral=DIST_table;
 ratio_delta_IV_spectral=delta_sol./delta_jt_true;
 %[min(ratio_delta_IV_spectral),max(ratio_delta_IV_spectral)]

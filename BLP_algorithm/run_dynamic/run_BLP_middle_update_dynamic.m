@@ -31,7 +31,7 @@ for k=1:ITER_MAX
 end% for loop
 t_delta_middle=toc;
 ratio_delta_middle=delta_updated./delta_jt_true;
-n_iter_update_delta_middle=k;
+feval_update_delta_middle=k;
 
 spec=spec_default;
 spec.update_spec=t_dim_id;
@@ -50,4 +50,4 @@ IV_state=other_vars.IV;
 
 ratio_delta_middle_spectral=delta_sol./delta_jt_true;
 DIST_MAT_delta_middle_spectral=DIST_table;
-n_iter_update_delta_middle_spectral=iter_info.n_iter;
+feval_update_delta_middle_spectral=iter_info.feval;
