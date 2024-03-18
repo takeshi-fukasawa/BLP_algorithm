@@ -46,11 +46,11 @@ beta_0=-1;
 run run_RCNL_iterations_static.m
 results_1=results;
 
-iter_info_BLP_contraction_spectral0=iter_info_BLP_contraction_spectral;
+iter_info_BLP_0_spectral0=iter_info_BLP_0_spectral;
 
 if large_hetero_spec==1
     %% Noncontraction figure-1
-    temp=(log10(iter_info_BLP_new.DIST_table(:,1)));
+    temp=(log10(iter_info_BLP_1.DIST_table(:,1)));
 
     clf
     f = figure;
@@ -90,9 +90,32 @@ if large_hetero_spec==1
     
     filename=append(BLP_paper_figure_path,'Large_hetero_results.csv');
     writematrix(results_1,filename)
+
+    %% Spectral vs SQUAREM
+
+    %semilogy(iter_info_V_0_spectral.alpha_table)
+    
+    comparison_DIST=log10([iter_info_BLP_0_spectral.DIST_table,...
+        iter_info_BLP_0_SQUAREM.DIST_table]);
+    
+    clf
+    f = figure;
+    set(f,'units','centimeters','position',[10,10,12,9])
+    
+    plot(comparison_DIST)
+    xlabel('Iterations')
+    DIST_label='$\log_{10}\left(\left\Vert \log(S_{j}^{(data)})-\log(s_{j})\right\Vert _{\infty}\right)$';
+    ylabel(DIST_label,'Interpreter','latex')
+    legend('Spectral-S3','SQUAREM-S3','Box','off')
+    uniformFigureStyle(f);
+    
+    saveas(gcf,append(BLP_paper_figure_path,'spectral_SQUAREM_comparison.png'))
+
+    close all
+
 end
 
-if 1==1
+if 1==0
 
 %%%%%%%%%%%%%
 %% Simulation 1_temp
@@ -124,7 +147,7 @@ modulus=sum(abs(temp1),1)
 temp1_temp=sum(abs(s_ijt_given_g_ccp_true.*(prob_i_given_j-prob_i_given_0)),2);%J*1
 modulus_temp=sum(abs(temp1_temp),1);
 
-%plot(diff(log10(iter_info_BLP_contraction.DIST_table)))
+%plot(diff(log10(iter_info_BLP_0.DIST_table)))
 
 %% Simulation 2
 I=2;
@@ -148,33 +171,3 @@ end% 1==1
 
 end
 
-if 1==1
-    %% Simulation 1- SQUAREM
-I=2;
-J=2;% Number of products per nest
-
-spec_default.SQUAREM_spec=1;
-
-run run_RCNL_iterations_static.m
-results_1_SQUAREM=results;
-
-%semilogy(iter_info_V_0_spectral.alpha_table)
-
-comparison_DIST=log10([iter_info_BLP_contraction_spectral0.DIST_table,...
-    iter_info_BLP_contraction_spectral.DIST_table]);
-
-    clf
-    f = figure;
-    set(f,'units','centimeters','position',[10,10,12,9])
-
-plot(comparison_DIST)
-xlabel('Iterations')
-DIST_label='$\log_{10}\left(\left\Vert \log(S_{j}^{(data)})-\log(s_{j})\right\Vert _{\infty}\right)$';
-ylabel(DIST_label,'Interpreter','latex')
-legend('Spectral-S3','SQUAREM-S3','Box','off')
-uniformFigureStyle(f);
-
-saveas(gcf,append(BLP_paper_figure_path,'spectral_SQUAREM_comparison.png'))
-
- close all
-end

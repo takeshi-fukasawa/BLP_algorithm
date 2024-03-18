@@ -1,17 +1,7 @@
 
 %% V_update_func 
-for method=1:2
-    spec=spec_default;
-    if method==1 % fixed point iteration
-        spec.update_spec=0;
-    elseif method==2 % spectral
-    if t_dependent_alpha_spec==1
-        spec.update_spec=t_dim_id;
-    else
-        spec.update_spec=[];%%%%%%
-    end
-    end
-
+for method=1:3
+    run spec_settings.m
 
 [output_spectral,other_vars,iter_info]=...
         spectral_func(@V_update_func,spec,...
@@ -37,35 +27,49 @@ for method=1:2
 
 if method==1
 
-if tune_param==0
-    results_V_0(m,:)=results_V;
-    ratio_delta_V_0=ratio_delta;
-    iter_info_V_0=iter_info;
-elseif tune_param==1
-    results_V_1(m,:)=results_V;
-    ratio_delta_V_1=ratio_delta;
-    iter_info_V_1=iter_info;
-elseif tune_param>1
-    results_V_2(m,:)=results_V;
-    ratio_delta_V_2=ratio_delta;
-    iter_info_V_2=iter_info;
-end
+    if tune_param==0
+        results_V_0(m,:)=results_V;
+        ratio_delta_V_0=ratio_delta;
+        iter_info_V_0=iter_info;
+    elseif tune_param==1
+        results_V_1(m,:)=results_V;
+        ratio_delta_V_1=ratio_delta;
+        iter_info_V_1=iter_info;
+    elseif tune_param>1
+        results_V_2(m,:)=results_V;
+        ratio_delta_V_2=ratio_delta;
+        iter_info_V_2=iter_info;
+    end
 
 elseif method==2
-
-if tune_param==0
-    results_V_0_spectral(m,:)=results_V;
-    ratio_delta_V_0_spectral=ratio_delta;
-    iter_info_V_0_spectral=iter_info;
-elseif tune_param==1
-    results_V_1_spectral(m,:)=results_V;
-    ratio_delta_V_1_spectral=ratio_delta;
-    iter_info_V_1_spectral=iter_info;
-elseif tune_param>1
-    results_V_2_spectral(m,:)=results_V;
-    ratio_delta_V_2_spectral=ratio_delta;
-    iter_info_V_2_spectral=iter_info;
-end% tune_param==0 or 1 or others
+    if tune_param==0
+        results_V_0_spectral(m,:)=results_V;
+        ratio_delta_V_0_spectral=ratio_delta;
+        iter_info_V_0_spectral=iter_info;
+    elseif tune_param==1
+        results_V_1_spectral(m,:)=results_V;
+        ratio_delta_V_1_spectral=ratio_delta;
+        iter_info_V_1_spectral=iter_info;
+    elseif tune_param>1
+        results_V_2_spectral(m,:)=results_V;
+        ratio_delta_V_2_spectral=ratio_delta;
+        iter_info_V_2_spectral=iter_info;
+    end% tune_param==0 or 1 or others
+elseif method==3
+    if tune_param==0
+        results_V_0_SQUAREM(m,:)=results_V;
+        ratio_delta_V_0_SQUAREM=ratio_delta;
+        iter_info_V_0_SQUAREM=iter_info;
+    elseif tune_param==1
+        results_V_1_SQUAREM(m,:)=results_V;
+        ratio_delta_V_1_SQUAREM=ratio_delta;
+        iter_info_V_1_SQUAREM=iter_info;
+    elseif tune_param>1
+        results_V_2_SQUAREM(m,:)=results_V;
+        ratio_delta_V_2_SQUAREM=ratio_delta;
+        iter_info_V_2_SQUAREM=iter_info;
+    end% tune_param==0 or 1 or others
 end
+
 
 end % method

@@ -13,7 +13,7 @@ t_dependent_alpha_spec=0;
 
 spec_default=[];
 spec_default.compute_alpha_spec=3;
-spec_default.SQUAREM_spec=1;
+spec_default.SQUAREM_spec=0;
 
 n_sim=1;
 I=10;

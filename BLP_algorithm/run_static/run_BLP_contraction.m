@@ -3,12 +3,8 @@
 %% BLP spectral
 delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
-for method=1:2
-    spec=spec_default;
-
-    if method==1
-        spec.update_spec=0;% fixed point iteration
-    end
+for method=1:3
+    run spec_settings.m
 
     for kk=1:n_sim
         [output_BLP_spectral,other_output_k,iter_info]=...
@@ -30,20 +26,25 @@ for method=1:2
     elseif method==2
         results_BLP_spectral=results_BLP_temp;
         iter_info_BLP_spectral=iter_info;
+    elseif method==3
+        results_BLP_SQUAREM=results_BLP_temp;
+        iter_info_BLP_SQUAREM=iter_info;
     end
-end% method=1 or 2
+end% method=1,2,3
 
 if tune_param_BLP==0
     results_BLP_0(m,:)=results_BLP;
     iter_info_BLP_0=iter_info_BLP;
     results_BLP_0_spectral(m,:)=results_BLP_spectral;
     iter_info_BLP_0_spectral=iter_info_BLP_spectral;
+    results_BLP_0_SQUAREM(m,:)=results_BLP_SQUAREM;
+    iter_info_BLP_0_SQUAREM=iter_info_BLP_SQUAREM;
 elseif tune_param_BLP==1
     results_BLP_1(m,:)=results_BLP;
     iter_info_BLP_1=iter_info_BLP;
     results_BLP_1_spectral(m,:)=results_BLP_spectral;
     iter_info_BLP_1_spectral=iter_info_BLP_spectral;
+    results_BLP_1_SQUAREM(m,:)=results_BLP_SQUAREM;
+    iter_info_BLP_1_SQUAREM=iter_info_BLP_SQUAREM;
 end
 
-
-%%%%%%%%%%%%%%

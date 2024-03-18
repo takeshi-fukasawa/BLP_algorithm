@@ -16,5 +16,15 @@ spec.update_spec=1;
     beta_C,rho_est,weight_V,x_V);
 V_updated_spectral=output_spectral{1};
 
+spec=spec_default;
+spec.SQUAREM_spec=1;
+[output_SQUAREM,other_vars_SQUAREM,...
+    iter_info_Bellman_SQUAREM]=...
+        spectral_func(@Bellman_update_func,spec,{V_initial0},...
+        delta_jt_true,mu_ijt,...
+    beta_C,rho_est,weight_V,x_V);
+V_updated_SQUAREM=output_spectral{1};
+
 results_Bellman=results_output_func(iter_info_Bellman,1,1);
 results_Bellman_spectral=results_output_func(iter_info_Bellman_spectral,1,1);
+results_Bellman_SQUAREM=results_output_func(iter_info_Bellman_SQUAREM,1,1);
