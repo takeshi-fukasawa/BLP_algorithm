@@ -7,35 +7,9 @@ ns=I;
 Newton_spec=0;
 
 t_dim_id=4;
-TOL_DIST_s_jt=1e-12;
+TOL_DIST_s_jt=1e-14;
 
 results_data=zeros(n_market,1);
-
-n_col_results=5;
-if rho_est==0
-    results_V_contraction=zeros(n_market,n_col_results);
-    results_V_contraction_spectral=zeros(n_market,n_col_results);
-    results_V_new=zeros(n_market,n_col_results);
-    results_V_new_spectral=zeros(n_market,n_col_results);
-else
-    results_IV_0=zeros(n_market,n_col_results);
-    results_IV_0_spectral=zeros(n_market,n_col_results);
-    results_IV_1=zeros(n_market,n_col_results);
-    results_IV_1_spectral=zeros(n_market,n_col_results);
-end
-
-results_BLP_contraction=zeros(n_market,n_col_results);
-results_BLP_contraction_spectral=zeros(n_market,n_col_results);
-results_BLP_new=zeros(n_market,n_col_results);
-results_BLP_new_spectral=zeros(n_market,n_col_results);
-
-
-results_r_mixed_spectral=zeros(n_market,3);
-results_r_mixed=zeros(n_market,3);
-results_r_conservative_spectral=zeros(n_market,3);
-results_r_conservative=zeros(n_market,3);
-
-
 
 for m=1:n_market
 
@@ -113,8 +87,8 @@ end % n_market
 
 if rho_est==0
 
-results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
-    mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
+results_temp=[mean(results_BLP_0,1);mean(results_BLP_0_spectral,1);...
+    mean(results_BLP_1,1);mean(results_BLP_1_spectral,1);...
     mean(results_V_0,1);mean(results_V_0_spectral,1);...
     mean(results_V_1,1);mean(results_V_1_spectral,1)];
 
@@ -127,8 +101,8 @@ if isempty(results_r_mixed)==0
 end
 
 elseif rho_est>0
-    results_temp=[mean(results_BLP_contraction,1);mean(results_BLP_contraction_spectral,1);...
-    mean(results_BLP_new,1);mean(results_BLP_new_spectral,1);...
+    results_temp=[mean(results_BLP_0,1);mean(results_BLP_0_spectral,1);...
+    mean(results_BLP_1,1);mean(results_BLP_1_spectral,1);...
     mean(results_IV_0,1);mean(results_IV_0_spectral,1);...
     mean(results_IV_1,1);mean(results_IV_1_spectral,1)];
 end

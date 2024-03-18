@@ -21,7 +21,7 @@ I=10;
 n_dim_V=1;
 n_draw=1;
 
-n_market=1;
+n_market=2;
 T=1;
 
 beta_C=0.0;

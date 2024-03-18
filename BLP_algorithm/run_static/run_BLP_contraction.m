@@ -1,14 +1,5 @@
 %% Compute delta, given nonlinear parameters (sigma)
 
-if tune_param_BLP==0
-    results_BLP=results_BLP_contraction;
-    results_BLP_spectral=results_BLP_contraction_spectral;
-else
-    results_BLP=results_BLP_new;
-    results_BLP_spectral=results_BLP_new_spectral;
-end
-
-
 %% BLP spectral
 delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
 
@@ -42,16 +33,17 @@ for method=1:2
     end
 end% method=1 or 2
 
-    if tune_param_BLP==0
-        results_BLP_contraction=results_BLP;
-        results_BLP_contraction_spectral=results_BLP_spectral;
-        iter_info_BLP_contraction=iter_info_BLP;
-        iter_info_BLP_contraction_spectral=iter_info_BLP_spectral;
-    else
-        results_BLP_new=results_BLP;
-        results_BLP_new_spectral=results_BLP_spectral;
-        iter_info_BLP_new=iter_info_BLP;
-        iter_info_BLP_new_spectral=iter_info_BLP_spectral;
-    end
+if tune_param_BLP==0
+    results_BLP_0(m,:)=results_BLP;
+    iter_info_BLP_0=iter_info_BLP;
+    results_BLP_0_spectral(m,:)=results_BLP_spectral;
+    iter_info_BLP_0_spectral=iter_info_BLP_spectral;
+elseif tune_param_BLP==1
+    results_BLP_1(m,:)=results_BLP;
+    iter_info_BLP_1=iter_info_BLP;
+    results_BLP_1_spectral(m,:)=results_BLP_spectral;
+    iter_info_BLP_1_spectral=iter_info_BLP_spectral;
+end
+
 
 %%%%%%%%%%%%%%

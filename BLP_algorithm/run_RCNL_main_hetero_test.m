@@ -4,6 +4,7 @@ addpath('./run_static')
 addpath('./run_static_dynamic')
 
 addpath('C:/Users/fukas/Dropbox/git/spectral')
+addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
 
 BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
 
@@ -35,7 +36,7 @@ G=1;
 rho_true=0.0;
 rho_est=rho_true;%%%%%
 
-%% Simulation 1
+%% Simulation 1 (spectral)
 I=2;
 J=2;% Number of products per nest
 mu_base=0;
@@ -47,13 +48,40 @@ results_1=results;
 
 iter_info_BLP_contraction_spectral0=iter_info_BLP_contraction_spectral;
 
-if 1==1
+if large_hetero_spec==1
+    %% Noncontraction figure-1
     temp=(log10(iter_info_BLP_new.DIST_table(:,1)));
+
+    clf
+    f = figure;
+    set(f,'units','centimeters','position',[10,10,12,9])
+
     plot(temp)
+    xlim([0,2000])
+    xlabel('Iterations')
+
+    DIST_label='$\log_{10}\left(\left\Vert \delta_{j}^{(n+1)}-\delta_{j}^{(n)}\right\Vert _{\infty}\right)$';
+    ylabel(DIST_label,'Interpreter','latex')
+   
+    uniformFigureStyle(f);
     saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
    
+    %% Non-contraction figure 2
+    clf
+    f = figure;
+    set(f,'units','centimeters','position',[10,10,12,9])
+
     plot(diff(temp))
+    xlim([0,2000])
+    xlabel('Iterations')
+
     ylim([-0.001,0.001])
+    
+    Delta_DIST_label='$\Delta \left[ \log_{10}\left(\left\Vert \delta_{j}^{(n+1)}-\delta_{j}^{(n)}\right\Vert _{\infty}\right) \right]$';
+    ylabel(Delta_DIST_label,'Interpreter','latex')
+   
+    uniformFigureStyle(f);
+
     saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
     
     CCP_table=round([s_ijt_ccp_true;s_i0t_ccp_true],4);
@@ -116,7 +144,7 @@ beta_0=20;
 
 run run_RCNL_iterations_static.m
 results_3=results;
-end% 1==
+end% 1==1
 
 end
 
@@ -135,8 +163,18 @@ results_1_SQUAREM=results;
 comparison_DIST=log10([iter_info_BLP_contraction_spectral0.DIST_table,...
     iter_info_BLP_contraction_spectral.DIST_table]);
 
+    clf
+    f = figure;
+    set(f,'units','centimeters','position',[10,10,12,9])
+
 plot(comparison_DIST)
+xlabel('Iterations')
+DIST_label='$\log_{10}\left(\left\Vert \log(S_{j}^{(data)})-\log(s_{j})\right\Vert _{\infty}\right)$';
+ylabel(DIST_label,'Interpreter','latex')
+legend('Spectral-S3','SQUAREM-S3','Box','off')
+uniformFigureStyle(f);
+
 saveas(gcf,append(BLP_paper_figure_path,'spectral_SQUAREM_comparison.png'))
 
-
+ close all
 end
