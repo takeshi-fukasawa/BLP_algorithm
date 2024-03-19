@@ -1,18 +1,8 @@
 
 
 %% BLP_Bellman_joint_update_func 
-for method=1:2
-    spec=spec_default;
-    if method==1 % fixed point iteration
-        spec.update_spec=0;
-    elseif method==2 % spectral
-    if t_dependent_alpha_spec==1
-        spec.update_spec=t_dim_id*ones(1,2);
-    else
-        spec.update_spec=[];%%%%%%
-    end
-   %dump_param=[0.1,0.5];
-end
+for method=1:3
+    run spec_settings.m
 
 [output_spectral,other_vars,iter_info]=...
         spectral_func(@BLP_Bellman_joint_update_func,spec,...
@@ -39,14 +29,21 @@ ratio_delta_V_BLP_1=ratio_delta;
 end% tune_param_BLP==0 or 1
 
 elseif method==2
+    if tune_param_BLP==0
+        results_V_BLP_0_spectral(m,:)=results;
+        ratio_delta_V_BLP_0_spectral=ratio_delta;
+        elseif tune_param_BLP==1
+        results_V_BLP_1_spectral(m,:)=results;
+        ratio_delta_V_BLP_1_spectral=ratio_delta;
+        end% tune_param_BLP==0 or 1
+elseif method==3
+    if tune_param_BLP==0
+        results_V_BLP_0_SQUAREM(m,:)=results;
+        ratio_delta_V_BLP_0_SQUAREM=ratio_delta;
+        elseif tune_param_BLP==1
+        results_V_BLP_1_SQUAREM(m,:)=results;
+        ratio_delta_V_BLP_1_SQUAREM=ratio_delta;
+        end% tune_param_BLP==0 or 1
 
-if tune_param_BLP==0
-results_V_BLP_0_spectral(m,:)=results;
-ratio_delta_V_BLP_0_spectral=ratio_delta;
-elseif tune_param_BLP==1
-results_V_BLP_1_spectral(m,:)=results;
-ratio_delta_V_BLP_1_spectral=ratio_delta;
-end% tune_param_BLP==0 or 1
 end
-
 end % method

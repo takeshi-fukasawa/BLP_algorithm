@@ -19,7 +19,7 @@ mistake_spec=0;
 large_hetero_spec=1;%%%%
 durable_spec=0;
 t_dependent_alpha_spec=0;
-
+skip_contraction_spec=0;
 
 n_draw=1;
 n_sim=1;

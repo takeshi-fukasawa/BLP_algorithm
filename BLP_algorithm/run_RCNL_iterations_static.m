@@ -12,6 +12,7 @@ TOL_DIST_s_jt=1e-14;
 results_data=zeros(n_market,1);
 
 for m=1:n_market
+market_id=m
 
 rng(m);
 gpurng(m);

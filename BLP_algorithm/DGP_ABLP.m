@@ -26,28 +26,28 @@ u_jt=5*rand(J,1,G,T);
 
 beta_x=[1.5;1.5;0.5];
 alpha=-3;
-sigma_const=0.5;
-sigma_x=[0.5 0.5 0.5];
-sigma_p=0.2;
+sigma_const_true=0.5;
+sigma_x_true=[0.5 0.5 0.5];
+sigma_p_true=0.2;
 
 if durable_spec==1
 beta_x=[1;1;0.5];
 alpha=-2;
-sigma_const=0;
-sigma_x=[0.5 0.5 0];
-sigma_p=0.25;
+sigma_const_true=0;
+sigma_x_true=[0.5;0.5;0];
+sigma_p_true=0.25;
 
 end
 
 if 1==0
-    sigma_const=sigma_const*0.0;
-    sigma_x=sigma_x*0.0;
-    sigma_p=sigma_p*0.0;
+    sigma_const_true=sigma_const_true*0.0;
+    sigma_x_true=sigma_x_true*0.0;
+    sigma_p_true=sigma_p_true*0.0;
 end
 
-%sigma_const=sigma_const*5;
-%sigma_x=sigma_x*5;
-%sigma_p=sigma_p*5;
+%sigma_const_true=sigma_const_true*5;
+%sigma_x_true=sigma_x_true*5;
+%sigma_p_true=sigma_p_true*5;
 
 eps_sd=1;
 
@@ -100,10 +100,9 @@ weight=1/ns*ones(1,ns,1);%1*ns*1
 %% Compute product market share, given parameters
 delta_jt_true=(beta_0+reshape(x_jt*beta_x,J,1,G,T)+alpha*p_jt+xi_jt)./eps_sd;%J*1*G*T
 
-
-mu_ijt_true=sigma_const*randn(1,ns,1,1)+...
-    sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
-    sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
+mu_ijt_true=sigma_const_true*randn(1,ns,1,1)+...
+    sum(reshape(sigma_x_true,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
+    sigma_p_true*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
 
 mu_ijt_true=reshape(mu_ijt_true,J,ns,G,T)./eps_sd;
 mu_i0t_true=zeros(1,ns,1,T,n_state)./eps_sd;
@@ -164,12 +163,22 @@ if large_hetero_spec==2
     
 end
 
-
-if mistake_spec==0
-    mu_ijt_est=mu_ijt_true+randn(J,ns,G,T)*0.0;%J*ns*G*T
-else
+%%% Try values of mu_ijt_est ~= mu_ijt_true (motivated by estimation) 
+if mistake_spec==1
     mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
     mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
-    
+   
+    sd=3;
+sigma_const=sigma_const_true*exp(sd*rand(1)); 
+sigma_x=sigma_x_true.*exp(sd*rand(3,1)); 
+sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 
+
+mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
+    sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
+    sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
+
+mu_ijt_est=reshape(mu_ijt_est,J,ns,G,T)./eps_sd;
+else
+    mu_ijt_est=mu_ijt_true;
 end
 

@@ -17,6 +17,7 @@ TOL_DIST_s_jt=1e-12;
 t_dim_id=4;
 
 for m=1:n_market
+market_id=m
 
 rng(m);
 gpurng(m);
@@ -24,7 +25,6 @@ gpurng(m);
 %% Generate data and solve equilibrium
 %run DGP.m
 run DGP_ABLP.m
-mu_ij_est=mu_ijt_true*1;
 
 run solve_equil.m
 
@@ -80,11 +80,11 @@ end
 
 
 results_table=[...
-    results_V_0;results_V_0_spectral;...
-    results_V_1;results_V_1_spectral;...
-    results_V_2;results_V_2_spectral;...
-    results_V_BLP_0;results_V_BLP_0_spectral;...
-    results_V_BLP_1;results_V_BLP_1_spectral];
+    results_V_0;results_V_0_spectral;results_V_0_SQUAREM;...
+    results_V_1;results_V_1_spectral;results_V_1_SQUAREM;...
+    results_V_2;results_V_2_spectral;results_V_2_SQUAREM;...
+    results_V_BLP_0;results_V_BLP_0_spectral;results_V_BLP_0_SQUAREM;...
+    results_V_BLP_1;results_V_BLP_1_spectral;results_V_BLP_1_SQUAREM];
 
 
 if 1==0

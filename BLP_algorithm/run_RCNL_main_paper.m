@@ -10,6 +10,7 @@ mistake_spec=0;
 large_hetero_spec=0;
 durable_spec=0;
 t_dependent_alpha_spec=0;
+skip_contraction_spec=0;
 
 spec_default=[];
 spec_default.compute_alpha_spec=3;
@@ -27,6 +28,7 @@ T=1;
 beta_C=0.0;
 L=1;
 
+if 1==1
 %% Simulation 1
 J=25;% Number of products per nest
 G=1;
@@ -59,6 +61,9 @@ if 1==0
     writematrix(results_no_nest,filename)
 end
 
+end % RCL run
+
+if 1==1
 %% Simulation 3 (RCNL)
 J=25;% Number of products per nest
 G=2;
@@ -68,3 +73,4 @@ rho_est=rho_true;%%%%%
 
 run run_RCNL_iterations_static.m
 results_3=results;
+end % run RCNL
