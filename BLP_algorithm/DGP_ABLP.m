@@ -27,7 +27,7 @@ u_jt=5*rand(J,1,G,T);
 beta_x=[1.5;1.5;0.5];
 alpha=-3;
 sigma_const_true=0.5;
-sigma_x_true=[0.5 0.5 0.5];
+sigma_x_true=[0.5,0.5,0.5];
 sigma_p_true=0.2;
 
 if durable_spec==1
@@ -170,7 +170,7 @@ if mistake_spec==1
    
     sd=3;
 sigma_const=sigma_const_true*exp(sd*rand(1)); 
-sigma_x=sigma_x_true.*exp(sd*rand(3,1)); 
+sigma_x=sigma_x_true.*exp(sd*rand(1,3)); 
 sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 
 
 mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
