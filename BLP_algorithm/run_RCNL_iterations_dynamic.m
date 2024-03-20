@@ -1,18 +1,6 @@
 
 n_col_results=5;
 
-results_V_0=zeros(n_market,n_col_results);
-results_V_0_spectral=zeros(n_market,n_col_results);
-results_V_1=zeros(n_market,n_col_results);
-results_V_1_spectral=zeros(n_market,n_col_results);
-results_V_2=zeros(n_market,n_col_results);
-results_V_2_spectral=zeros(n_market,n_col_results);
-
-results_V_BLP_0=zeros(n_market,n_col_results);
-results_V_BLP_0_spectral=zeros(n_market,n_col_results);
-results_V_BLP_1=zeros(n_market,n_col_results);
-results_V_BLP_1_spectral=zeros(n_market,n_col_results);
-
 TOL_DIST_s_jt=1e-12;
 t_dim_id=4;
 
@@ -43,10 +31,12 @@ if G==1 & rho_est==0
     run run_V_update.m
     
     
-    %%% tune_param==1/(1-beta_C)
-    tune_param=1/(1-beta_C);Newton_spec=0;
-    run run_V_update.m
-    
+    if T==1
+        %%% tune_param==1/(1-beta_C)
+        tune_param=1/(1-beta_C);Newton_spec=0;
+        run run_V_update.m
+    end
+
     
     %%% Newton iteration
     if 1==0
@@ -78,14 +68,20 @@ if mistake_spec==1
     run run_Bellman.m %%%%%
 end
 
-
-results_table=[...
+results_table_V=[...
     results_V_0;results_V_0_spectral;results_V_0_SQUAREM;...
     results_V_1;results_V_1_spectral;results_V_1_SQUAREM;...
-    results_V_2;results_V_2_spectral;results_V_2_SQUAREM;...
+    ];
+if T==1
+    results_table_V=[results_table_V;...
+        results_V_2;results_V_2_spectral;results_V_2_SQUAREM];
+end
+
+results_table_V_BLP=[...
     results_V_BLP_0;results_V_BLP_0_spectral;results_V_BLP_0_SQUAREM;...
     results_V_BLP_1;results_V_BLP_1_spectral;results_V_BLP_1_SQUAREM];
 
+results_table=[results_table_V;results_table_V_BLP];
 
 if 1==0
     filename=append(save_path,"no_nest_results_beta_",...
