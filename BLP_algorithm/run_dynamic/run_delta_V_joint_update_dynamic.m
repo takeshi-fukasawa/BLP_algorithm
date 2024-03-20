@@ -32,17 +32,21 @@ elseif method==2
     if tune_param_BLP==0
         results_V_BLP_0_spectral(m,:)=results;
         ratio_delta_V_BLP_0_spectral=ratio_delta;
+        iter_info_V_BLP_0_spectral=iter_info;
         elseif tune_param_BLP==1
         results_V_BLP_1_spectral(m,:)=results;
         ratio_delta_V_BLP_1_spectral=ratio_delta;
+        iter_info_V_BLP_1_spectral=iter_info;
         end% tune_param_BLP==0 or 1
 elseif method==3
     if tune_param_BLP==0
         results_V_BLP_0_SQUAREM(m,:)=results;
         ratio_delta_V_BLP_0_SQUAREM=ratio_delta;
+        iter_info_V_BLP_0_SQUAREM=iter_info;
         elseif tune_param_BLP==1
         results_V_BLP_1_SQUAREM(m,:)=results;
         ratio_delta_V_BLP_1_SQUAREM=ratio_delta;
+        iter_info_V_BLP_1_SQUAREM=iter_info;
         end% tune_param_BLP==0 or 1
 
 end
