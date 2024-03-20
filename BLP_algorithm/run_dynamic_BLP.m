@@ -16,10 +16,11 @@ spec_default=[];
 spec_default.compute_alpha_spec=3;
 spec_default.TOL=1e-12;
 spec_default.common_alpha_spec=0;
+spec_default.ITER_MAX=2000;
 
 skip_contraction_spec=1;
 large_hetero_spec=0;
-mistake_spec=0;
+mistake_spec=1;
 
 rho_true=0;
 rho_est=rho_true;
@@ -64,7 +65,7 @@ T=30;
 
 if Sun_Ishihara_spec==1
    T=25;
-   n_dim_V=15;
+   n_dim_V=20;
    beta_0=4;
    Pr0_spec=1;
    durable_spec=1;
@@ -77,7 +78,5 @@ else
     durable_spec=1;
     t_dependent_alpha_spec=1;
 end
-
-
 
 run run_RCNL_iterations_dynamic.m

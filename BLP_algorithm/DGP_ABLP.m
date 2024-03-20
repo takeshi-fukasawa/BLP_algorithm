@@ -31,12 +31,11 @@ sigma_x_true=[0.5,0.5,0.5];
 sigma_p_true=0.2;
 
 if durable_spec==1
-beta_x=[1;1;0.5];
-alpha=-2;
-sigma_const_true=0;
-sigma_x_true=[0.5;0.5;0];
-sigma_p_true=0.25;
-
+    beta_x=[1;1;0.5];
+    alpha=-2;
+    sigma_const_true=0;
+    sigma_x_true=[0.5,0.5,0];
+    sigma_p_true=0.25;
 end
 
 if 1==0
@@ -60,34 +59,34 @@ p_jt=3+1.5*xi_jt+u_jt+...
     J,1,G,T);%J*1*G*T
 
 if durable_spec==1
-rho_0=0.1;
-rho_z=0.95;
-z_j0=8*ones(J,1,G,1);
-z_jt=zeros(J,1,G,T+1);
-z_jt(:,:,:,1)=z_j0;
-
-for t=1:T
-eta_jt=0.1*randn(J,1,G,1);
-z_jt(:,:,:,t+1)=rho_0+rho_z*z_jt(:,:,:,t)+eta_jt;
-end
-z_jt=z_jt(:,:,:,2:end);%J*1*G*T
-
-gamma_0=1;
-gamma_x=[0.2;0.2;0.1];
-gamma_z=1;
-gamma_w=0.2;
-gamma_xi=0.7;
-gamma_p=[0.1;0.1;0.1];
-
-u_jt=0.01*randn(J,1,G,T);
-w_jt=randn(J,1,G,T);
-
-%%% Competitors' char ??? %%%%%%
-p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
-    gamma_w*w_jt+gamma_xi*xi_jt...
-    -sum(reshape(x_jt*gamma_p,J,1,G,T),1)+... %%% reshape(x_jt*gamma_p,J,1,G,T),1)+...
-    u_jt;%J*1*G*T
-%p_jt=repmat(p_jt(:,:,:,1),[1,1,1,T]);
+    rho_0=0.1;
+    rho_z=0.95;
+    z_j0=8*ones(J,1,G,1);
+    z_jt=zeros(J,1,G,T+1);
+    z_jt(:,:,:,1)=z_j0;
+    
+    for t=1:T
+    eta_jt=0.1*randn(J,1,G,1);
+    z_jt(:,:,:,t+1)=rho_0+rho_z*z_jt(:,:,:,t)+eta_jt;
+    end
+    z_jt=z_jt(:,:,:,2:end);%J*1*G*T
+    
+    gamma_0=1;
+    gamma_x=[0.2;0.2;0.1];
+    gamma_z=1;
+    gamma_w=0.2;
+    gamma_xi=0.7;
+    gamma_p=[0.1;0.1;0.1];
+    
+    u_jt=0.01*randn(J,1,G,T);
+    w_jt=randn(J,1,G,T);
+    
+    %%% Competitors' char ??? %%%%%%
+    p_jt=gamma_0+reshape(x_jt*(gamma_x+gamma_p),J,1,G,T)+gamma_z*z_jt+...
+        gamma_w*w_jt+gamma_xi*xi_jt...
+        -sum(reshape(x_jt*gamma_p,J,1,G,T),1)+... %%% reshape(x_jt*gamma_p,J,1,G,T),1)+...
+        u_jt;%J*1*G*T
+    %p_jt=repmat(p_jt(:,:,:,1),[1,1,1,T]);
 end
 
 
@@ -164,21 +163,23 @@ if large_hetero_spec==2
 end
 
 %%% Try values of mu_ijt_est ~= mu_ijt_true (motivated by estimation) 
-if mistake_spec==1
+if mistake_spec==1 & durable_spec==0
     mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
     mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
    
     sd=3;
-sigma_const=sigma_const_true*exp(sd*rand(1)); 
-sigma_x=sigma_x_true.*exp(sd*rand(1,3)); 
-sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 
+    sigma_const=sigma_const_true*exp(sd*rand(1)); 
+    sigma_x=sigma_x_true.*exp(sd*rand(1,3)); 
+    sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 
+    
+    mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
+        sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
+        sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
+    
+    mu_ijt_est=reshape(mu_ijt_est,J,ns,G,T)./eps_sd;
 
-mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
-    sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
-    sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
+elseif mistake_spec==1 & durable_spec==1
 
-mu_ijt_est=reshape(mu_ijt_est,J,ns,G,T)./eps_sd;
-else
     mu_ijt_est=mu_ijt_true;
 end
 
