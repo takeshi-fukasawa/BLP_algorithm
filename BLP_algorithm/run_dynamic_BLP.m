@@ -20,7 +20,7 @@ spec_default.ITER_MAX=2000;
 
 skip_contraction_spec=1;
 large_hetero_spec=0;
-mistake_spec=1;
+mistake_spec=0;
 
 rho_true=0;
 rho_est=rho_true;

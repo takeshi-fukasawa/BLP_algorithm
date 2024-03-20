@@ -163,7 +163,7 @@ if large_hetero_spec==2
 end
 
 %%% Try values of mu_ijt_est ~= mu_ijt_true (motivated by estimation) 
-if mistake_spec==1 & durable_spec==0
+if mistake_spec==1
     mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
     mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
    
@@ -178,7 +178,7 @@ if mistake_spec==1 & durable_spec==0
     
     mu_ijt_est=reshape(mu_ijt_est,J,ns,G,T)./eps_sd;
 
-elseif mistake_spec==1 & durable_spec==1
+elseif mistake_spec==0
 
     mu_ijt_est=mu_ijt_true;
 end
