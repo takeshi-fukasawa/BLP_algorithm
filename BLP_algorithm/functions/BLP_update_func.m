@@ -16,5 +16,6 @@ S_jt_data,s_jt_predict,rho,tune_param_BLP);
     output={delta_updated};
 
     other_vars=[];
+    other_vars.s_jt_predict=s_jt_predict;
     
 end

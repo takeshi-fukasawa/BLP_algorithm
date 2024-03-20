@@ -3,6 +3,7 @@
 clear
 
 global Pr0_spec
+rng('default')
 
 addpath('./functions')
 addpath('./run_dynamic')
@@ -35,7 +36,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=0;
+Sun_Ishihara_spec=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -52,6 +53,7 @@ J=25;% Number of products per nest
 beta_0=4;
 
 beta_C=0.99;
+%%beta_C=0;
 
 %%% T==1=> stationary;
 T=100;

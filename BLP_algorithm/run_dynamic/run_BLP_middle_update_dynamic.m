@@ -1,53 +1,76 @@
+
+global feval_Bellman
 spectral_V_spec=1;
-tune_param_BLP=0;
 
-%% Normal iteration
-%%%V_initial0=V_true;
-V_initial=V_initial0;
-delta_initial=delta_initial0;
+%% V_update_func 
+for method=2:2
+    run spec_settings.m
 
-DIST_MAT=zeros(ITER_MAX,1);
-tic
-for k=1:ITER_MAX
+    feval_Bellman=0;
 
-    out_cell=delta_middle_Bellman_inner_func(delta_initial,...
-        V_initial0,mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
-        weight,spectral_V_spec,tune_param_BLP);
-
-    delta_updated=out_cell{1};
-    DIST=max(abs(delta_updated(:)-delta_initial(:)));%scalar
-    DIST_MAT(k,:)=DIST;
-
-
-      if DIST<TOL
-          break;% end the for loop
-      elseif isnan(DIST)==1
-          k=ITER_MAX;
-          break;
-      else
-          delta_initial=delta_updated;%J by 1
-      end
-
-end% for loop
-t_delta_middle=toc;
-ratio_delta_middle=delta_updated./delta_jt_true;
-feval_update_delta_middle=k;
-
-spec=spec_default;
-spec.update_spec=t_dim_id;
-
-tic
-    [output_spectral,other_vars,iter_info]=...
+    tStart=cputime;
+        [output_spectral,other_vars,iter_info]=...
         spectral_func(@delta_middle_Bellman_inner_func,...
         spec,{delta_initial0},V_initial0,...
         mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
-        weight,spectral_V_spec,tune_param_BLP);
-    
+        weight,spectral_V_spec,tune_param_BLP,spec,...
+        weight_V,x_V);
+    tEnd=cputime;
+
+    iter_info.t_cpu=tEnd-tStart; % inner and middle loop spectral algorithm => False toc...
+    iter_info.feval_Bellman=feval_Bellman;
     delta_sol=output_spectral{1};
 
-t_delta_middle_spectral=iter_info.t_cpu;
-IV_state=other_vars.IV;
+    s_jt_predict=other_vars.s_jt_predict;
 
-ratio_delta_middle_spectral=delta_sol./delta_jt_true;
-DIST_MAT_delta_middle_spectral=DIST_table;
-feval_update_delta_middle_spectral=iter_info.feval;
+    results_BLP_middle=results_output_func(iter_info,s_jt_predict,S_jt_data);
+    ratio_delta=delta_sol./delta_jt_true;
+
+if method==1
+
+    if tune_param==0
+        results_BLP_middle_0(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_0=ratio_delta;
+        iter_info_BLP_middle_0=iter_info;
+    elseif tune_param==1
+        results_BLP_middle_1(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_1=ratio_delta;
+        iter_info_V_1=iter_info;
+    elseif tune_param>1
+        results_BLP_middle_2(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_2=ratio_delta;
+        iter_info_BLP_middle_2=iter_info;
+    end
+
+elseif method==2
+    if tune_param==0
+        results_BLP_middle_0_spectral(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_0_spectral=ratio_delta;
+        iter_info_BLP_middle_0_spectral=iter_info;
+    elseif tune_param==1
+        results_BLP_middle_1_spectral(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_1_spectral=ratio_delta;
+        iter_info_BLP_middle_1_spectral=iter_info;
+    elseif tune_param>1
+        results_BLP_middle_2_spectral(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_2_spectral=ratio_delta;
+        iter_info_BLP_middle_2_spectral=iter_info;
+    end% tune_param==0 or 1 or others
+elseif method==3
+    if tune_param==0
+        results_BLP_middle_0_SQUAREM(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_0_SQUAREM=ratio_delta;
+        iter_info_BLP_middle_0_SQUAREM=iter_info;
+    elseif tune_param==1
+        results_BLP_middle_1_SQUAREM(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_1_SQUAREM=ratio_delta;
+        iter_info_BLP_middle_1_SQUAREM=iter_info;
+    elseif tune_param>1
+        results_BLP_middle_2_SQUAREM(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_2_SQUAREM=ratio_delta;
+        iter_info_BLP_middle_2_SQUAREM=iter_info;
+    end% tune_param==0 or 1 or others
+end
+
+
+end % method
