@@ -2,7 +2,7 @@
 %% Parameter settings
 clear
 
-global Pr0_spec
+global Pr0_spec inv_multiply_Chebyshev_basis Chebyshev_extrema
 rng('default')
 
 addpath('./functions')
@@ -38,7 +38,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=0;
+Sun_Ishihara_spec=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1

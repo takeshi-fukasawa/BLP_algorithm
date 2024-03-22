@@ -1,7 +1,10 @@
 function EV=compute_EV_func(V,IV_state,weight_V,x_V,T)
 
+global inv_multiply_Chebyshev_basis Chebyshev_extrema
+
 [~,ns,~,n_dim_V]=size(V);
 n_grid_IV=n_dim_V-T;
+n_dim_Chebyshev=n_grid_IV;
 
 if T==1 %% stationary expec
    EV=V;
@@ -33,17 +36,8 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     %[min(IV_state_grid(:)),max(IV_state_grid(:))]
 
     %%% Construct Chebyshev basis
-    n_dim_Chebyshev=n_grid_IV;
-
-    Chebyshev_extrema=cos([0:n_dim_Chebyshev-1]*pi/(n_dim_Chebyshev-1));% fixed in the iteration
-
-    basis_t_grid=construct_Chebyshev_basis_func(...
-        reshape(Chebyshev_extrema,n_grid_IV,1),...
-        n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev; fixed in the iteration
-    
     y=(reshape(V(1,:,1,T+1:end),ns,n_grid_IV))';%n_grid_IV*ns
-
-    coef=inv(basis_t_grid'*basis_t_grid)*basis_t_grid'*y;%n_dim_Chebyshev*ns
+    coef=inv_multiply_Chebyshev_basis*y;%n_dim_Chebyshev*ns
 
     IV_max=IV_state_grid(:,:,:,1);%1*ns*1*1
     IV_min=IV_state_grid(:,:,:,end);%1*ns*1*1
