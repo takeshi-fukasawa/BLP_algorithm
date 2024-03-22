@@ -22,7 +22,7 @@ else
 end
 
 
-        [output_spectral,other_vars_Bellman,iter_info_Bellman]=...
+    [output_spectral,other_vars_Bellman,iter_info_Bellman]=...
         spectral_func(@Bellman_update_func,spec,{V_initial_hot_start},...
         delta_initial,mu_ij,beta_C,rho,...
         weight_V,x_V);
@@ -31,11 +31,22 @@ end
 
     feval_Bellman=feval_Bellman+iter_info_Bellman.feval;
 
+    T=size(mu_ijt,4);
+    n_dim_V=size(V_sol,4);
+
     IV=other_vars_Bellman.IV;
-    s_igt_ccp=exp(IV(:,:,:,:,1)-V_sol(:,:,:,:,1));
     
-    s_ijt_given_g_ccp=...
-    other_vars_Bellman.numer_1(:,:,:,:,1)./other_vars_Bellman.denom_1(:,:,:,:,1);
+    if T==n_dim_V
+       s_igt_ccp=exp(IV-V_sol);
+       s_ijt_given_g_ccp=...
+           other_vars_Bellman.numer_1./other_vars_Bellman.denom_1;
+    else
+       s_igt_ccp=exp(IV(:,:,:,T+1:end)-V_sol(:,:,:,T+1:end));
+       s_ijt_given_g_ccp=...
+           other_vars_Bellman.numer_1(:,:,:,:,T+1:end)./...
+           other_vars_Bellman.denom_1(:,:,:,:,T+1:end);
+    end
+ 
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
 
     s_jt_predict=compute_s_jt_func(s_ijt_ccp,weight);

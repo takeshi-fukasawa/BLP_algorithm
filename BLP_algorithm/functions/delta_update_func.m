@@ -1,7 +1,8 @@
 function delta_updated=delta_update_func(...
     delta_initial,S_jt_data,s_jt_predict,rho,tune_param_BLP)
 
-
+    %%% Used in BLP contraction type mapping
+    
     delta_updated=delta_initial+(1-rho).*(log(S_jt_data)-log(s_jt_predict));%J*1*G
   
       

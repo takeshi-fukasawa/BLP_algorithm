@@ -7,13 +7,13 @@ function [output,other_vars]=...
  
     %%% G==1 & rho==0 case only
     [J,ns,~,T]=size(mu_ijt);
-    n_dim_V=size(V_initial,5);
-    n_state=size(weight,5);
-   
-    if n_state==1 & n_dim_V>1 %% IVS spec
-       V_initial_obs_pt=V_initial(:,:,:,:,1);%1*ns*1*T; V at obs data pts
+    n_dim_V=size(V_initial,4);
+
+    if n_dim_V>T %% IVS spec
+       V_initial_obs_pt=V_initial(:,:,:,1:T);%1*ns*1*T; V at obs data pts
     else
-       V_initial_obs_pt=V_initial;%1*ns*1*T*n_state
+       n_gird_IV=n_dim_V-T;
+       V_initial_obs_pt=V_initial;%1*ns*1*T
     end
 
     %% Compute delta
@@ -30,13 +30,25 @@ function [output,other_vars]=...
 
     v_i0t_tilde=beta_C*EV;
 
-    s_i0t_ccp=reshape(exp(v_i0t_tilde(:,:,:,:,1)-V_initial(:,:,:,:,1)),1,ns,1,T,n_state);
+    if n_dim_V==T
+        s_i0t_ccp=reshape(exp(v_i0t_tilde-V_initial),1,ns,1,T);
+    else
+        s_i0t_ccp=reshape(exp(v_i0t_tilde(:,:,:,1:T)-V_initial(:,:,:,1:T)),1,ns,1,T);
+    end
 
     s_0t_predict=...
-        sum(reshape(weight,1,ns,1,1,n_state).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
+        sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
-    V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
+    if n_dim_V==T
+        V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
+    else
+        V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
+            exp(IV_new(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
+        V_grid=log(exp(v_i0t_tilde(:,:,:,T+1:end))+...
+            exp(IV_new(:,:,:,T+1:end)));%1*ns*1*n_grid_IV
+        V_updated=cat(4,V_obs_pt,V_grid);%1*ns*1*n_dim_V
+    end
 
 %%%%%%%%%%%%%%%%%%%%%%%
     if Newton_spec==1 & n_grid_V==1

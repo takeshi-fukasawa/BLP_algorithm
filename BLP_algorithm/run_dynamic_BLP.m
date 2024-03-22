@@ -65,14 +65,14 @@ T=30;
 
 if Sun_Ishihara_spec==1
    T=25;
-   n_dim_V=20;
+   n_grid_IV=20;
    beta_0=4;
    Pr0_spec=1;
    durable_spec=1;
    t_dependent_alpha_spec=0;
 else
-    T=100;
-    n_dim_V=1;
+    T=50;
+    n_grid_IV=0;
     beta_0=4;
     Pr0_spec=1;
     durable_spec=1;

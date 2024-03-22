@@ -11,9 +11,8 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
 
     [J,ns,G,T]=size(mu_ijt);
 
-
     s_ijt_ccp_up_to_scale=exp(reshape(mu_ijt,J,ns,G,T,1)-...
-        reshape(V(:,:,:,:,1),1,ns,1,T));%J*ns*G*T
+        reshape(V,1,ns,1,T));%J*ns*G*T
 
     Pr0=ones(1,ns,1,T);
 

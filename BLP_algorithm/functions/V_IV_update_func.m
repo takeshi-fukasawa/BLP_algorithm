@@ -6,11 +6,15 @@ function [output,other_vars]=...
     %%% Currently static only?? (Pr0 not introduced??)
 
     [J,ns,G,T]=size(mu_ijt);   
-    n_dim_V=size(V_initial,5);
-   
-    V_initial_obs_pt=V_initial(:,:,:,:,1);%1*ns*1*T; V at obs data pts
-    IV_initial_obs_pt=IV_initial(:,:,:,:,1);%1*ns*G*T; IV at obs data pts
-   
+    n_dim_V=size(V_initial,4);
+    
+    if T==n_dim_V
+        V_initial_obs_pt=V_initial;%1*ns*1*T; V at obs data pts
+        IV_initial_obs_pt=IV_initial;%1*ns*G*T; IV at obs data pts
+    else
+        V_initial_obs_pt=V_initial(:,:,:,1:T);%1*ns*1*T; V at obs data pts
+        IV_initial_obs_pt=IV_initial(:,:,:,1:T);%1*ns*G*T; IV at obs data pts
+    end
     
     if rho==0
     numer_1=exp(mu_ijt./(1-rho));%J*ns*G*T
@@ -32,20 +36,22 @@ function [output,other_vars]=...
     else
         v_ijt=reshape(delta,J,1,G,T)+reshape(mu_ijt,J,ns,G,T);%J*ns*G*T
         IV_new=(1-rho).*log(sum(exp(v_ijt/(1-rho)),1));%1*ns*G*T
-
     end
 
-if n_dim_V>=2
+if (n_dim_V-T)>=1
 %%% Inclusive value sufficiency
-IV_new=IVS_compute_IV_func(IV_new,n_dim_V-1);%1*ns*G*T*n_dim_V
+IV_new=IVS_compute_IV_func(IV_new,n_dim_V-1);%1*ns*G*n_dim_V
 end
 
     weight_V=[];
-    EV=compute_EV_func(V_initial,IV_new,weight_V,x_V);%1*ns*1*T*n_dim_V
-    v_i0t=beta_C*EV;%1*ns*1*T*n_dim_V
+    EV=compute_EV_func(V_initial,IV_new,weight_V,x_V,T);%1*ns*1*n_dim_V
+    v_i0t=beta_C*EV;%1*ns*1*n_dim_V
 
-    v_i0t_obs_pt=v_i0t(:,:,:,:,1);%1*ns*1*T*n_dim_V; v_i0t at obs data pts
-   
+    if n_dim_V==T
+        v_i0t_obs_pt=v_i0t;%1*ns*1*T; v_i0t at obs data pts
+    else
+        v_i0t_obs_pt=v_i0t(:,:,:,1:T);%1*ns*1*T; v_i0t at obs data pts
+    end
     s_0t_predict=sum(reshape(weight,1,ns).*...
         reshape(exp(v_i0t_obs_pt-V_initial_obs_pt),1,ns,1,T),2);%1*1*1*T
     s_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T

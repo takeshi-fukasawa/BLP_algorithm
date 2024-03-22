@@ -17,10 +17,15 @@ for method=1:3
     v_i0t_tilde=other_vars.v_i0t_tilde;
     v_ijt_tilde=other_vars.v_ijt_tilde;
     
-    s_jt_predict=...
-    share_func(v_ijt_tilde(:,:,:,:,1),...
-        v_i0t_tilde(:,:,:,:,1),rho_est,weight);
-
+    if T==size(V_sol,4)
+        s_jt_predict=...
+            share_func(v_ijt_tilde,...
+            v_i0t_tilde,rho_est,weight);
+    else
+        s_jt_predict=...
+            share_func(v_ijt_tilde(:,:,:,1:T),...
+            v_i0t_tilde(:,:,:,1:T),rho_est,weight);
+    end
     results_V=results_output_func(iter_info,s_jt_predict,S_jt_data);
     ratio_delta=delta_sol./delta_jt_true;
 
