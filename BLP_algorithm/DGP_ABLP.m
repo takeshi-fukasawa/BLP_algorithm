@@ -38,10 +38,10 @@ if durable_spec==1
     sigma_p_true=0.25;
 end
 
-if 1==0
-    sigma_const_true=sigma_const_true*0.0;
-    sigma_x_true=sigma_x_true*0.0;
-    sigma_p_true=sigma_p_true*0.0;
+if 1==1
+    sigma_const_true=sigma_const_true*0.1;
+    sigma_x_true=sigma_x_true*0.1;
+    sigma_p_true=sigma_p_true*0.1;
 end
 
 %sigma_const_true=sigma_const_true*5;

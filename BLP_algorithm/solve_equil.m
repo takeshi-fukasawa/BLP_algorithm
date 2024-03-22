@@ -2,18 +2,24 @@
 x_V=x_V*sqrt(2);%n_draw*1
 weight_V=weight_V./sum(weight_V,1);%n_draw*1
 
-%%% Chebyshev basis function
-n_dim_Chebyshev=n_grid_IV;
+if T==1
+    n_grid_IV=0;
+end
 
-Chebyshev_extrema=cos([0:n_dim_Chebyshev-1]*pi/(n_dim_Chebyshev-1));% fixed in the iteration
+if T>=2
+    %%% Chebyshev basis function
+    n_dim_Chebyshev=n_grid_IV;
+    
+    Chebyshev_extrema=cos([0:n_dim_Chebyshev-1]*pi/(n_dim_Chebyshev-1));% fixed in the iteration
+    
+    basis_t_grid=construct_Chebyshev_basis_func(...
+        reshape(Chebyshev_extrema,n_grid_IV,1),...
+        n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev; fixed in the iteration
+        
+    inv_multiply_Chebyshev_basis=...
+        inv(basis_t_grid'*basis_t_grid)*basis_t_grid';%n_dim_Chebyshev*n_dim_Chebyshev
+end
 
-basis_t_grid=construct_Chebyshev_basis_func(...
-    reshape(Chebyshev_extrema,n_grid_IV,1),...
-    n_dim_Chebyshev);%n_grid_IV*n_dim_Chebyshev; fixed in the iteration
-    
-inv_multiply_Chebyshev_basis=...
-    inv(basis_t_grid'*basis_t_grid)*basis_t_grid';%n_dim_Chebyshev*n_dim_Chebyshev
-    
 V_initial0=zeros(1,ns,1,n_dim_V);%1*ns*1*n_dim_V
 
 mu_ijt=mu_ijt_true;
