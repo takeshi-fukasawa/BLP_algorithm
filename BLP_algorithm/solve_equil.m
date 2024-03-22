@@ -6,7 +6,7 @@ if T==1
     n_grid_IV=0;
 end
 
-if T>=2
+if n_grid_IV>0
     %%% Chebyshev basis function
     n_dim_Chebyshev=n_grid_IV;
     
