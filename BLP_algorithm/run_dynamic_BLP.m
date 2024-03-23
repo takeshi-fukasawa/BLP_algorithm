@@ -38,7 +38,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=1;
+Sun_Ishihara_spec=0;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -67,14 +67,14 @@ if Sun_Ishihara_spec==1
    T=25;
    n_grid_IV=10;
    beta_0=6;
-   Pr0_spec=0;
+   Pr0_spec=1;
    durable_spec=1;
    t_dependent_alpha_spec=0;
 else
     T=50;
     n_grid_IV=0;
     beta_0=6;
-    Pr0_spec=1;
+    Pr0_spec=0;
     durable_spec=1;
     t_dependent_alpha_spec=1;
 end

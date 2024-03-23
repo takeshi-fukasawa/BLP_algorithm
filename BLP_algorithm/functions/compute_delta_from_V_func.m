@@ -19,7 +19,7 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
             s_ijt_ccp_up_to_scale,[2,5]);%J*1*G*T
     
         delta=log(S_jt_data)-log(s_jt_up_to_scale);%J*1*G*T
-        Pr0=NaN(1,ns,1,T);
+        Pr0=ones(1,ns,1,T);
         
    elseif Pr0_spec==1 & isempty(Pr0)==1 %%% sequentially compute Pr0 and delta
         delta=NaN(J,1,G,T);
@@ -50,7 +50,7 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
                s_ijt_ccp_up_to_scale,2);%J*1*G*T
 
           exp_delta=S_jt_data./s_jt_up_to_scale;%J*1*G*T
-          delta=log(exp_delta_t);%J*1*G*T
+          delta=log(exp_delta);%J*1*G*T
 
           s_ijt_ccp=s_ijt_ccp_up_to_scale.*...
               exp_delta;%J*ns*G*T

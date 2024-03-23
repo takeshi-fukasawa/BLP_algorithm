@@ -37,7 +37,7 @@ function [output,other_vars]=...
     end
 
     s_0t_predict=...
-        sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
+        sum(reshape(weight,1,ns,1,1).*(1-Pr0_initial+Pr0_initial.*s_i0t_ccp),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
     if n_dim_V==T
