@@ -18,7 +18,7 @@ spec_default.TOL=1e-12;
 spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=2000;
 
-skip_contraction_spec=0;
+skip_contraction_spec=1;
 large_hetero_spec=0;
 mistake_spec=0;
 
@@ -38,7 +38,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=0;
+Sun_Ishihara_spec=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -67,7 +67,7 @@ if Sun_Ishihara_spec==1
    T=25;
    n_grid_IV=10;
    beta_0=6;
-   Pr0_spec=1;
+   Pr0_spec=0;
    durable_spec=1;
    t_dependent_alpha_spec=0;
 else
