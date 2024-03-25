@@ -39,7 +39,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=1;
+IVS_spec=0;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -64,7 +64,7 @@ T=30;
 %T=2;
 %T=1;
 
-if Sun_Ishihara_spec==1
+if IVS_spec==1
    T=25;
    n_grid_IV=10;
    beta_0=6;
