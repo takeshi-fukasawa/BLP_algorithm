@@ -29,6 +29,15 @@ end
 
     V_sol=output_spectral{1};
 
+    %%%%%%%%%%%%%%
+
+    IV=other_vars_bellman.IV;
+
+    denom=exp(sum(IV,3,'omitnan'))+exp(other_vars.v_i0t_tilde);
+    s_i0t_ccp=exp(other_vars.v_i0t_tilde)./denom;
+
+    %%%%%%%%%%%%
+
     feval_Bellman=feval_Bellman+iter_info_Bellman.feval;
 
     T=size(mu_ijt,4);
@@ -49,7 +58,7 @@ end
  
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;
 
-    s_jt_predict=compute_s_jt_func(s_ijt_ccp,weight);
+    s_jt_predict=compute_s_jt_func(s_ijt_ccp,s_i0t_ccp,weight);
 
     delta_updated=delta_update_func(...
         delta_initial,S_j_data,s_jt_predict,rho,tune_param_BLP);

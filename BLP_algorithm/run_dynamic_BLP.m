@@ -17,8 +17,9 @@ spec_default.compute_alpha_spec=3;
 spec_default.TOL=1e-12;
 spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=3000;
+%spec_default.ITER_MAX=3;
 
-skip_contraction_spec=0;
+skip_contraction_spec=1;
 large_hetero_spec=0;
 mistake_spec=0;
 
@@ -38,7 +39,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=1;
+Sun_Ishihara_spec=0;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1

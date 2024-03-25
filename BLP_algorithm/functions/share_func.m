@@ -12,6 +12,8 @@ function [s_jt_predict,s_ijt_ccp,s_ijt_given_g_ccp,s_igt_ccp,...
     s_igt_ccp=numer_2./denom_2;%1*ns*G*T*n_state; prob of purchasing anything
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;%J*ns*G*T*n_state
 
-    [s_jt_predict,Pr0]=compute_s_jt_func(s_ijt_ccp,weight);
+    s_i0t_ccp=exp(v_i0t_tilde)./denom_2;
+
+    [s_jt_predict,Pr0]=compute_s_jt_func(s_ijt_ccp,s_i0t_ccp,weight);
 
 end
