@@ -28,7 +28,6 @@ function [output,other_vars]=...
         sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp_obs_pt),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
-    %%%tune_param=0;
     delta_jt=delta_jt-tune_param*(log(S_0t_data)-log(s_0t_predict));%J*1*1*T; add outside option share terms (for accelerating convergence)
 
     %% Update V
@@ -39,8 +38,6 @@ function [output,other_vars]=...
             V_initial,v_ijt_tilde,beta_C,rho,weight_V,x_V);
 
     v_i0t_tilde=beta_C*EV;
-
-    %%%%tune_param=1;%%%%%
 
     if n_grid_IV==0
         V_updated=log(exp(v_i0t_tilde)+exp(IV_new));%1*ns*1*n_dim_V

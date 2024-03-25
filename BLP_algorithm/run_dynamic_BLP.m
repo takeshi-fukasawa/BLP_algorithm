@@ -39,7 +39,7 @@ ns=I;
 n_market=1;
 n_draw=1;
 
-Sun_Ishihara_spec=0;
+Sun_Ishihara_spec=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
