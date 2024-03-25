@@ -31,7 +31,6 @@ for method=1:3
 
 
 if method==1
-
     if tune_param==0
         results_V_0(m,:)=results_V;
         ratio_delta_V_0=ratio_delta;

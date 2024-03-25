@@ -1,5 +1,5 @@
 function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
-    mu_ijt,weight,S_jt_data,V,Pr0)
+    mu_ijt,weight,S_jt_data,V,Pr0,s_i0t_ccp)
 
     global Pr0_spec
 
@@ -52,10 +52,13 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
           exp_delta=S_jt_data./s_jt_up_to_scale;%J*1*G*T
           delta=log(exp_delta);%J*1*G*T
 
-          s_ijt_ccp=s_ijt_ccp_up_to_scale.*...
-              exp_delta;%J*ns*G*T
-          s_i0t_ccp=1-sum(s_ijt_ccp,[1,3]);%1*ns*1*T
-          Pr0=cat(4,ones(1,ns,1,1),Pr0(:,:,:,1:T-1).*s_i0t_ccp(:,:,:,1:T-1));%1*ns*1*T
+          if isempty(s_i0t_ccp)==1
+              s_ijt_ccp=s_ijt_ccp_up_to_scale.*...
+                  exp_delta;%J*ns*G*T
+              s_i0t_ccp=1-sum(s_ijt_ccp,[1,3]);%1*ns*1*T
+          end
+
+         Pr0=cat(4,ones(1,ns,1,1),Pr0(:,:,:,1:T-1).*s_i0t_ccp(:,:,:,1:T-1));%1*ns*1*T
 
     end % if statement
 

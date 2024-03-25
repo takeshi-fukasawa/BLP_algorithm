@@ -1,4 +1,3 @@
-
 function [output,other_vars]=...
     V_update_func(...
     V_initial,weight,mu_ijt,...
@@ -17,9 +16,30 @@ function [output,other_vars]=...
     end
 
     %% Compute delta
-    [delta_jt,Pr0]=compute_delta_from_V_func(...
-       mu_ijt,weight,S_jt_data,V_initial_obs_pt,[]);
 
+    %%%%%%%%%%%%%%%%%%%
+    spec_1=1;
+    if spec_1==1 & T==n_dim_V
+        EV=compute_EV_func(...
+                V_initial,[],weight_V,x_V,T);
+    
+        v_i0t_tilde=beta_C*EV;
+        s_i0t_ccp=reshape(exp(v_i0t_tilde-V_initial),1,ns,1,T);
+    else
+        s_i0t_ccp=[];
+    end
+    %%%%%%%%%%%%%%%%%%%%%%
+ 
+    %% Compute delta
+    [delta_jt,Pr0]=compute_delta_from_V_func(...
+       mu_ijt,weight,S_jt_data,V_initial_obs_pt,...
+       [],s_i0t_ccp);
+
+    if spec_1==1 & T==n_dim_V
+        s_0t_predict=...
+            sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T
+        delta_jt=delta_jt-tune_param*(log(S_0t_data)-log(s_0t_predict));
+    end 
 
     %% Update V
     rho=0;
@@ -40,8 +60,10 @@ function [output,other_vars]=...
         sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
-    if n_dim_V==T
-        V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*T*n_dim_V
+    if n_dim_V==T & spec_1==1
+        V_updated=log(exp(v_i0t_tilde)+exp(IV_new));%1*ns*1*n_dim_V
+    elseif n_dim_V==T & spec_1==0
+        V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*n_dim_V
     else
         V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
             exp(IV_new(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
