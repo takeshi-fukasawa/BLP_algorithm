@@ -1,7 +1,7 @@
 function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
     mu_ijt,weight,S_jt_data,V,Pr0,s_i0t_ccp)
 
-    global Pr0_spec
+    global Pr0_spec ratio_s_i0t_ccp_t
 
     %%% Used in V_update_func etc.
     %%% rho==0 case 
@@ -9,6 +9,7 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
     %%% Sum of weight is not necesasarily equal to 1
 
     [J,ns,G,T]=size(mu_ijt);
+
 
     s_ijt_ccp_up_to_scale=exp(reshape(mu_ijt,J,ns,G,T,1)-...
         reshape(V,1,ns,1,T));%J*ns*G*T
@@ -36,6 +37,7 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
       
           s_ijt_ccp_t=s_ijt_ccp_up_to_scale(:,:,:,t,:).*...
               exp_delta_t;%J*ns*G*1
+
           s_i0t_ccp_t=1-sum(s_ijt_ccp_t,[1,3]);%1*ns*1*1
 
           if t<=T-1

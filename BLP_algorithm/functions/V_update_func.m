@@ -11,7 +11,7 @@ function [output,other_vars]=...
     if n_dim_V>T %% IVS spec
        V_initial_obs_pt=V_initial(:,:,:,1:T);%1*ns*1*T; V at obs data pts
     else
-       n_gird_IV=n_dim_V-T;
+       n_grid_IV=n_dim_V-T;
        V_initial_obs_pt=V_initial;%1*ns*1*T
     end
 
@@ -30,16 +30,11 @@ function [output,other_vars]=...
     end
     %%%%%%%%%%%%%%%%%%%%%%
  
+
     %% Compute delta
     [delta_jt,Pr0]=compute_delta_from_V_func(...
        mu_ijt,weight,S_jt_data,V_initial_obs_pt,...
        [],s_i0t_ccp);
-
-    if spec_1==1 & T==n_dim_V
-        s_0t_predict=...
-            sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T
-        delta_jt=delta_jt-tune_param*(log(S_0t_data)-log(s_0t_predict));
-    end 
 
     %% Update V
     rho=0;
@@ -48,11 +43,29 @@ function [output,other_vars]=...
     [numer_1,denom_1,IV_new,EV]=compute_IV_EV_func(...
             V_initial,v_ijt_tilde,beta_C,rho,weight_V,x_V);
 
-    v_i0t_tilde=beta_C*EV;
+
+    numer_1=exp(v_ijt_tilde);%J*ns*G*T
+    denom_1=sum(numer_1,1);%1*ns*G*T
+    
+    IV_obs_pt=log(denom_1);%1*ns*G*T
 
     if n_dim_V==T
-        s_i0t_ccp=reshape(exp(v_i0t_tilde-V_initial),1,ns,1,T);
+        IV=IV_obs_pt;
     else
+        IV=IVS_compute_IV_func(IV_obs_pt,n_dim_V-T);%1*ns*1*n_dim_V
+    end
+
+    if beta_C>0 & (spec_1==0 & T==n_dim_V | T<n_dim_V)
+        EV=compute_EV_func(V_initial,IV,weight_V,x_V,T);%1*ns*1*n_dim_V
+    elseif beta_C==0
+        EV=0;
+    end
+
+    v_i0t_tilde=beta_C*EV;
+
+    if n_dim_V==T & spec_1==0
+        s_i0t_ccp=reshape(exp(v_i0t_tilde-V_initial),1,ns,1,T);
+    elseif n_dim_V>T
         s_i0t_ccp=reshape(exp(v_i0t_tilde(:,:,:,1:T)-V_initial(:,:,:,1:T)),1,ns,1,T);
     end
 
@@ -60,15 +73,13 @@ function [output,other_vars]=...
         sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
-    if n_dim_V==T & spec_1==1
-        V_updated=log(exp(v_i0t_tilde)+exp(IV_new));%1*ns*1*n_dim_V
-    elseif n_dim_V==T & spec_1==0
+    if n_dim_V==T
         V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*n_dim_V
     else
         V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
-            exp(IV_new(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
+            exp(IV(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
         V_grid=log(exp(v_i0t_tilde(:,:,:,T+1:end))+...
-            exp(IV_new(:,:,:,T+1:end)));%1*ns*1*n_grid_IV
+            exp(IV(:,:,:,T+1:end)));%1*ns*1*n_grid_IV
         V_updated=cat(4,V_obs_pt,V_grid);%1*ns*1*n_dim_V
     end
 

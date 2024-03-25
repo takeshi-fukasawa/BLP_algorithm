@@ -3,6 +3,8 @@
 clear
 
 global Pr0_spec inv_multiply_Chebyshev_basis Chebyshev_extrema
+global ratio_s_i0t_ccp_t
+
 rng('default')
 
 addpath('./functions')
