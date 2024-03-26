@@ -79,7 +79,9 @@ else
     beta_0=6;
     Pr0_spec=1;
     durable_spec=1;
-    t_dependent_alpha_spec=1;
+    t_dependent_alpha_spec=0;
 end
+
+%%T=1;
 
 run run_RCNL_iterations_dynamic.m

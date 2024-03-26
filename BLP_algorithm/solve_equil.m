@@ -63,3 +63,5 @@ if T>=2
     [coef_0_true,coef_1_true,y,y_predict,R2]=...
         estimate_IV_AR1_transition_func(IV_state_obs_pt);    
 end
+
+delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta

@@ -17,18 +17,15 @@ function [output,other_vars]=...
     v_i0t_tilde_obs_pt=beta_C*EV_initial_obs_pt;
 
     s_i0t_ccp_obs_pt=reshape(exp(v_i0t_tilde_obs_pt-V_initial_obs_pt),1,ns,1,T);
-
- 
+    
     %% Compute delta
     [delta_jt,Pr0]=compute_delta_from_V_func(...
        mu_ijt,weight,S_jt_data,V_initial_obs_pt,[],...
-       s_i0t_ccp_obs_pt);
+       []);
 
     s_0t_predict=...
         sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp_obs_pt),[2,5]);%1*1*1*T 
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
-
-    delta_jt=delta_jt-tune_param*(log(S_0t_data)-log(s_0t_predict));%J*1*1*T; add outside option share terms (for accelerating convergence)
 
     %% Update V
     rho=0;

@@ -40,9 +40,6 @@ function [output,other_vars]=...
     rho=0;
     v_ijt_tilde=delta_jt+mu_ijt;
 
-    [numer_1,denom_1,IV_new,EV]=compute_IV_EV_func(...
-            V_initial,v_ijt_tilde,beta_C,rho,weight_V,x_V);
-
 
     numer_1=exp(v_ijt_tilde);%J*ns*G*T
     denom_1=sum(numer_1,1);%1*ns*G*T
@@ -74,7 +71,7 @@ function [output,other_vars]=...
     S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
 
     if n_dim_V==T
-        V_updated=log(exp(v_i0t_tilde)+exp(IV_new).*(S_0_ratio.^tune_param));%1*ns*1*n_dim_V
+        V_updated=log(exp(v_i0t_tilde)+exp(IV).*(S_0_ratio.^tune_param));%1*ns*1*n_dim_V
     else
         V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
             exp(IV(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
@@ -95,7 +92,7 @@ function [output,other_vars]=...
     output={V_updated};
     other_vars.s_i0t_ccp=s_i0t_ccp;
     other_vars.v_i0t_tilde=v_i0t_tilde;
-    other_vars.IV=IV_new;
+    other_vars.IV=IV;
     other_vars.delta_jt=delta_jt;
     other_vars.v_ijt_tilde=v_ijt_tilde;
     
