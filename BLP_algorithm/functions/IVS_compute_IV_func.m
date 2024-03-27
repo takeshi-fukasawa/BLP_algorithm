@@ -9,8 +9,8 @@ function IV=IVS_compute_IV_func(IV_obs_pt,n_grid_V)
     Chebyshev_extrema=cos([0:n_dim_Chebyshev-1]*pi/(n_dim_Chebyshev-1));
 
     %%%%%%%%%%%% large range important for convergence 
-    IV_min=-4+min(IV_obs_pt,[],4);%1*ns*1*1
-    IV_max=4+max(IV_obs_pt,[],4);%1*ns*1*1
+    IV_min=-2+min(IV_obs_pt,[],4);%1*ns*1*1
+    IV_max=2+max(IV_obs_pt,[],4);%1*ns*1*1
     
     %%%% Fixed IV grid %%%%
     %%IV_min=IV_min*0-16;%% Performance rarely change??

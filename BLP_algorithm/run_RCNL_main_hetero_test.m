@@ -15,6 +15,8 @@ spec_default.compute_alpha_spec=3;
 spec_default.ITER_MAX=2000;
 spec_default.TOL=1e-13;
 
+%%%spec_default.alpha_max=10;%%%%
+
 %%spec_default.norm_spec=2;
 
 mistake_spec=0;

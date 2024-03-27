@@ -164,10 +164,10 @@ end
 
 %%% Try values of mu_ijt_est ~= mu_ijt_true (motivated by estimation) 
 if mistake_spec==1
-    mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
-    mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
+    %mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
+    %mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
    
-    sd=3;
+    sd=1;%%%
     sigma_const=sigma_const_true*exp(sd*rand(1)); 
     sigma_x=sigma_x_true.*exp(sd*rand(1,3)); 
     sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 

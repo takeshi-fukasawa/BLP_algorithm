@@ -26,10 +26,11 @@ end
 n_sim=1;
 I=10;
 I=100;
+%I=2;
 n_dim_V=1;
 n_draw=1;
 
-n_market=1;
+n_market=50;
 T=1;
 
 beta_C=0.0;
@@ -48,11 +49,10 @@ results_1=results;
 
 results_no_nest=[results_1];
 
-if spec.compute_alpha_spec==3
     %% Simulation 2
-    J=25;% Number of products per nest
+    J=250;% Number of products per nest
     G=1;
-    beta_0=2;
+    beta_0=0;
     rho_true=0.0;
     rho_est=rho_true;%%%%%
     
@@ -60,11 +60,9 @@ if spec.compute_alpha_spec==3
     results_2=results;
     results_no_nest=[results_1;results_2];
 
-end
 
-results_no_nest(:,end)=results_no_nest(:,end)*100;
 
-if 1==0
+if 1==1
     filename=append(output_path,"no_nest_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 
@@ -73,7 +71,7 @@ end
 
 end % RCL run
 
-if 1==0 & spec.compute_alpha_spec==3
+if 1==1 & spec.compute_alpha_spec==3 & I>2
 %% Simulation 3 (RCNL)
 J=25;% Number of products per nest
 G=3;
@@ -84,9 +82,7 @@ rho_est=rho_true;%%%%%
 run run_RCNL_iterations_static.m
 results_RCNL=results;
 
-results_RCNL(:,end)=results_RCNL(:,end)*100;
-
-if 1==0
+if 1==1
     filename=append(output_path,"RCNL_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 

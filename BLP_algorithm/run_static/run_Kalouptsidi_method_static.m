@@ -1,5 +1,5 @@
 %% Compute delta, given nonlinear parameters (modified version of Kalouptsidi method)
-
+ITER_MAX=spec.ITER_MAX;
 r_initial0=log(S_0t_data.*weight);%1 by ns; Initial value
 %%%r_initial0=r_initial0+randn(size(r_initial0));
 
@@ -20,7 +20,7 @@ for k=1:ITER_MAX
     output=...
     r_update_RCL_func(...
     r_initial,weight,mu_ijt_est,rho_est,...
-    S_jt_data,S_0t_data,numer_1_without_delta,...
+    S_jt_data,S_0t_data,exp(mu_ijt_est),...
     switch_r_spec);
     
     r_updated=output{1};
@@ -82,14 +82,14 @@ log_dist_new=log10(DIST_MAT);
 
 
 %%%%%%%%%%%%%%%%%
-if 1==0
+if 1==1
 %% New spectral (Kalouptsidi method)
 spec=spec_default;
 for kk=1:n_sim
         [output_spectral,other_vars,iter_info]=...
         spectral_func(@r_update_RCL_func,spec,{r_initial0},...
         weight,mu_ijt_est,rho_est,...
-        S_jt_data,S_0t_data,numer_1_without_delta,switch_r_spec);
+        S_jt_data,S_0t_data,exp(mu_ijt_est),switch_r_spec);
 
     r_sol=output_spectral{1};
 

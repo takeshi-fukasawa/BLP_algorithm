@@ -24,14 +24,11 @@ run DGP_ABLP.m
 %% Compute product market share, given parameters
 run solve_equil.m
 
-summary_market(m,:)=[S_0t_data];
+summary_market(m,:)=round([S_0t_data],3);
 
 if rho_est==0
 run model_conv_stat.m
 end
-
-results_data(m,1)=round(median(S_0t_data(:)),3);
-
 
 %%%%%%%%%%%%%%
 %% BLP contraction mapping (G>=2 case allowed)
@@ -56,18 +53,24 @@ if rho_est==0 %%%%%%%%%%%%%%%%%%
     run run_V_update.m
 
 
-    if 1==0
+    if I==2
     %% Kalouptsidi method
 
     switch_r_spec=1;%%%%
-    run run_Kalouptsidi_method_static.m
-    results_r_mixed=results_s;
+    %run run_Kalouptsidi_method_static.m
+    %results_r_mixed=results_s;
     %%results_r_mixed_spectral=results_s;
 
+    run run_r.m
+    results_r_mixed=results_r;
+    results_r_mixed_spectral=results_r_spectral;
+    results_r_mixed_SQUAREM=results_r_spectral;
+
     switch_r_spec=0;%%%%
-    run run_Kalouptsidi_method_static.m
-    results_r_conservative=results_s;
-    %%results_r_conservative_spectral=results_s;
+    run run_r.m
+    results_r_conservative=results_r;
+    results_r_conservative_spectral=results_r_spectral;
+    results_r_conservative_SQUAREM=results_r_spectral;
     
     else
         results_r_mixed=[];
@@ -88,6 +91,7 @@ end % rho_est==0 or others
 
 end % n_market
 
+if spec.compute_alpha_spec==3
     results_BLP_temp=[...
         results_table_func(results_BLP_0);...
         results_table_func(results_BLP_0_spectral);...
@@ -96,25 +100,42 @@ end % n_market
         results_table_func(results_BLP_1_spectral);...
         results_table_func(results_BLP_1_SQUAREM)];
 
+else
+    results_BLP_temp=[...
+        results_table_func(results_BLP_0_spectral);...
+        results_table_func(results_BLP_0_SQUAREM);...
+        results_table_func(results_BLP_1_spectral);...
+        results_table_func(results_BLP_1_SQUAREM)];
+end
+
 if rho_est==0
 
-    results_V_temp=[...
-        results_table_func(results_V_0);...
-        results_table_func(results_V_0_spectral);...
-        results_table_func(results_V_0_SQUAREM);...
-        results_table_func(results_V_1);...
-        results_table_func(results_V_1_spectral);...
-        results_table_func(results_V_1_SQUAREM)];
-
+    if spec.compute_alpha_spec==3
+        results_V_temp=[...
+            results_table_func(results_V_0);...
+            results_table_func(results_V_0_spectral);...
+            results_table_func(results_V_0_SQUAREM);...
+            results_table_func(results_V_1);...
+            results_table_func(results_V_1_spectral);...
+            results_table_func(results_V_1_SQUAREM)];
+    else
+        results_V_temp=[...
+            results_table_func(results_V_0_spectral);...
+            results_table_func(results_V_0_SQUAREM);...
+            results_table_func(results_V_1_spectral);...
+            results_table_func(results_V_1_SQUAREM)];
+    end
     results_temp=[results_BLP_temp;results_V_temp];
 
 
 if isempty(results_r_mixed)==0
     results_temp=[results_temp;...
-    mean(results_r_mixed,1);%mean(results_r_mixed_spectral,1);...
-    mean(results_r_conservative,1);%mean(results_r_conservative_spectral,1);...
-     ];
-
+        results_table_func(results_r_mixed);...
+        results_table_func(results_r_mixed_spectral);...
+        results_table_func(results_r_mixed_SQUAREM);...
+        results_table_func(results_r_conservative);...
+        results_table_func(results_r_conservative_spectral);...
+        results_table_func(results_r_mixed_SQUAREM)];
 end
 
 elseif rho_est>0
@@ -129,17 +150,14 @@ elseif rho_est>0
 
 end
 
-if ns>=10
-    results_temp(:,2)=round(results_temp(:,2),3);
-else
-    results_temp(:,2)=round(results_temp(:,2),4);
-end
-
-results_temp(:,4)=round(results_temp(:,4),2);%log(s_jt_predict)-log(S_jt_data)
-
-results=[[beta_0 G J rho_est mean(results_data,1)].*ones(size(results_temp,1),1),...
+results=[[rho_est beta_0 G J mean(summary_market,1)].*ones(size(results_temp,1),1),...
     results_temp];
 
-results=...
-    [mean(summary_market,1).*ones(size(results,1),1),...
-    results];
+results(:,end-1)=round(results(:,end-1),1);%%DIST
+results(:,end-1)=round(results(:,end-1),1);%%DIST
+
+
+results(:,end)=results(:,end)*100;%%conv
+results(:,end-2)=results(:,end-2)*100;%%conv
+
+

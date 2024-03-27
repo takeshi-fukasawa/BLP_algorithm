@@ -11,7 +11,7 @@ addpath('./functions')
 addpath('./run_dynamic')
 addpath('./run_static_dynamic')
 addpath('C:/Users/fukas/Dropbox/git/spectral')
-save_path="C:/Users/fukas/Dropbox/light_bulb/simulation_data/Monte_Carlo/";
+output_path="C:/Users/fukas/Dropbox/BLP/dynamic_BLP/";
 
 
 spec_default=[];
@@ -21,9 +21,9 @@ spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=3000;
 %spec_default.ITER_MAX=3;
 
-skip_contraction_spec=1;
+skip_contraction_spec=0;
 large_hetero_spec=0;
-mistake_spec=0;
+mistake_spec=1;
 
 rho_true=0;
 rho_est=rho_true;
@@ -38,10 +38,10 @@ I=2;
 
 ns=I;
 
-n_market=1;
+n_market=10;
 n_draw=1;
 
-IVS_spec=0;
+IVS_spec=1;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -79,7 +79,8 @@ else
     beta_0=6;
     Pr0_spec=1;
     durable_spec=1;
-    t_dependent_alpha_spec=0;
+    t_dependent_alpha_spec=1;
+    spec_default.alpha_max=10;
 end
 
 %%T=1;
