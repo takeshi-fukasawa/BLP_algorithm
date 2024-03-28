@@ -30,7 +30,7 @@ I=100;
 n_dim_V=1;
 n_draw=1;
 
-n_market=50;
+n_market=1;
 T=1;
 
 beta_C=0.0;
@@ -62,7 +62,7 @@ results_no_nest=[results_1];
 
 
 
-if 1==1
+if n_market>1
     filename=append(output_path,"no_nest_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 
@@ -82,7 +82,7 @@ rho_est=rho_true;%%%%%
 run run_RCNL_iterations_static.m
 results_RCNL=results;
 
-if 1==1
+if n_market>1
     filename=append(output_path,"RCNL_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 
