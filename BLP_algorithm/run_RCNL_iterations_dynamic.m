@@ -7,6 +7,8 @@ t_dim_id=4;
 n_dim_V=T+n_grid_IV;
 
 for m=1:n_market
+%for m=4:4
+        
 market_id=m
 
 rng(m);
@@ -99,5 +101,8 @@ results_table(:,end-1)=round(results_table(:,end-1),1);%%DIST
 results_table(:,end-2)=results_table(:,end-2)*100;%%conv
 
 %%%%%% Test traditional nested loop %%%%%
+if 1==0
+    run run_BLP_middle_update_dynamic.m
+end
 
 

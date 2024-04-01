@@ -21,7 +21,7 @@ spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=3000;
 %spec_default.ITER_MAX=3;
 
-skip_contraction_spec=1;
+skip_contraction_spec=0;
 large_hetero_spec=0;
 mistake_spec=1;%%%%
 
@@ -38,7 +38,7 @@ I=50;
 
 ns=I;
 
-n_market=1;
+n_market=20;
 n_draw=1;
 
 IVS_spec=1;
@@ -96,5 +96,6 @@ else
 end
 
 if 1==0
-writematrix(results_table,filename)
+    writematrix(results_table,filename)
 end
+

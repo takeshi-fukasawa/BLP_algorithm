@@ -73,3 +73,14 @@ end
 
 
 end % method
+
+results_V_delta_nested=[feval_Bellman,results_BLP_middle];
+results_V_delta_joint=[results_V_BLP_1_spectral(end,1),results_V_BLP_1_spectral(end,:)];
+
+results=[results_V_delta_joint;results_V_delta_nested];
+
+if 1==1
+    filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),"_V_delta_mapping_comparison.csv");
+    writematrix(results,filename)
+end
