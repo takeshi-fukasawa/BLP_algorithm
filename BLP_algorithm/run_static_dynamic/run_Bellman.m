@@ -1,5 +1,9 @@
 spec=spec_default;
+method=2;% temp
+run spec_settings.m
+
 spec.update_spec=0;
+
 [output_spectral,other_vars,iter_info_Bellman]=...
         spectral_func(@Bellman_update_func,spec,{V_initial0},...
         delta_jt_true,mu_ijt,...

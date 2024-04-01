@@ -154,7 +154,6 @@ results=[[rho_est beta_0 G J mean(summary_market,1)].*ones(size(results_temp,1),
     results_temp];
 
 results(:,end-1)=round(results(:,end-1),1);%%DIST
-results(:,end-1)=round(results(:,end-1),1);%%DIST
 
 
 results(:,end)=results(:,end)*100;%%conv

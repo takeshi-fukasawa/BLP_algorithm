@@ -21,9 +21,9 @@ spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=3000;
 %spec_default.ITER_MAX=3;
 
-skip_contraction_spec=0;
+skip_contraction_spec=1;
 large_hetero_spec=0;
-mistake_spec=1;
+mistake_spec=0;%%%%
 
 rho_true=0;
 rho_est=rho_true;
@@ -38,7 +38,7 @@ I=2;
 
 ns=I;
 
-n_market=10;
+n_market=1;
 n_draw=1;
 
 IVS_spec=1;
@@ -86,3 +86,15 @@ end
 %%T=1;
 
 run run_RCNL_iterations_dynamic.m
+
+if IVS_spec==1
+    filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),".csv");
+else
+    filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),".csv");
+end
+
+if 1==0
+writematrix(results_table,filename)
+end

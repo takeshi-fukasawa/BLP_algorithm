@@ -1,17 +1,12 @@
 function [out,other_vars]=...
     delta_middle_Bellman_inner_func(...
-    delta_initial,V_initial0,mu_ij,S_j_data,beta_C,L,...
-    rho,weight,spectral_V_spec,tune_param_BLP,spec_default,...
+    delta_initial,V_initial0,mu_ijt,S_j_data,beta_C,L,...
+    rho,weight,tune_param_BLP,spec_default,...
     weight_V,x_V,hot_start_V_spec)
 
 global feval_Bellman V_initial_hot_start
 
 spec=spec_default;
-if spectral_V_spec==1
-    spec.update_spec=4;
-else
-    spec.update_spec=0;
-end
 
 if hot_start_V_spec==1
     if feval_Bellman==0
@@ -24,24 +19,26 @@ end
 
     [output_spectral,other_vars_Bellman,iter_info_Bellman]=...
         spectral_func(@Bellman_update_func,spec,{V_initial_hot_start},...
-        delta_initial,mu_ij,beta_C,rho,...
+        delta_initial,mu_ijt,beta_C,rho,...
         weight_V,x_V);
 
     V_sol=output_spectral{1};
 
     %%%%%%%%%%%%%%
 
-    IV=other_vars_bellman.IV;
+    IV=other_vars_Bellman.IV;
 
-    denom=exp(sum(IV,3,'omitnan'))+exp(other_vars.v_i0t_tilde);
-    s_i0t_ccp=exp(other_vars.v_i0t_tilde)./denom;
+    T=size(mu_ijt,4);
+    n_dim_V=size(V_sol,4);
+
+    denom=exp(sum(IV(:,:,:,1:T),3,'omitnan'))+...
+        exp(other_vars_Bellman.v_i0t_tilde(:,:,:,1:T));
+    s_i0t_ccp=exp(other_vars_Bellman.v_i0t_tilde(:,:,:,1:T))./denom;
 
     %%%%%%%%%%%%
 
     feval_Bellman=feval_Bellman+iter_info_Bellman.feval;
 
-    T=size(mu_ijt,4);
-    n_dim_V=size(V_sol,4);
 
     IV=other_vars_Bellman.IV;
     
@@ -50,10 +47,10 @@ end
        s_ijt_given_g_ccp=...
            other_vars_Bellman.numer_1./other_vars_Bellman.denom_1;
     else
-       s_igt_ccp=exp(IV(:,:,:,T+1:end)-V_sol(:,:,:,T+1:end));
+       s_igt_ccp=exp(IV(:,:,:,1:T)-V_sol(:,:,:,1:T));
        s_ijt_given_g_ccp=...
-           other_vars_Bellman.numer_1(:,:,:,:,T+1:end)./...
-           other_vars_Bellman.denom_1(:,:,:,:,T+1:end);
+           other_vars_Bellman.numer_1(:,:,:,1:T)./...
+           other_vars_Bellman.denom_1(:,:,:,1:T);
     end
  
     s_ijt_ccp=s_ijt_given_g_ccp.*s_igt_ccp;

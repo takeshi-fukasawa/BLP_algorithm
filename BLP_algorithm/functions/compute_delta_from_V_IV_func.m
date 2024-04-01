@@ -26,6 +26,5 @@ function [delta,s_ijt_up_to_scale,s_igt]=compute_delta_from_V_IV_func(...
 
     delta=(1-rho).*(log(S_jt_data)-log(s_jt_up_to_scale));%J*1*G*T
 
-
 end
 

@@ -8,20 +8,12 @@ function [output,other_vars]=...
   
     [J,ns,G,T]=size(mu_ijt);   
     V=log(1+sum(exp(IV_initial),3));%1*ns*1*T
-     
-    if rho==0
-    numer_1=exp(mu_ijt./(1-rho));%J*ns*G*T
-    denom_1=sum(reshape(weight,1,ns).*...
-        reshape(numer_1,J,ns,G,T).*...
-        reshape(exp(-V),1,ns,1,T),2);%J*1*G*T
-    end
-
 
     %% Update IV
     
     [delta,s_ijt_up_to_scale,s_igt]=...
         compute_delta_from_V_IV_func(...
-    mu_ijt,weight,S_jt_data,rho,[],IV_initial);
+    mu_ijt,weight,S_jt_data,rho,V,IV_initial);
 
 
     if rho==0
@@ -29,7 +21,6 @@ function [output,other_vars]=...
     else
         v_ijt=reshape(delta,J,1,G,T)+reshape(mu_ijt,J,ns,G,T);%J*ns*G*T
         IV_new=(1-rho).*log(sum(exp(v_ijt/(1-rho)),1));%1*ns*G*T
-
     end
     
     s_0t_predict=sum(reshape(weight,1,ns).*...

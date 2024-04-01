@@ -1,20 +1,18 @@
 
 global feval_Bellman
-spectral_V_spec=1;
-hot_start_V_spec=1;
+hot_start_V_spec=0;
 
-%% V_update_func 
+%% V_update_func
 for method=2:2
     run spec_settings.m
-
     feval_Bellman=0;
 
     tStart=cputime;
         [output_spectral,other_vars,iter_info]=...
         spectral_func(@delta_middle_Bellman_inner_func,...
-        spec,{delta_initial0},V_initial0,...
+        spec,{delta_jt_true*1.1},V_true*1.1,...
         mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
-        weight,spectral_V_spec,tune_param_BLP,spec,...
+        weight,tune_param_BLP,spec,...
         weight_V,x_V,hot_start_V_spec);
     tEnd=cputime;
 

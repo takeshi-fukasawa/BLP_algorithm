@@ -15,7 +15,6 @@ t_dependent_alpha_spec=0;
 skip_contraction_spec=0;
 
 spec_default=[];
-spec_default.ITER_MAX=2000;
 spec_default.TOL=1e-13;
 spec_default.compute_alpha_spec=3;
 
@@ -25,12 +24,12 @@ end
 
 n_sim=1;
 I=10;
-I=100;
-%I=2;
+I=1000;
+I=2;
 n_dim_V=1;
 n_draw=1;
 
-n_market=1;
+n_market=50;
 T=1;
 
 beta_C=0.0;
@@ -62,7 +61,7 @@ results_no_nest=[results_1];
 
 
 
-if n_market>1
+if n_market>1 & 1==1
     filename=append(output_path,"no_nest_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 
@@ -82,7 +81,7 @@ rho_est=rho_true;%%%%%
 run run_RCNL_iterations_static.m
 results_RCNL=results;
 
-if n_market>1
+if n_market>1 & 1==1
     filename=append(output_path,"RCNL_results_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 

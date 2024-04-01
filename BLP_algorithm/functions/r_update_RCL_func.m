@@ -46,5 +46,10 @@ function [output,other_vars]=...
     %%%%%%%%%%%%%%%%%%%%
     
     output={r_updated};
-    other_vars=[];
+    other_vars.numer=numer;
+    other_vars.denom=denom;
+    other_vars.temp1=temp1;
+    other_vars.temp2=temp2;
+    
+    
 end

@@ -94,17 +94,8 @@ results_table_V_BLP=[...
 results_table=[results_table_V;results_table_V_BLP];
 
 results_table(:,end)=results_table(:,end)*100;%%conv
+results_table(:,end-1)=round(results_table(:,end-1),1);%%DIST
+
 results_table(:,end-2)=results_table(:,end-2)*100;%%conv
 
-if IVS_spec==1
-    filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
-        string(beta_C),"_",string(mistake_spec),".csv");
-else
-    filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
-        string(beta_C),"_",string(mistake_spec),".csv");
-end
-
-if 1==1
-writematrix(results_table,filename)
-end
 

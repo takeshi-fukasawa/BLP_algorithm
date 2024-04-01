@@ -1,7 +1,7 @@
 function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
     mu_ijt,weight,S_jt_data,V,Pr0,s_i0t_ccp)
 
-    global Pr0_spec ratio_s_i0t_ccp_t
+    global Pr0_spec
 
     %%% Used in V_update_func etc.
     %%% rho==0 case 
@@ -11,13 +11,13 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
     [J,ns,G,T]=size(mu_ijt);
 
 
-    s_ijt_ccp_up_to_scale=exp(reshape(mu_ijt,J,ns,G,T,1)-...
+    s_ijt_ccp_up_to_scale=exp(reshape(mu_ijt,J,ns,G,T)-...
         reshape(V,1,ns,1,T));%J*ns*G*T
 
 
    if Pr0_spec==0
         s_jt_up_to_scale=sum(reshape(weight,1,ns,1,1,1).*...
-            s_ijt_ccp_up_to_scale,[2,5]);%J*1*G*T
+            s_ijt_ccp_up_to_scale,2);%J*1*G*T
     
         delta=log(S_jt_data)-log(s_jt_up_to_scale);%J*1*G*T
         Pr0=ones(1,ns,1,T);
@@ -54,11 +54,11 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
           exp_delta=S_jt_data./s_jt_up_to_scale;%J*1*G*T
           delta=log(exp_delta);%J*1*G*T
 
-          if isempty(s_i0t_ccp)==1
+          %if isempty(s_i0t_ccp)==1
               s_ijt_ccp=s_ijt_ccp_up_to_scale.*...
                   exp_delta;%J*ns*G*T
               s_i0t_ccp=1-sum(s_ijt_ccp,[1,3]);%1*ns*1*T
-          end
+          %end
 
          Pr0=cat(4,ones(1,ns,1,1),Pr0(:,:,:,1:T-1).*s_i0t_ccp(:,:,:,1:T-1));%1*ns*1*T
 
