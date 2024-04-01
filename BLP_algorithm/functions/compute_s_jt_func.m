@@ -18,11 +18,22 @@ function [s_jt_predict,Pr0]=...
         %%s_i0t_ccp=1-sum(s_ijt_ccp,[1,3]);%1*ns*1*T*n_state;
         %%%%%%%%%%%
         
-        cumprod_s_i0t_ccp=cumprod(s_i0t_ccp,4);%1*ns*1*T*n_state
-        Pr0=cat(4,ones(1,ns,1,1,n_state),...
-            cumprod_s_i0t_ccp(:,:,:,1:end-1,:));%1*ns*1*T*n_state
-        s_jt_predict=sum(Pr0.*weight.*s_ijt_ccp,2);%J*1*G*T
-        
+        %%% For loop version (to be consistent with V_update_func spec)
+        s_jt_predict=NaN(J,1,G,T);
+        Pr0=ones(1,ns,1,T);
+        for t=1:T
+            s_jt_predict(:,:,:,t)=sum(...
+                Pr0(:,:,:,t).*weight.*s_ijt_ccp(:,:,:,t),2);%J*1*G*1
+            Pr0(:,:,:,t+1)=Pr0(:,:,:,t).*s_i0t_ccp(:,:,:,t);
+        end
+
+        %%% Vectorized version (Fast, but not comparable with V_update_func
+        %%% (use for loop...)
+        %cumprod_s_i0t_ccp=cumprod(s_i0t_ccp,4);%1*ns*1*T*n_state
+        %Pr0=cat(4,ones(1,ns,1,1,n_state),...
+        %    cumprod_s_i0t_ccp(:,:,:,1:end-1,:));%1*ns*1*T*n_state
+        %s_jt_predict=sum(Pr0.*weight.*s_ijt_ccp,2);%J*1*G*T
+
     end
 
 end

@@ -23,7 +23,7 @@ spec_default.ITER_MAX=3000;
 
 skip_contraction_spec=1;
 large_hetero_spec=0;
-mistake_spec=0;%%%%
+mistake_spec=1;%%%%
 
 rho_true=0;
 rho_est=rho_true;
@@ -34,7 +34,7 @@ G=1;
 n_sim=1;
 I=1000;
 I=50;
-I=2;
+%I=2;
 
 ns=I;
 
