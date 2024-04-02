@@ -167,20 +167,11 @@ if mistake_spec==1
     %mu_ijt_est=mu_ijt_true*2;%J*ns*G*T
     %mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
    
-    if beta_C==0
-        sd=1;%%%
-        sigma_const=sigma_const_true*exp(sd*rand(1)); 
-        sigma_x=sigma_x_true.*exp(sd*rand(1,3)); 
-        sigma_p=sigma_p_true.*exp(sd*rand(1,1)); 
-    else
         sd=1;
         sigma_const=sigma_const_true.*sd.*rand(1,1);
         sigma_x=sigma_x_true.*2.*sd.*rand(1,3);
         sigma_p=sigma_p_true.*2.*sd.*rand(1,1);
-        
-
-    end
-
+   
     mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
         sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
         sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
