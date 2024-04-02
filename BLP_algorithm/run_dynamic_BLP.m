@@ -20,6 +20,7 @@ spec_default.TOL=1e-12;
 spec_default.common_alpha_spec=0;
 spec_default.ITER_MAX=3000;
 %spec_default.ITER_MAX=3;
+%%spec_default.stabilize_spec=1;
 
 skip_contraction_spec=0;
 large_hetero_spec=0;
@@ -72,8 +73,8 @@ if IVS_spec==1
    beta_0=6;
    Pr0_spec=1;
    durable_spec=1;
-   t_dependent_alpha_spec=0;
-   %%spec_default.alpha_max=10;%%%%
+   t_dependent_alpha_spec=0;%%%
+   %%spec_default.alpha_max=5;%%%%
    spec_default.ITER_MAX=1000;
 else
     T=50;

@@ -20,7 +20,7 @@ if n_grid_IV>0
         inv(basis_t_grid'*basis_t_grid)*basis_t_grid';%n_dim_Chebyshev*n_dim_Chebyshev
 end
 
-V_initial0=zeros(1,ns,1,n_dim_V);%1*ns*1*n_dim_V
+V_initial0=zeros(1,ns,1,n_dim_V)+3;%1*ns*1*n_dim_V
 
 mu_ijt=mu_ijt_true;
 run run_Bellman.m
