@@ -7,16 +7,16 @@ for method=2:2
     run spec_settings.m
     feval_Bellman=0;
 
-    tStart=cputime;
+    tStart=tic;
         [output_spectral,other_vars,iter_info]=...
         spectral_func(@delta_middle_Bellman_inner_func,...
         spec,{delta_initial0},V_initial0,...
         mu_ijt_est,S_jt_data,beta_C,L,rho_est,...
         weight,tune_param_BLP,spec,...
         weight_V,x_V,hot_start_V_spec);
-    tEnd=cputime;
+    iter_info.t_cpu=toc(tStart);
 
-    iter_info.t_cpu=tEnd-tStart; % inner and middle loop spectral algorithm => False toc...
+    %%iter_info.t_cpu=tEnd-tStart; % inner and middle loop spectral algorithm => False toc...
     iter_info.feval_Bellman=feval_Bellman;
     delta_sol=output_spectral{1};
 
@@ -77,10 +77,10 @@ end % method
 results_V_delta_nested=[feval_Bellman,results_BLP_middle];
 results_V_delta_joint=[results_V_BLP_1_spectral(end,1),results_V_BLP_1_spectral(end,:)];
 
-results=[results_V_delta_joint;results_V_delta_nested];
+results_comparison=[results_V_delta_joint;results_V_delta_nested];
 
 if 1==1
     filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
         string(beta_C),"_",string(mistake_spec),"_V_delta_mapping_comparison.csv");
-    writematrix(results,filename)
+    writematrix(results_comparison,filename)
 end

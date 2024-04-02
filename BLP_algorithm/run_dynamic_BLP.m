@@ -75,7 +75,8 @@ if IVS_spec==1
    durable_spec=1;
    t_dependent_alpha_spec=0;%%%
    %%spec_default.alpha_max=5;%%%%
-   spec_default.ITER_MAX=1000;
+   spec_default.ITER_MAX=3000;
+   n_draw=5;
 else
     T=50;
     n_grid_IV=0;
@@ -98,7 +99,7 @@ else
         string(beta_C),"_",string(mistake_spec),".csv");
 end
 
-if 1==0
+if 1==1
     writematrix(results_table,filename)
 end
 

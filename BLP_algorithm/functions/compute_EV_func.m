@@ -31,10 +31,6 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
         IV_state.*coef_1+coef_0+...
         sigma.*reshape(x_V,1,1,1,1,n_draw);%1*ns*G*n_dim_V*1*n_draw
 
-    %[min(IV_t1_state_draw(:)),max(IV_t1_state_draw(:))]
-
-    %[min(IV_state_grid(:)),max(IV_state_grid(:))]
-
     %%% Construct Chebyshev basis
     y=(reshape(V(1,:,1,T+1:end),ns,n_grid_IV))';%n_grid_IV*ns
     coef=inv_multiply_Chebyshev_basis*y;%n_dim_Chebyshev*ns
@@ -51,22 +47,17 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
     IV_t1_state_draw_scaled_true=IV_t1_state_draw_scaled;
 
     %%%%%%%%%%%%%%%%%%
-    %%% Use grid points as IV_t1 (for validation)
    
+    if 1==0
+    %%% Use grid points as IV_t1 (for validation)
     IV_t1_state_draw_scaled_temp=zeros(ns,1,1,n_dim_V,n_draw);
     IV_t1_state_draw_scaled_temp(:,:,:,T+1:end,:)=...
         repmat(reshape(Chebyshev_extrema,1,1,1,n_grid_IV,1),[ns,1,1,1,1]);
     IV_t1_state_draw_scaled_temp=IV_t1_state_draw_scaled(:);
-   
+    end
+
     IV_t1_state_draw_scaled=IV_t1_state_draw_scaled_true;%%%%%
    
-    %[max(IV_t1_state_draw_scale_temp(:)),...
-    %   min(IV_t1_state_draw_scaled_temp(:))]
-    %IV_t1_state_draw_scaled=IV_t1_state_draw_scaled_true;%%%%%
-
-    %[max(IV_t1_state_draw_scaled_true(:)),...
-    %    median(IV_t1_state_draw_scaled_true(:)),...
-    %    min(IV_t1_state_draw_scaled_true(:))]
 
     %%%%%%%%%%%%%%
 
