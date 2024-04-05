@@ -6,7 +6,7 @@ t_dim_id=4;
 
 n_dim_V=T+n_grid_IV;
 
-for m=1:n_market
+for m=n_market:n_market
 %for m=11:11 %%%%%
         
 market_id=m

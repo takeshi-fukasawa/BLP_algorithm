@@ -42,7 +42,7 @@ ns=I;
 n_market=20;
 n_draw=1;
 
-IVS_spec=1;
+IVS_spec=0;
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -99,7 +99,7 @@ else
         string(beta_C),"_",string(mistake_spec),".csv");
 end
 
-if 1==1
+if 1==0
     writematrix(results_table,filename)
 end
 

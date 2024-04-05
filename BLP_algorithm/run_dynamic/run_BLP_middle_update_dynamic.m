@@ -79,8 +79,14 @@ results_V_delta_joint=[results_V_BLP_1_spectral(end,1),results_V_BLP_1_spectral(
 
 results_comparison=[results_V_delta_joint;results_V_delta_nested];
 
-if 1==1
+if 1==0 & IVS_spec==1
     filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
-        string(beta_C),"_",string(mistake_spec),"_V_delta_mapping_comparison.csv");
+        string(beta_C),"_",string(mistake_spec),"_V_delta_mapping_comparison_IVS.csv");
+    writematrix(results_comparison,filename)
+end
+
+if 1==0 & IVS_spec==0
+    filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),"_V_delta_mapping_comparison_perfect_foresight.csv");
     writematrix(results_comparison,filename)
 end
