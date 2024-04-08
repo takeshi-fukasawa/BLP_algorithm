@@ -105,4 +105,19 @@ if 1==0
     run run_BLP_middle_update_dynamic.m
 end
 
+%%%%% Test time-dependent or not (perfect foresight case)
+if IVS_spec==0 & 1==1
+    results_V_delta_t_dep=[results_V_1_spectral(end,1),results_V_1_spectral(end,:)];
+
+    t_dependent_alpha_spec=0;
+    run run_V_update.m
+    results_V_delta_t_indep=[results_V_1_spectral(end,1),results_V_1_spectral(end,:)];
+
+    results_comparison_t_dep_alpha=[results_V_delta_t_dep;results_V_delta_t_indep]
+
+    filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),"_V_mapping_comparison_t_dep_alpha.csv");
+    writematrix(results_comparison_t_dep_alpha,filename)
+
+end
 

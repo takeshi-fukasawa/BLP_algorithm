@@ -16,7 +16,7 @@ skip_contraction_spec=0;
 
 spec_default=[];
 spec_default.TOL=1e-13;
-spec_default.compute_alpha_spec=4;
+spec_default.compute_alpha_spec=3;
 spec_default.ITER_MAX=1000;
 
 if spec_default.compute_alpha_spec<3
@@ -26,7 +26,7 @@ end
 n_sim=1;
 I=10;
 I=1000;
-%I=2;
+I=2;
 n_dim_V=1;
 n_draw=1;
 
