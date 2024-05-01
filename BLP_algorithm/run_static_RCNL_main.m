@@ -1,18 +1,27 @@
+%%% Run Monte Carlo simulation of static BLP inner-loop algorithms.
+%%% Written by Takeshi Fukasawa in May 2024.
+
+
 clear
+
+spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
 
 addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
 
-addpath('C:/Users/fukas/Dropbox/git/spectral')
+addpath(spectral_func_path)
 
 output_path="C:/Users/fukas/Dropbox/BLP/static_BLP/";
 
-mistake_spec=1;
-large_hetero_spec=0;
-durable_spec=0;
-t_dependent_alpha_spec=0;
-skip_contraction_spec=0;
+%%% In the estimation, researchers do not know true values of nonlinear parameters, and they solve for mean utility delta  by using candidate values of nonlinear parameters.
+%%% We replicate the situation by setting mistake_spec==1. If mistake_spec==0, we solve for delta based on the true nonlinear parameters. 
+mistake_spec=1; 
+
+large_hetero_spec=0; % See also run_RCNL_main_hetero_test.m
+durable_spec=0;% Used in dynamic BLP
+t_dependent_alpha_spec=0; % Used in dynamic BLP
+skip_contraction_spec=0; % If 1, try only the spectral/SQUAREM iterations. If 0, also try standard fixed point iterations.
 
 spec_default=[];
 spec_default.TOL=1e-13;

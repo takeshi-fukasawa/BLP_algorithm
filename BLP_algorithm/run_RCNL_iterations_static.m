@@ -17,8 +17,7 @@ market_id=m
 rng(m);
 gpurng(m);
 
-%run DGP.m
-run DGP_ABLP.m
+run DGP.m
 
 
 %% Compute product market share, given parameters

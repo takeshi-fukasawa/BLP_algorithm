@@ -1,5 +1,7 @@
-%%%%%%%%%%%%%%%%%
-%% Parameter settings
+
+%%% Run Monte Carlo simulation of dynamic BLP inner-loop algorithms.
+%%% Written by Takeshi Fukasawa in May 2024.
+
 clear
 
 global Pr0_spec inv_multiply_Chebyshev_basis Chebyshev_extrema
@@ -7,11 +9,13 @@ global ratio_s_i0t_ccp_t
 
 rng('default')
 
+spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
+output_path="C:/Users/fukas/Dropbox/BLP/dynamic_BLP/";
+
 addpath('./functions')
 addpath('./run_dynamic')
 addpath('./run_static_dynamic')
-addpath('C:/Users/fukas/Dropbox/git/spectral')
-output_path="C:/Users/fukas/Dropbox/BLP/dynamic_BLP/";
+addpath(spectral_func_path)
 
 
 spec_default=[];
@@ -42,21 +46,20 @@ ns=I;
 n_market=20;
 n_draw=1;
 
-IVS_spec=0;
+IVS_spec=0; % If IVS_spec==1, use inclusive value sufficiency. If IVS_spec==0, assume perfect foresight on the future state transitions of market-level variables. For details, see the paper.
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
-durable_spec=1;
+durable_spec=1; % Use the model in Sun and Ishihara (2019)
 %%durable_spec=0;
 
 Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
-t_dependent_alpha_spec=0;
+t_dependent_alpha_spec=0; % Introduce time-dependent step sizes alpha in the spectral / SQUAREM algorithms.
 
 n_dim_V=1;
 
 J=25;% Number of products per nest
-beta_0=4;
 
 beta_C=0.99;
 %%beta_C=0;
@@ -72,7 +75,6 @@ if IVS_spec==1
    n_grid_IV=10;
    beta_0=6;
    Pr0_spec=1;
-   durable_spec=1;
    t_dependent_alpha_spec=0;%%%
    %%spec_default.alpha_max=5;%%%%
    spec_default.ITER_MAX=3000;
@@ -82,7 +84,6 @@ else
     n_grid_IV=0;
     beta_0=6;
     Pr0_spec=1;
-    durable_spec=1;
     t_dependent_alpha_spec=1;
     spec_default.alpha_max=10;
 end

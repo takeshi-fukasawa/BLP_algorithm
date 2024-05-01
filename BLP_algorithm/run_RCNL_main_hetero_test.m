@@ -1,12 +1,16 @@
 clear
+
+spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
+
+BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
+
 addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
 
-addpath('C:/Users/fukas/Dropbox/git/spectral')
-addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
+addpath(spectral_func_path)
+%%addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
 
-BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP/figure/";
 
 
 spec_default=[];
@@ -82,7 +86,7 @@ if large_hetero_spec==1
     Delta_DIST_label='$\Delta \left[ \log_{10}\left(\left\Vert \delta_{j}^{(n+1)}-\delta_{j}^{(n)}\right\Vert _{\infty}\right) \right]$';
     ylabel(Delta_DIST_label,'Interpreter','latex')
    
-    uniformFigureStyle(f);
+    %%uniformFigureStyle(f);
 
     saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
     
