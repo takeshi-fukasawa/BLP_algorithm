@@ -2,6 +2,8 @@
 This repository contains replication codes of the paper titled "Fast and simple inner-loop algorithms of static / dynamic BLP estimations" by Takeshi Fukasawa, investigating computationally efficient inner-loop algorithms for estimating static/dynamic BLP models. 
 It is composed of two folders. The first is "static_dynamic_BLP_algorithm", and it contains replication codes of the paper using MATLAB. The second is pyblp_test, and it slightly modifies the original pyBLP package (Version 0.13.0; Conlon and Gortmaker, 2020) so that we can introduce the new mapping $\delta$-(1) and flexible specifications regarding the spectral algorithm.
 
+Note that the code relies on my other repository takeshi-fukasawa/spectral. If you run the replication code, please also download the spectral repository, and modify the path in static_dynamic_BLP_algorithm/preliminary_path.m.
+
 ## static_dynamic_BLP_algorithm
 We can obtain the static BLP Monte Carlo simulation results by running the file "run_static_RCNL_main.m".
 Regarding dynamic BLP, we can obtain the dynamic BLP Monte Carlo simulation results by running the file "run_dynamic_BLP_main.m".
