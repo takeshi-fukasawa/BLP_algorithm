@@ -9,8 +9,7 @@ global ratio_s_i0t_ccp_t
 
 rng('default')
 
-spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
-output_path="C:/Users/fukas/Dropbox/BLP/dynamic_BLP/";
+run preliminary_path.m
 
 addpath('./functions')
 addpath('./run_dynamic')

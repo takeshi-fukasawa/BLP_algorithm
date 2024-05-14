@@ -4,15 +4,13 @@
 
 clear
 
-spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
+run preliminary_path.m
 
 addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
 
 addpath(spectral_func_path)
-
-output_path="C:/Users/fukas/Dropbox/BLP/static_BLP/";
 
 %%% In the estimation, researchers do not know true values of nonlinear parameters, and they solve for mean utility delta  by using candidate values of nonlinear parameters.
 %%% We replicate the situation by setting mistake_spec==1. If mistake_spec==0, we solve for delta based on the true nonlinear parameters. 

@@ -1,9 +1,5 @@
 clear
 
-spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
-
-BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP_paper/figure/";
-
 addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
