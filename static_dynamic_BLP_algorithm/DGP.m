@@ -7,7 +7,7 @@ w_jt=randn(J,1,G,T);
 Cov_mat=[1 -0.8 0.3; -0.8 1 0.3; 0.3 0.3 1];
 
 if durable_spec==1
-Cov_mat=0.5*eye(3);
+    Cov_mat=0.25*eye(3);
 end
 
 xi_sd=1;
@@ -17,6 +17,7 @@ x_jt=mvnrnd([0,0,0],Cov_mat,J*G*T);%(J*G*T)*3; obs. product char.
 
 if durable_spec==1
     x_jt=repmat(mvnrnd([0,0,0],Cov_mat,J*G),T,1);%(J*G*T)*3
+    x_jt=mvnrnd([0,0,0],Cov_mat,J*G*T);%(J*G*T)*3%%%%    
 end
 
 xi_jt=1*randn(J,1,G,T);
@@ -98,6 +99,14 @@ weight=1/ns*ones(1,ns,1);%1*ns*1
 %% Compute product market share, given parameters
 delta_jt_true=(beta_0+reshape(x_jt*beta_x,J,1,G,T)+alpha*p_jt+xi_jt)./eps_sd;%J*1*G*T
 
+X_jt=cat(5,ones(J,1,G,T,1),reshape(x_jt,J,1,G,T,3),...
+    reshape(p_jt,J,1,G,T,1));%J*1*G*T*K
+sigma_vec_true=[sigma_const_true;sigma_x_true(:);sigma_p_true];
+K=size(sigma_vec_true,1);% Number of nonlinear parameters
+
+v_true=randn(1,ns,1,1,K);
+%mu_ijt_true=mu_func(sigma_vec_true,v_true,X_jt);%%%%%
+
 mu_ijt_true=sigma_const_true*randn(1,ns,1,1)+...
     sum(reshape(sigma_x_true,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
     sigma_p_true*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);
@@ -170,7 +179,12 @@ if mistake_spec==1
         sigma_const=sigma_const_true.*sd.*rand(1,1);
         sigma_x=sigma_x_true.*2.*sd.*rand(1,3);
         sigma_p=sigma_p_true.*2.*sd.*rand(1,1);
+        sigma_vec_est=[sigma_const;sigma_x(:);sigma_p];
    
+       v_est=randn(1,ns,1,1,K);
+
+     %%%mu_ijt_est=mu_func(sigma_vec_est,v_est,X_jt);%%%
+
     mu_ijt_est=sigma_const*randn(1,ns,1,1)+...
         sum(reshape(sigma_x,1,1,1,1,3).*reshape(x_jt,J,1,G,T,3).*randn(1,ns,1,1,3),5)+...
         sigma_p*reshape(p_jt,J,1,G,T).*randn(1,ns,1,1);

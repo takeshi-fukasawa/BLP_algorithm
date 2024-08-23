@@ -11,7 +11,7 @@ spec.update_spec=0;
 V_updated=output_spectral{1};
 
 spec=spec_default;
-spec.update_spec=1;
+%%%spec.update_spec=1;%%%
 
 [output_spectral,other_vars_spectral,...
     iter_info_Bellman_spectral]=...

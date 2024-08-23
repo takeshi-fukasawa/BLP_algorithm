@@ -14,6 +14,10 @@ function IV=IVS_compute_IV_func(IV_obs_pt,n_grid_V)
     %%%% Fixed IV grid %%%%
     IV_min=IV_min*0-20;%% Performance rarely change??
     IV_max=IV_max*0+10;%% Performance rarely change??
+
+    IV_min=IV_min*0-30;%% New
+    IV_max=IV_max*0+20;%% New
+    
     %%%%%%%%%%%%
 
     IV_grid=IV_min+...

@@ -1,4 +1,4 @@
-clear
+%clear
 
 addpath('./functions')
 addpath('./run_static')
@@ -66,7 +66,7 @@ if large_hetero_spec==1
     ylabel(DIST_label,'Interpreter','latex')
    
     uniformFigureStyle(f);
-    saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
+    %saveas(gcf,append(BLP_paper_figure_path,'DIST_large_hetero.png'))
    
     %% Non-contraction figure 2
     clf
@@ -84,7 +84,7 @@ if large_hetero_spec==1
    
     %%uniformFigureStyle(f);
 
-    saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
+    %saveas(gcf,append(BLP_paper_figure_path,'DIST_diff_large_hetero.png'))
     
     CCP_table=round([s_ijt_ccp_true;s_i0t_ccp_true],4);
     filename=append(BLP_paper_figure_path,'Large_hetero_CCP.csv');
@@ -111,7 +111,7 @@ if large_hetero_spec==1
     legend('Spectral-S3','SQUAREM-S3','Box','off')
     uniformFigureStyle(f);
     
-    saveas(gcf,append(BLP_paper_figure_path,'spectral_SQUAREM_comparison.png'))
+    %saveas(gcf,append(BLP_paper_figure_path,'spectral_SQUAREM_comparison.png'))
 
     close all
 
