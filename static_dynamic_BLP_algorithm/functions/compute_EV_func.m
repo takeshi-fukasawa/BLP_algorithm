@@ -19,7 +19,8 @@ else % Inclusive value sufficiency (IVS); Currently, G==1 case only
 
     y_mat=[y_predict(:),y(:)];
 
-    sigma=sum((y-y_predict).^2,4)./(T-1);%1*ns*G*1; std of y
+    %%%sigma=sum((y-y_predict).^2,4)./(T-1);%1*ns*G*1; std of y
+    sigma=sqrt(sum((y-y_predict).^2,4)./(T-1));%1*ns*G*1; std of y
     
     n_draw=size(weight_V,1);
 

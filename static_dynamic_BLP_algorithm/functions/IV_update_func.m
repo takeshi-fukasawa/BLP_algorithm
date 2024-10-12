@@ -23,20 +23,31 @@ function [output,other_vars]=...
         IV_new=(1-rho).*log(sum(exp(v_ijt/(1-rho)),1));%1*ns*G*T
     end
     
-    s_0t_predict=sum(reshape(weight,1,ns).*...
-        reshape(exp(-V),1,ns,1,T),2);%1*1*1*T
-    s_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
+    if tune_param~=0
+        s_0t_predict=sum(reshape(weight,1,ns).*...
+            reshape(exp(-V),1,ns,1,T),2);%1*1*1*T
+        s_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
+    end
 
     if rho==0
-        IV_updated=IV_new+tune_param.*log(s_0_ratio);%1*ns*G*T
+        if tune_param==0
+            IV_updated=IV_new;%1*ns*G*T
+        else 
+            IV_updated=IV_new+tune_param.*log(s_0_ratio);%1*ns*G*T
+        end
 
-   else
+    else
         S_gt_data=sum(S_jt_data,1);%1*1*G*T
         s_gt_predict=sum(reshape(weight,1,ns,1).*...
             reshape(s_igt,1,ns,G,T),2);%1*1*G*T
-        IV_updated=IV_new+...
-            tune_param*rho*(log(S_gt_data)-log(s_gt_predict))+...
-            tune_param.*log(s_0_ratio);%1*ns*G*T       
+
+        if tune_param==0
+            IV_updated=IV_new;
+        else
+            IV_updated=IV_new+...
+                tune_param*rho*(log(S_gt_data)-log(s_gt_predict))+...
+                tune_param.*log(s_0_ratio);%1*ns*G*T   
+        end    
     end
 
     output={IV_updated};
