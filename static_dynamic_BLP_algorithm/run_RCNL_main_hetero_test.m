@@ -4,8 +4,10 @@ addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
 
+run preliminary_path.m
+
 addpath(spectral_func_path)
-%%addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
+addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
 
 
 

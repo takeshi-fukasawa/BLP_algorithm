@@ -6,7 +6,7 @@
        end
     elseif method==2|method==3 % spectral
         if t_dependent_alpha_spec==1
-            spec.update_spec=t_dim_id;
+            spec.dim_hetero_alpha=t_dim_id;
         else
             spec.update_spec=[];%%%%%%
         end

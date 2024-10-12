@@ -10,6 +10,7 @@ addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
 
+output_path=append(output_path,'static_BLP/')
 addpath(spectral_func_path)
 
 %%% In the estimation, researchers do not know true values of nonlinear parameters, and they solve for mean utility delta  by using candidate values of nonlinear parameters.
@@ -23,7 +24,7 @@ skip_contraction_spec=0; % If 1, try only the spectral/SQUAREM iterations. If 0,
 
 spec_default=[];
 spec_default.TOL=1e-13;
-spec_default.compute_alpha_spec=3;
+spec_default.compute_alpha_spec=1;
 spec_default.ITER_MAX=1000;
 
 if spec_default.compute_alpha_spec<3
@@ -33,7 +34,7 @@ end
 n_sim=1;
 I=10;
 I=1000;
-I=2;
+%I=2;
 n_dim_V=1;
 n_draw=1;
 
