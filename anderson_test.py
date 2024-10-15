@@ -37,7 +37,7 @@ initial_pi = np.array([
     [ 1.2650, 0, -0.8091, 0 ]
 ])
 
-tighter_bfgs = pyblp_test.Optimization('bfgs', {'gtol': 1e-5})
+tighter_bfgs = pyblp_test.Optimization('bfgs', {'gtol': 1e-5},'compute_gradient',True)
 #nevo_results = problem.solve(
 #    initial_sigma,initial_pi,optimization=tighter_bfgs,method='1s'
 #)

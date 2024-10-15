@@ -10,10 +10,12 @@ pyblp_test.__version__
 tight_tol=False
 if tight_tol==True :
   output_path="C:/Users/fukas/Dropbox/BLP/pyblp/tight_tol/"
-  optimization = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-8})
+  optimization = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-8},'compute_gradient',True)
 else:
   output_path="C:/Users/fukas/Dropbox/BLP/pyblp/"
-  optimization = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-4})
+  optimization = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-4},'compute_gradient',False)
+
+optimization = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-4},'compute_gradient',False)
 
 product_data=pd.read_csv(pyblp_test.data.BLP_PRODUCTS_LOCATION)
 agent_data=pd.read_csv(pyblp_test.data.BLP_AGENTS_LOCATION)
@@ -40,7 +42,7 @@ iteration=pyblp_test.Iteration('df-sane',new_delta_mapping=False)
 
 
 #########################
-## Spectral-1
+## Anderson
 #iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=True)
 
 iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
@@ -50,8 +52,8 @@ results_Anderson_1 = problem.solve(initial_sigma,
     W_type='clustered', se_type='clustered',initial_update=True)
 
 ####
-iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=True)
+#iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=True)
 
-results_spectral_1 = problem.solve(initial_sigma,
-    initial_pi,iteration=iteration,optimization=optimization,costs_bounds=(0.001, None),
-    W_type='clustered', se_type='clustered',initial_update=True)
+#results_spectral_1 = problem.solve(initial_sigma,
+#    initial_pi,iteration=iteration,optimization=optimization,costs_bounds=(0.001, None),
+#    W_type='clustered', se_type='clustered',initial_update=True)
