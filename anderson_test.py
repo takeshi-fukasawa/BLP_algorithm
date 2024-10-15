@@ -44,15 +44,12 @@ tighter_bfgs = pyblp_test.Optimization('bfgs', {'gtol': 1e-5})
 
 iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
 
-results_Anderson_1 = problem.solve(initial_sigma,
-    initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+results_Anderson_1 = problem.solve(initial_sigma,initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
 
-iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
-
-results_Anderson_1 = problem.solve(initial_sigma,
-    initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+comp_time_delta_Anderson=sum(sum(results_Anderson_1.cumulative_comp_time_solve_delta))
 
 iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=True)
 
-results_spectral_1 = problem.solve(initial_sigma,
-  initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+results_spectral_1 = problem.solve(initial_sigma,initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+
+comp_time_delta_spectral=sum(sum(results_spectral_1.cumulative_comp_time_solve_delta))

@@ -4,6 +4,7 @@ import functools
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+import time
 
 from .. import exceptions, options
 from ..configurations.iteration import ContractionResults, Iteration
@@ -431,6 +432,9 @@ class Market(Container):
         """Compute the mean utility for this market that equates market shares to observed values by solving a fixed
         point problem.
         """
+
+        start_time_compute_delta=time.time()###
+
         errors: List[Error] = []
 
         # default assumption is that no shares were clipped at the end of fixed point iteration
@@ -648,6 +652,8 @@ class Market(Container):
         if iteration._universal_display:
             output("")
 
+        stats.comp_time_solve_delta=time.time()-start_time_compute_delta
+        
         return delta, clipped_shares, stats, errors
 
     def compute_capital_lamda_gamma(

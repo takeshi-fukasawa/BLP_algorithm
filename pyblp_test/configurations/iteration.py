@@ -31,6 +31,8 @@ class Iteration(StringRepresentation):
               in the context of the BLP problem in :ref:`references:Reynaerts, Varadhan, and Nash (2012)`. This
               implementation uses a first-order squared non-monotone extrapolation scheme.
 
+            - ``'Anderson_acceleration'`` - Anderson acceleration method. 
+
             - ``'broyden1'`` - Use the :func:`scipy.optimize.root` Broyden's first Jacobian approximation method, known
               as Broyden's good method.
 
@@ -79,12 +81,12 @@ class Iteration(StringRepresentation):
     method_options : `dict, optional`
         Options for the fixed point iteration routine.
 
-        For routines other and ``'simple'``, ``'squarem'``, and ``'return'``, these options will be passed to
+        For routines other and ``'simple'``, ``'squarem'``, ``'Anderson_acceleration'``, and ``'return'``, these options will be passed to
         ``options`` in :func:`scipy.optimize.root`. Refer to the SciPy documentation for information about which options
         are available. By default, the ``tol_norm`` option is configured to use the infinity norm for SciPy methods
         other than ``'hybr'`` and ``'lm'``, for which a norm cannot be specified.
 
-        The ``'simple'`` and ``'squarem'`` methods support the following options:
+        The ``'simple'`` and ``'squarem'``, ``'Anderson_acceleration'`` methods support the following options:
 
             - **max_evaluations** : (`int`) - Maximum number of contraction mapping evaluations. The default value is
               ``5000``.
@@ -114,6 +116,13 @@ class Iteration(StringRepresentation):
               but ``step_max`` is scaled by this factor. Similarly, if ``step_min`` is negative and the step length is
               below ``step_min``, it is set equal to ``step_min`` and ``step_min`` is scaled by this factor. The default
               value is ``4.0``.
+
+        The ``'Anderson_acceleration'`` routine accepts the following additional options: 
+            - **scheme** : (`int`) - The default value is ``2``, which corresponds to Type-II Anderson acceleration method in
+              :ref:`references:Zhang et al. (2020)`. Other acceptable schemes are ``1``, which
+              correspond to Type-I Anderson acceleration method.
+
+            - **mem_size** : (`Int`) - Memory size. The default value is `5``.
 
     compute_jacobian : `bool, optional`
         Whether to compute an analytic Jacobian during iteration. By default, analytic Jacobians are not computed, and
@@ -152,6 +161,7 @@ class Iteration(StringRepresentation):
         simple_methods = {
             'simple': (functools.partial(simple_iterator), "no acceleration"),
             'squarem': (functools.partial(squarem_iterator), "the SQUAREM acceleration method"),
+            'Anderson_acceleration': (functools.partial(Anderson_acceleration_iterator), "the Anderson acceleration method"),
             'broyden1': (functools.partial(scipy_iterator), "Broyden's good method implemented in SciPy"),
             'broyden2': (functools.partial(scipy_iterator), "Broyden's bad method implemented in SciPy"),
             'anderson': (functools.partial(scipy_iterator), "Anderson's method implemented in SciPy"),
@@ -199,7 +209,7 @@ class Iteration(StringRepresentation):
         # identify the non-custom iterator and set default options
         self._method_options: Options = {}
         self._iterator, self._description = methods[method]
-        if method in {'simple', 'squarem'}:
+        if method in {'simple', 'squarem', 'Anderson_acceleration'}:
             self._method_options.update({
                 'atol': 1e-14,
                 'rtol': 0,
@@ -213,6 +223,12 @@ class Iteration(StringRepresentation):
                     'step_max': 1.0,
                     'step_factor': 4.0
                 })
+            if method == 'Anderson_acceleration':
+                self._method_options.update({
+                    'scheme': 2,
+                    'mem_size': 2
+                })
+
         elif method != 'return':
             self._iterator = functools.partial(self._iterator, method=method, compute_jacobian=compute_jacobian)
             if method in {'broyden1', 'broyden2', 'anderson', 'diagbroyden', 'krylov', 'df-sane'}:
@@ -224,7 +240,7 @@ class Iteration(StringRepresentation):
         # validate options for non-SciPy routines
         if method == 'return' and self._method_options:
             raise ValueError("The return method does not support any options.")
-        if method in {'simple', 'squarem'}:
+        if method in {'simple', 'squarem','Anderson_acceleration'}:
             if not isinstance(self._method_options['atol'], (float, int)) or self._method_options['atol'] < 0:
                 raise ValueError("The iteration option atol must be a nonnegative float.")
             if not isinstance(self._method_options['rtol'], (float, int)) or self._method_options['rtol'] < 0:
@@ -461,6 +477,82 @@ def squarem_iterator(
     converged = not failed and evaluations < max_evaluations
     return x, converged
 
+def Anderson_acceleration_iterator(
+        initial: Array, contraction: ContractionWrapper, iteration_callback: Callable[[], None], max_evaluations: int,
+        atol: float, rtol: float, norm: Callable[[Array], float], scheme: int, mem_size: float) -> Tuple[Array, bool]:
+    """Apply the Anderson acceleration method for fixed point iteration."""
+    m=mem_size#####
+
+    x = initial
+    failed = False
+    k = 0
+    while True:
+        # first step
+        x0, (x, weights) = x, contraction(x)[:2]
+        if not all_finite(x, weights):
+            x = x0
+            failed = True
+            break
+
+        g0 = x - x0
+        #print(max(abs(g0)))
+
+        # check for convergence
+        if k >= max_evaluations or termination_check(x, g0, weights, atol, rtol, norm):
+            break
+
+        resid_k_vec=x-x0
+        x_k_vec=x0
+        fun_k_vec=x
+
+        if k == 0:
+            resid_past_mat = resid_k_vec
+            fun_past_mat = fun_k_vec
+            x_past_mat = x_k_vec
+        else:
+            resid_past_mat = np.column_stack((resid_past_mat, resid_k_vec))
+            x_past_mat = np.column_stack((x_past_mat, x_k_vec))
+            fun_past_mat = np.column_stack((fun_past_mat, fun_k_vec))
+
+        if k >= 1:
+            m_k = min(m, k)
+
+            Z = resid_past_mat[:, k]
+                
+            DF = np.diff(resid_past_mat[:, k - m_k:k+1])#resid_past_mat(:, k - m_k+1:k+1) in MATLAB
+
+            if scheme == 1:
+                # Type I Anderson (Corresponding to Good Broyden update)
+
+                DX = np.diff(x_past_mat[:, k - m_k :k+1])
+                #gamma = np.linalg.solve(DX.T @ DF, DX.T @ Z)# Singular matrix error??
+                gamma=np.linalg.lstsq(DX.T @ DF,DX.T @ Z,rcond=None)[0]
+
+            else:  # scheme == 2
+                # Type II Anderson (Corresponding to Good Broyden update)
+                #gamma = np.linalg.solve(DF.T @ DF, DF.T @ Z) # Singular matrix error??
+                gamma=np.linalg.lstsq(DF.T @ DF,DF.T @ Z,rcond=None)[0]
+
+            alpha_vec = np.zeros(gamma.shape[0] + 1)
+            for id in range(len(alpha_vec)):
+                if id == 0:
+                    alpha_vec[0] = gamma[0]
+                elif 1 <= id <= len(alpha_vec) - 2:
+                    alpha_vec[id] = gamma[id] - gamma[id - 1]
+                elif id == len(alpha_vec) - 1:
+                    alpha_vec[id] = 1 - gamma[id - 1]
+
+            x = fun_past_mat[:, k - m_k:k + 1] @ alpha_vec # Update x
+
+        # record the completion of a major iteration
+        iteration_callback() ######
+
+        k += 1
+
+    # determine whether there was convergence
+    converged = not failed and k < max_evaluations
+    return x, converged
+   
 
 def all_finite(*arrays: Optional[Array]) -> bool:
     """Validate that multiple arrays are either None or all finite."""
