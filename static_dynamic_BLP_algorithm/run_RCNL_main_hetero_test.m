@@ -1,4 +1,4 @@
-%clear
+clear
 
 addpath('./functions')
 addpath('./run_static')
