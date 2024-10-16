@@ -38,7 +38,7 @@ I=1000;
 n_dim_V=1;
 n_draw=1;
 
-n_market=50;
+n_market=5;
 T=1;
 
 beta_C=0.0;

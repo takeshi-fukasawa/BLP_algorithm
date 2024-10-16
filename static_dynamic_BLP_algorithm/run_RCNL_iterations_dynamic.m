@@ -6,8 +6,8 @@ t_dim_id=4;
 
 n_dim_V=T+n_grid_IV;
 
-for m=1:n_market
-%for m=11:11 %%%%%
+%for m=1:n_market
+for m=11:11 %%%%%
         
 market_id=m
 
@@ -105,7 +105,7 @@ if 1==0
 end
 
 %%%%% Test time-dependent or not (perfect foresight case)
-if IVS_spec==0 & 1==1
+if IVS_spec==0 & 1==0
     results_V_delta_t_dep=[results_V_1_spectral(end,1),results_V_1_spectral(end,:)];
 
     t_dependent_alpha_spec=0;

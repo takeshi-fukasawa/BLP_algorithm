@@ -39,6 +39,9 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
               exp_delta_t;%J*ns*G*1
 
           s_i0t_ccp_t=1-sum(s_ijt_ccp_t,[1,3]);%1*ns*1*1
+          small_number=1e-16;
+          s_i0t_ccp_t=max(s_i0t_ccp_t,small_number);
+
 
           if t<=T-1
              Pr0(:,:,:,t+1)=Pr0_t.*s_i0t_ccp_t;%1*ns*1*1
@@ -58,6 +61,8 @@ function [delta,Pr0,s_ijt_ccp_up_to_scale]=compute_delta_from_V_func(...
               s_ijt_ccp=s_ijt_ccp_up_to_scale.*...
                   exp_delta;%J*ns*G*T
               s_i0t_ccp=1-sum(s_ijt_ccp,[1,3]);%1*ns*1*T
+              small_number=1e-16;%%%%%
+              s_i0t_ccp=max(s_i0t_ccp,small_number);%%%%%
           %end
 
          Pr0=cat(4,ones(1,ns,1,1),Pr0(:,:,:,1:T-1).*s_i0t_ccp(:,:,:,1:T-1));%1*ns*1*T

@@ -71,6 +71,10 @@ function [output,other_vars]=...
 
         s_0t_predict=...
             sum(reshape(weight,1,ns,1,1).*(1-Pr0+Pr0.*s_i0t_ccp),[2,5]);%1*1*1*T 
+        
+        %small_number=1e-10;
+        %s_0t_predict=max(s_0t_predict,small_number);
+
         S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
     end
 
@@ -83,10 +87,10 @@ function [output,other_vars]=...
     else
         if tune_param==0
             V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
-            exp(IV(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
+            exp(IV(:,:,:,1:T)));%1*ns*1*T
         else
             V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
-            exp(IV(:,:,:,1:T)));%1*ns*1*T
+            exp(IV(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
         end
         V_grid=log(exp(v_i0t_tilde(:,:,:,T+1:end))+...
             exp(IV(:,:,:,T+1:end)));%1*ns*1*n_grid_IV
