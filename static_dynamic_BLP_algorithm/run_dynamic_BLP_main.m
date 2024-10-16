@@ -16,6 +16,8 @@ addpath('./run_dynamic')
 addpath('./run_static_dynamic')
 addpath(spectral_func_path)
 
+output_path=append(output_path,'dynamic_BLP/')
+
 
 spec_default=[];
 spec_default.compute_alpha_spec=3;

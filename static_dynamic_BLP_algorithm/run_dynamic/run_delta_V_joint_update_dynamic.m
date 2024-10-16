@@ -1,7 +1,7 @@
 
 
 %% BLP_Bellman_joint_update_func 
-for method=1:3
+for method=1:4
     run spec_settings.m
 
     [output_spectral,other_vars,iter_info]=...
@@ -47,6 +47,16 @@ elseif method==3
         results_V_BLP_1_SQUAREM(m,:)=results;
         ratio_delta_V_BLP_1_SQUAREM=ratio_delta;
         iter_info_V_BLP_1_SQUAREM=iter_info;
+        end% tune_param_BLP==0 or 1
+elseif method==4
+    if tune_param_BLP==0
+        results_V_BLP_0_Anderson(m,:)=results;
+        ratio_delta_V_BLP_0_Anderson=ratio_delta;
+        iter_info_V_BLP_0_Andeson=iter_info;
+        elseif tune_param_BLP==1
+        results_V_BLP_1_Anderson(m,:)=results;
+        ratio_delta_V_BLP_1_Anderson=ratio_delta;
+        iter_info_V_BLP_1_Anderson=iter_info;
         end% tune_param_BLP==0 or 1
 
 end

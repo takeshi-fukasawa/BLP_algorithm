@@ -1,7 +1,7 @@
 V_EV_initial0=cat(4,V_initial0,zeros(1,ns,1,T));
 
 %% V_EV_update_func 
-for method=1:3
+for method=1:4
     run spec_settings.m
 
 [output_spectral,other_vars,iter_info]=...
@@ -55,6 +55,7 @@ elseif method==2
         ratio_delta_V_EV_2_spectral=ratio_delta;
         iter_info_V_EV_2_spectral=iter_info;
     end% tune_param==0 or 1 or others
+
 elseif method==3
     if tune_param==0
         results_V_EV_0_SQUAREM(m,:)=results_V_EV;
@@ -69,6 +70,22 @@ elseif method==3
         ratio_delta_V_EV_2_SQUAREM=ratio_delta;
         iter_info_V_EV_2_SQUAREM=iter_info;
     end% tune_param==0 or 1 or others
+
+elseif method==4
+    if tune_param==0
+        results_V_EV_0_Anderson(m,:)=results_V_EV;
+        ratio_delta_V_EV_0_Anderson=ratio_delta;
+        iter_info_V_EV_0_Anderson=iter_info;
+    elseif tune_param==1
+        results_V_EV_1_Anderson(m,:)=results_V_EV;
+        ratio_delta_V_EV_1_Anderson=ratio_delta;
+        iter_info_V_EV_1_Anderson=iter_info;
+    elseif tune_param>1
+        results_V_EV_2_Anderson(m,:)=results_V_EV;
+        ratio_delta_V_EV_2_Anderson=ratio_delta;
+        iter_info_V_EV_2_Anderson=iter_info;
+    end% tune_param==0 or 1 or others
+
 end
 
 

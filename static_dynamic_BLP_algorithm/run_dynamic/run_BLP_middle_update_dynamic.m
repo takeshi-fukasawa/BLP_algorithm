@@ -55,6 +55,7 @@ elseif method==2
         ratio_delta_BLP_middle_2_spectral=ratio_delta;
         iter_info_BLP_middle_2_spectral=iter_info;
     end% tune_param==0 or 1 or others
+
 elseif method==3
     if tune_param==0
         results_BLP_middle_0_SQUAREM(m,:)=results_BLP_middle;
@@ -69,6 +70,22 @@ elseif method==3
         ratio_delta_BLP_middle_2_SQUAREM=ratio_delta;
         iter_info_BLP_middle_2_SQUAREM=iter_info;
     end% tune_param==0 or 1 or others
+
+elseif method==4
+    if tune_param==0
+        results_BLP_middle_0_Anderson(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_0_Anderson=ratio_delta;
+        iter_info_BLP_middle_0_Anderson=iter_info;
+    elseif tune_param==1
+        results_BLP_middle_1_Anderson(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_1_Anderson=ratio_delta;
+        iter_info_BLP_middle_1_Anderson=iter_info;
+    elseif tune_param>1
+        results_BLP_middle_2_Anderson(m,:)=results_BLP_middle;
+        ratio_delta_BLP_middle_2_Anderson=ratio_delta;
+        iter_info_BLP_middle_2_Anderson=iter_info;
+    end% tune_param==0 or 1 or others
+
 end
 
 
