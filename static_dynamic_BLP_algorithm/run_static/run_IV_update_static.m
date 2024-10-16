@@ -1,6 +1,6 @@
 
 %% IV_update_func 
-for method=1:3
+for method=1:4
 
     run spec_settings.m
 
@@ -68,6 +68,21 @@ elseif method==3
         ratio_delta_IV_2_SQUAREM=ratio_delta;
         iter_info_IV_2_SQUAREM=iter_info;
     end% tune_param==0 or 1 or others
+elseif method==4
+    if tune_param==0
+        results_IV_0_Anderson(m,:)=results_IV;
+        ratio_delta_IV_0_Anderson=ratio_delta;
+        iter_info_IV_0_Anderson=iter_info;
+    elseif tune_param==1
+        results_IV_1_Anderson(m,:)=results_IV;
+        ratio_delta_IV_1_Anderson=ratio_delta;
+        iter_info_IV_1_Anderson=iter_info;
+    elseif tune_param>1
+        results_IV_2_Anderson(m,:)=results_IV;
+        ratio_delta_IV_2_Anderson=ratio_delta;
+        iter_info_IV_2_Anderson=iter_info;
+    end% tune_param==0 or 1 or others
+
 end
 
 end % method

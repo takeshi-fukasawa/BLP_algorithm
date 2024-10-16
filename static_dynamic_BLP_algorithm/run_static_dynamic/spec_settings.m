@@ -4,18 +4,16 @@
         if skip_contraction_spec==1
             spec.ITER_MAX=1;
        end
-    elseif method==2|method==3 % spectral
+    elseif method==2|method==3 % spectral or SQUAREM
         if t_dependent_alpha_spec==1
             spec.dim_hetero_alpha=t_dim_id;
         else
             spec.update_spec=[];%%%%%%
         end
-        if method==3
-            spec.SQUAREM_spec=1;
-            spec.SQUAREM_spec=2;%%%%%
-            %spec.SQUAREM_spec=3;%%%%%
-            
-            
+        if method==3 % SQUAREM
+            spec.SQUAREM_spec=1;            %spec.SQUAREM_spec=3;%%%%
         end
+    elseif method==4 % Anderson
+        spec.Anderson_acceleration=1;
     end
 

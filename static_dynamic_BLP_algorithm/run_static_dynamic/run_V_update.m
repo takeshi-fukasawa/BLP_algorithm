@@ -1,6 +1,6 @@
 
 %% V_update_func 
-for method=1:3
+for method=1:4
     run spec_settings.m
 
     [output_spectral,other_vars,iter_info]=...
@@ -73,6 +73,21 @@ elseif method==3
         ratio_delta_V_2_SQUAREM=ratio_delta;
         iter_info_V_2_SQUAREM=iter_info;
     end% tune_param==0 or 1 or others
+elseif method==4
+    if tune_param==0
+        results_V_0_Anderson(m,:)=results_V;
+        ratio_delta_V_0_Anderson=ratio_delta;
+        iter_info_V_0_Anderson=iter_info;
+    elseif tune_param==1
+        results_V_1_Anderson(m,:)=results_V;
+        ratio_delta_V_1_Anderson=ratio_delta;
+        iter_info_V_1_Anderson=iter_info;
+    elseif tune_param>1
+        results_V_2_Anderson(m,:)=results_V;
+        ratio_delta_V_2_Anderson=ratio_delta;
+        iter_info_V_2_Anderson=iter_info;
+    end% tune_param==0 or 1 or others
+
 end
 
 

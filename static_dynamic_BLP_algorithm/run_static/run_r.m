@@ -1,7 +1,7 @@
 %% Kalouptsidi method
 r_initial0=log(S_0t_data.*weight);%1 by ns; Initial value
 
-for method=1:3
+for method=1:4
     run spec_settings.m
 
     for kk=1:n_sim
@@ -35,6 +35,9 @@ for method=1:3
     elseif method==3
         results_r_SQUAREM(m,:)=results_r_temp;
         iter_info_r_SQUAREM=iter_info;
+    elseif method==4
+        results_r_Anderson(m,:)=results_r_temp;
+        iter_info_r_Anderson=iter_info;
     end
 end% method=1,2,3
 

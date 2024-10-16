@@ -1,6 +1,6 @@
 %% Compute delta, given nonlinear parameters (sigma)
 
-for method=1:3
+for method=1:4
     run spec_settings.m
 
     for kk=1:n_sim
@@ -26,6 +26,9 @@ for method=1:3
     elseif method==3
         results_BLP_SQUAREM=results_BLP_temp;
         iter_info_BLP_SQUAREM=iter_info;
+    elseif method==4
+        results_BLP_Anderson=results_BLP_temp;
+        iter_info_BLP_Anderson=iter_info;
     end
 end% method=1,2,3
 
@@ -36,6 +39,9 @@ if tune_param_BLP==0
     iter_info_BLP_0_spectral=iter_info_BLP_spectral;
     results_BLP_0_SQUAREM(m,:)=results_BLP_SQUAREM;
     iter_info_BLP_0_SQUAREM=iter_info_BLP_SQUAREM;
+    results_BLP_0_Anderson(m,:)=results_BLP_Anderson;
+    iter_info_BLP_0_Anderson=iter_info_BLP_Anderson;
+    
 elseif tune_param_BLP==1
     results_BLP_1(m,:)=results_BLP;
     iter_info_BLP_1=iter_info_BLP;
@@ -43,5 +49,8 @@ elseif tune_param_BLP==1
     iter_info_BLP_1_spectral=iter_info_BLP_spectral;
     results_BLP_1_SQUAREM(m,:)=results_BLP_SQUAREM;
     iter_info_BLP_1_SQUAREM=iter_info_BLP_SQUAREM;
+    results_BLP_1_Anderson(m,:)=results_BLP_Anderson;
+    iter_info_BLP_1_Anderson=iter_info_BLP_Anderson;
+
 end
 

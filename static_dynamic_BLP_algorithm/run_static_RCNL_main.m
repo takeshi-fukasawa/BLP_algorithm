@@ -9,6 +9,7 @@ run preliminary_path.m
 addpath('./functions')
 addpath('./run_static')
 addpath('./run_static_dynamic')
+addpath('./results')
 
 output_path=append(output_path,'static_BLP/')
 addpath(spectral_func_path)
@@ -24,17 +25,17 @@ skip_contraction_spec=0; % If 1, try only the spectral/SQUAREM iterations. If 0,
 
 spec_default=[];
 spec_default.TOL=1e-13;
-spec_default.compute_alpha_spec=1;
+spec_default.compute_alpha_spec=3;
 spec_default.ITER_MAX=1000;
 
-if spec_default.compute_alpha_spec<3
+if spec_default.compute_alpha_spec~=3
     skip_contraction_spec=1;
 end
 
 n_sim=1;
 I=10;
 I=1000;
-%I=2;
+I=2;
 n_dim_V=1;
 n_draw=1;
 
@@ -95,6 +96,12 @@ if n_market>1 & 1==1
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
 
     writematrix(results_RCNL,filename)
+
+    filename=append(output_path,"RCNL_table_ns_",...
+        string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
+
+
+    
 end
 end % run RCNL
 
