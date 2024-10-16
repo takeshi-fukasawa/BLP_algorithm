@@ -60,8 +60,11 @@ S_jt_given_g_data=S_jt_data./S_gt_data;%J*1*G*T
 s_i0t_ccp_true=1-sum(s_ijt_ccp_true,[1,3]);%1*ns*1*T
 
 if T>=2
-    [coef_0_true,coef_1_true,y,y_predict,R2]=...
+    [coef_0_true,coef_1_true,y,y_predict,~]=...
         estimate_IV_AR1_transition_func(IV_state_obs_pt);    
 end
+
+R2_AR1=corr(y(:),y_predict(:));
+
 
 delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta

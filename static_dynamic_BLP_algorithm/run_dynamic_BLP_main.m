@@ -73,11 +73,11 @@ T=30;
 
 if IVS_spec==1
    T=25;
-   n_grid_IV=10;
+   n_grid_IV=30;
    beta_0=6;
    Pr0_spec=1;
    t_dependent_alpha_spec=0;%%%
-   spec_default.alpha_max=5;%%%%
+   %spec_default.alpha_max=5;%%%%
    spec_default.ITER_MAX=3000;
    n_draw=5;
 else
