@@ -12,7 +12,9 @@
         end
         if method==3
             spec.SQUAREM_spec=1;
-            spec.SQUAREM_spec=2;
+            spec.SQUAREM_spec=2;%%%%%
+            %spec.SQUAREM_spec=3;%%%%%
+            
             
         end
     end

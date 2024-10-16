@@ -255,6 +255,8 @@ class ProblemResults(Results):
     cumulative_fp_iterations: Array
     contraction_evaluations: Array
     cumulative_contraction_evaluations: Array
+    comp_time_solve_delta: Array
+    cumulative_comp_time_solve_delta: Array
     parameters: Array
     parameter_covariances: Array
     theta: Array
@@ -396,6 +398,11 @@ class ProblemResults(Results):
             [[m[t].evaluations if m else 0 for m in iteration_stats] for t in self.problem.unique_market_ids],
             dtype=np.int64
         )
+        self.comp_time_solve_delta = self.cumulative_comp_time_solve_delta = np.array(
+            [[m[t].comp_time_solve_delta if m else 0 for m in iteration_stats] for t in self.problem.unique_market_ids],
+            dtype=np.float64
+        )
+
 
         # initialize last results and add to cumulative values
         self.last_results = last_results
@@ -414,6 +421,10 @@ class ProblemResults(Results):
             self.cumulative_contraction_evaluations = np.c_[
                 last_results.cumulative_contraction_evaluations, self.cumulative_contraction_evaluations
             ]
+            self.cumulative_comp_time_solve_delta = np.c_[
+                last_results.cumulative_comp_time_solve_delta, self.cumulative_comp_time_solve_delta
+            ]
+
 
         # store estimated parameters and information about them (beta and gamma have already been stored above)
         self.sigma, self.pi, self.rho, _, _ = self._parameters.expand(self.theta)
@@ -732,7 +743,10 @@ class ProblemResults(Results):
                 'converged', 'cumulative_converged', 'optimization_iterations', 'cumulative_optimization_iterations',
                 'objective_evaluations', 'cumulative_objective_evaluations', 'fp_converged', 'cumulative_fp_converged',
                 'fp_iterations', 'cumulative_fp_iterations', 'contraction_evaluations',
-                'cumulative_contraction_evaluations', 'parameters', 'parameter_covariances', 'theta', 'sigma',
+                'cumulative_contraction_evaluations',
+                'comp_time_solve_delta',
+                'cumulative_comp_time_solve_delta',
+                 'parameters', 'parameter_covariances', 'theta', 'sigma',
                 'sigma_squared', 'pi', 'rho', 'beta', 'gamma', 'sigma_se', 'sigma_squared_se', 'pi_se', 'rho_se',
                 'beta_se', 'gamma_se', 'sigma_bounds', 'pi_bounds', 'rho_bounds', 'beta_bounds', 'gamma_bounds',
                 'sigma_labels', 'pi_labels', 'rho_labels', 'beta_labels', 'gamma_labels', 'delta', 'tilde_costs',
