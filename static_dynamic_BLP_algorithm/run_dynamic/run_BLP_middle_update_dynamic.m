@@ -3,7 +3,7 @@ global feval_Bellman
 hot_start_V_spec=1;
 
 %% V_update_func
-for method=2:2
+for method=4:4
     run spec_settings.m
     feval_Bellman=0;
 
@@ -92,7 +92,8 @@ end
 end % method
 
 results_V_delta_nested=[feval_Bellman,results_BLP_middle];
-results_V_delta_joint=[results_V_BLP_1_spectral(end,1),results_V_BLP_1_spectral(end,:)];
+%results_V_delta_joint=[results_V_BLP_1_spectral(end,1),results_V_BLP_1_spectral(end,:)];
+results_V_delta_joint=[results_V_BLP_1_Anderson(end,1),results_V_BLP_1_Anderson(end,:)];
 
 results_comparison=[results_V_delta_joint;results_V_delta_nested];
 

@@ -47,7 +47,7 @@ ns=I;
 n_market=20;
 n_draw=1;
 
-IVS_spec=1; % If IVS_spec==1, use inclusive value sufficiency. If IVS_spec==0, assume perfect foresight on the future state transitions of market-level variables. For details, see the paper.
+IVS_spec=0; % If IVS_spec==1, use inclusive value sufficiency. If IVS_spec==0, assume perfect foresight on the future state transitions of market-level variables. For details, see the paper.
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
