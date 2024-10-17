@@ -1,5 +1,10 @@
 global Pr0_spec
 Pr0_spec=0; % not use Pr0 (only for dynamic BLP)
+spec_validation="MonteCarlo";
+market_ids=[];
+weights=[];
+choice_prob=[];
+shares=[];
 
 %% Parameter settings
 
@@ -91,6 +96,13 @@ else %%%%% G>=2
 
 
 end % rho_est==0 or others
+
+if G==1 % Currently, RCL only
+    market_ids=[market_ids;m*ones(J,1)];
+    weights=[weights;weight(:)];
+    choice_prob=[choice_prob;reshape(s_ijt_ccp_true,J,I)];
+    shares=[shares;S_jt_data];
+end
 
 end % n_market
 

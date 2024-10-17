@@ -9,8 +9,11 @@ pyblp_test.__version__
 
 output_path="C:/Users/fukas/Dropbox/BLP/pyblp/"
 
+numer_diff=False
+
 product_data=pd.read_csv(pyblp_test.data.NEVO_PRODUCTS_LOCATION)
 agent_data = pd.read_csv(pyblp_test.data.NEVO_AGENTS_LOCATION)
+
 
 ## Random coefficient
 X1_formulation = pyblp_test.Formulation('0 + prices',absorb='C(product_ids)')
@@ -19,7 +22,6 @@ X2_formulation = pyblp_test.Formulation('1 + prices + sugar + mushy')
 product_formulations = (X1_formulation, X2_formulation)
 
 agent_formulation = pyblp_test.Formulation('0 + income + income_squared + age + child')
-
 
 problem = pyblp_test.Problem(product_formulations, product_data,agent_formulation,agent_data)
 
@@ -35,9 +37,22 @@ tighter_bfgs = pyblp_test.Optimization('bfgs', {'gtol': 1e-5})
 #nevo_results = problem.solve(
 #    initial_sigma,initial_pi,optimization=tighter_bfgs,method='1s'
 #)
+if numer_diff==True:
+  tighter_bfgs = pyblp_test.Optimization('l-bfgs-b', {'ftol': 0, 'gtol': 1e-5},'compute_gradient',False)
+
 
 #####################
 #########################
+
+## Anderson-1
+iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
+
+results_Anderson_1 = problem.solve(initial_sigma,
+  initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+
+with open(output_path+'Nevo_est_results_Anderson_1.pickle', mode='wb') as fo:
+  pickle.dump(results_Anderson_1, fo)
+
 ## Spectral-1
 iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=True)
 
@@ -66,6 +81,15 @@ with open(output_path+'Nevo_est_results_simple_1.pickle', mode='wb') as fo:
   pickle.dump(results_simple_1, fo)
 
 ########################
+## Anderson-0
+iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=False)
+
+results_Anderson_0 = problem.solve(initial_sigma,
+  initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+
+with open(output_path+'Nevo_est_results_Anderson_0.pickle', mode='wb') as fo:
+  pickle.dump(results_Anderson_0, fo)
+
 ## Spectral-0
 iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no"},new_delta_mapping=False)
 
@@ -93,7 +117,18 @@ results_simple_0 = problem.solve(initial_sigma,
 with open(output_path+'Nevo_est_results_simple_0.pickle', mode='wb') as fo:
   pickle.dump(results_simple_0, fo)
 
+## LM
+#iteration=pyblp_test.Iteration('lm',{'ftol':1e-14},new_delta_mapping=False)
+#results_LM_0 = problem.solve(initial_sigma,
+#    initial_pi,iteration=iteration,optimization=tighter_bfgs,method='1s')
+
+#with open(output_path+'Nevo_est_results_LM_0.pickle', mode='wb') as fo:
+#  pickle.dump(results_LM_0, fo)
+
 ####################
+with open(output_path+'Nevo_est_results_Anderson_1.pickle', mode='br') as fi:
+  results_Anderson_1 = pickle.load(fi)
+
 with open(output_path+'Nevo_est_results_spectral_1.pickle', mode='br') as fi:
   results_spectral_1 = pickle.load(fi)
 
@@ -102,6 +137,9 @@ with open(output_path+'Nevo_est_results_squarem_1.pickle', mode='br') as fi:
 
 with open(output_path+'Nevo_est_results_simple_1.pickle', mode='br') as fi:
   results_simple_1 = pickle.load(fi)
+
+with open(output_path+'Nevo_est_results_Anderson_0.pickle', mode='br') as fi:
+  results_Anderson_0 = pickle.load(fi)
 
 with open(output_path+'Nevo_est_results_spectral_0.pickle', mode='br') as fi:
   results_spectral_0 = pickle.load(fi)
@@ -114,12 +152,15 @@ with open(output_path+'Nevo_est_results_simple_0.pickle', mode='br') as fi:
 
 import results_functions
 
-results_table=np.array([results_functions.results_func(results_spectral_1),
-         results_functions.results_func(results_squarem_1),
+results_table=np.array([
          results_functions.results_func(results_simple_1),
+         results_functions.results_func(results_Anderson_1),
+         results_functions.results_func(results_spectral_1),
+         results_functions.results_func(results_squarem_1),
+         results_functions.results_func(results_simple_0),
+         results_functions.results_func(results_Anderson_0),
          results_functions.results_func(results_spectral_0),
-         results_functions.results_func(results_squarem_0),
-         results_functions.results_func(results_simple_0)])
+         results_functions.results_func(results_squarem_0)])
 
 np.set_printoptions(suppress=True)
 results_table=np.round(results_table,3)
@@ -127,3 +168,11 @@ results_table=np.round(results_table,3)
 with open(output_path+'Nevo_est_results.csv', 'w',newline="") as f:
     writer = csv.writer(f)
     writer.writerows(results_table)
+
+## Convergence properties
+import scipy.io as sio
+choice_prob=results_Anderson_1.compute_probabilities()
+            
+sio.savemat(output_path+'data_Nevo.mat', {'market_ids':np.array(product_data.market_ids),
+                             'shares':np.array(product_data.shares),'weights':np.array(agent_data.weights),'choice_prob':np.array(choice_prob)})
+ 

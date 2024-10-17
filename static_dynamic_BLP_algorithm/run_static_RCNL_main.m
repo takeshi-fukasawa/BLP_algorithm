@@ -35,11 +35,11 @@ end
 n_sim=1;
 I=10;
 I=1000;
-I=2;
+%I=2;
 n_dim_V=1;
 n_draw=1;
 
-n_market=50;
+n_market=5;
 T=1;
 
 beta_C=0.0;
@@ -99,8 +99,6 @@ if n_market>1 & 1==1
 
     filename=append(output_path,"RCNL_table_ns_",...
         string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
-
-
     
 end
 end % run RCNL

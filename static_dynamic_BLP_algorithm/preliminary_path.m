@@ -5,3 +5,4 @@ spectral_func_path='C:/Users/fukas/Dropbox/git/spectral';
 output_path="C:/Users/fukas/Dropbox/git/BLP_algorithm/static_dynamic_BLP_algorithm/results/";
 %%% figure of static BLP inner-loop algorithm under large consumer heterogeneity
 BLP_paper_figure_path="C:/Users/fukas/Dropbox/アプリ/Overleaf/BLP_paper/figure/";
+pyblp_results_path="C:/Users/fukas/Dropbox/BLP/pyblp/";
