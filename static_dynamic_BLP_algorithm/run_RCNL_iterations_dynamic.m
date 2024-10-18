@@ -5,6 +5,7 @@ TOL_DIST_s_jt=1e-12;
 t_dim_id=4;
 
 n_dim_V=T+n_grid_IV;
+outside_ccp_array=NaN(T,I,n_market);
 
 for m=1:n_market
 %for m=n_market:n_market%%%%%
@@ -19,7 +20,10 @@ gpurng(m);
 run DGP.m
 
 run solve_equil.m
+outside_ccp_array(:,:,m)=reshape(s_i0t_ccp_true,T,I,1);
 
+
+if 1==1 % Run inner-loop algorithms %%%
 %V_initial0=-log(S_0t_data.*weight);
 delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);% Initial value of delta
 
@@ -65,7 +69,9 @@ run run_delta_V_joint_update_dynamic.m
 tune_param_BLP=1;
 run run_delta_V_joint_update_dynamic.m
 
-end
+end % if 1==0
+
+end% loop wrt market
 
 if mistake_spec==1
     mu_ijt=mu_ijt_est;
