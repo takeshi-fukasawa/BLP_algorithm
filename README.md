@@ -22,6 +22,12 @@ The original PyBLP package relies on the dfsane function in SciPy package (versi
 iteration=pyblp_test.Iteration('df-sane',{'ftol':0,'fatol':1e-14,'line_search':"no",'scheme':1},new_delta_mapping=True)
 ```
 
+* Anderson acceleration  
+Because Anderson acceleration method for fixed point iterations is not available in PyBLP, I added a code on Anderson acceleration. For instance, if we want to try the algorithm using the new mapping $\delta$-(1) combined with the Anderson acceleration with memory size $m=5$ abd scheme 2 (Type-II Anderson acceleration), we should specify:  
+```
+iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
+```
+
 We can obtain the results of Fukasawa (2024), by running the following code:
 * "run_Nevo_est.py": Estimation using Nevo (2001)'s dataset
 * "run_BLP_est.py": Estimation using Berry et al. (1995,1999)'s dataset
