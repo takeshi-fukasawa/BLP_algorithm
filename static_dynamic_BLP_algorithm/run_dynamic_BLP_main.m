@@ -20,9 +20,9 @@ output_path=append(output_path,'dynamic_BLP/')
 
 
 spec_default=[];
-spec_default.compute_alpha_spec=3;
+spec_default.spectral_coef_spec=3;
 spec_default.TOL=1e-12;
-spec_default.common_alpha_spec=0;
+spec_default.common_spectral_coef_spec=0;
 spec_default.ITER_MAX=3000;
 %spec_default.ITER_MAX=3;
 %%spec_default.stabilize_spec=1;

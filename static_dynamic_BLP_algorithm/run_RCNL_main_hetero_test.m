@@ -12,7 +12,7 @@ addpath('C:/Users/fukas/Dropbox/git/util/uniformFigureStyle/')
 
 
 spec_default=[];
-spec_default.compute_alpha_spec=3;
+spec_default.spectral_coef_spec=3;
 
 spec_default.ITER_MAX=2000;
 spec_default.TOL=1e-13;

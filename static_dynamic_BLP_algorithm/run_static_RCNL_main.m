@@ -25,10 +25,10 @@ skip_contraction_spec=0; % If 1, try only the spectral/SQUAREM iterations. If 0,
 
 spec_default=[];
 spec_default.TOL=1e-13;
-spec_default.compute_alpha_spec=3;
+spec_default.spectral_coef_spec=3;
 spec_default.ITER_MAX=1000;
 
-if spec_default.compute_alpha_spec~=3
+if spec_default.spectral_coef_spec~=3
     skip_contraction_spec=1;
 end
 
@@ -73,14 +73,14 @@ results_no_nest=[results_1];
 
 if n_market>1 & 1==1
     filename=append(output_path,"no_nest_results_ns_",...
-        string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
+        string(ns),"_",string(mistake_spec),"_S",string(spec.spectral_coef_spec),".csv");
 
     writematrix(results_no_nest,filename)
 end
 
 end % RCL run
 
-if 1==1 & spec.compute_alpha_spec==3 & I>2
+if 1==1 & spec.spectral_coef_spec==3 & I>2
 %% Simulation 3 (RCNL)
 J=25;% Number of products per nest
 G=3;
@@ -93,12 +93,12 @@ results_RCNL=results;
 
 if n_market>1 & 1==1
     filename=append(output_path,"RCNL_results_ns_",...
-        string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
+        string(ns),"_",string(mistake_spec),"_S",string(spec.spectral_coef_spec),".csv");
 
     writematrix(results_RCNL,filename)
 
     filename=append(output_path,"RCNL_table_ns_",...
-        string(ns),"_",string(mistake_spec),"_S",string(spec.compute_alpha_spec),".csv");
+        string(ns),"_",string(mistake_spec),"_S",string(spec.spectral_coef_spec),".csv");
     
 end
 end % run RCNL
