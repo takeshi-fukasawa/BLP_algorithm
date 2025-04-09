@@ -56,7 +56,7 @@ durable_spec=1; % Use the model in Sun and Ishihara (2019)
 
 Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
-t_dependent_alpha_spec=0; % Introduce time-dependent step sizes alpha in the spectral / SQUAREM algorithms.
+t_dependent_spectral_coef_spec=0; % Introduce time-dependent step sizes spectral_coef in the spectral / SQUAREM algorithms.
 
 n_dim_V=1;
 
@@ -76,8 +76,8 @@ if IVS_spec==1
    n_grid_IV=30;
    beta_0=6;
    Pr0_spec=1;
-   t_dependent_alpha_spec=0;%%%
-   %spec_default.alpha_max=5;%%%%
+   t_dependent_spectral_coef_spec=0;%%%
+   %spec_default.spectral_coef_max=5;%%%%
    spec_default.ITER_MAX=3000;
    n_draw=5;
 else
@@ -85,8 +85,8 @@ else
     n_grid_IV=0;
     beta_0=6;
     Pr0_spec=1;
-    t_dependent_alpha_spec=1;
-    spec_default.alpha_max=10;
+    t_dependent_spectral_coef_spec=1;
+    spec_default.spectral_coef_max=10;
 end
 
 %%T=1;

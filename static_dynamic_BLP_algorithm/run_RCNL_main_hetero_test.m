@@ -17,14 +17,14 @@ spec_default.spectral_coef_spec=3;
 spec_default.ITER_MAX=2000;
 spec_default.TOL=1e-13;
 
-%%%spec_default.alpha_max=10;%%%%
+%%%spec_default.spectral_coef_max=10;%%%%
 
 %%spec_default.norm_spec=2;
 
 mistake_spec=0;
 large_hetero_spec=1;%%%%
 durable_spec=0;
-t_dependent_alpha_spec=0;
+t_dependent_spectral_coef_spec=0;
 skip_contraction_spec=0;
 
 n_draw=1;
@@ -97,7 +97,7 @@ if large_hetero_spec==1
 
     %% Spectral vs SQUAREM
 
-    %semilogy(iter_info_V_0_spectral.alpha_table)
+    %semilogy(iter_info_V_0_spectral.spectral_coef_table)
     
     comparison_DIST=log10([iter_info_BLP_0_spectral.DIST_table,...
         iter_info_BLP_0_SQUAREM.DIST_table]);

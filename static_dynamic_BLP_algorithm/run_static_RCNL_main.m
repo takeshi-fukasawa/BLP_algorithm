@@ -20,7 +20,7 @@ mistake_spec=1;
 
 large_hetero_spec=0; % See also run_RCNL_main_hetero_test.m
 durable_spec=0;% Used in dynamic BLP
-t_dependent_alpha_spec=0; % Used in dynamic BLP
+t_dependent_spectral_coef_spec=0; % Used in dynamic BLP
 skip_contraction_spec=0; % If 1, try only the spectral/SQUAREM iterations. If 0, also try standard fixed point iterations.
 
 spec_default=[];
@@ -39,7 +39,7 @@ I=1000;
 n_dim_V=1;
 n_draw=1;
 
-n_market=50;
+n_market=2;
 T=1;
 
 beta_C=0.0;

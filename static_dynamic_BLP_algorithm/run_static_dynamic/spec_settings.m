@@ -5,8 +5,8 @@
             spec.ITER_MAX=1;
        end
     elseif method==2|method==3 % spectral or SQUAREM
-        if t_dependent_alpha_spec==1
-            spec.dim_hetero_alpha=t_dim_id;
+        if t_dependent_spectral_coef_spec==1
+            spec.dim_hetero_spectral_coef=t_dim_id;
         else
             spec.update_spec=[];%%%%%%
         end

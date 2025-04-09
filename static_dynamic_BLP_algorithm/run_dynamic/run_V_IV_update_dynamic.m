@@ -67,7 +67,7 @@ feval_update_IV=k;
 
 %% V_IV_update_func spectral
 spec=spec_default;
-spec.dim_hetero_alpha=t_dim_id*ones(2,1);
+spec.dim_hetero_spectral_coef=t_dim_id*ones(2,1);
 tic
 for kk=1:n_sim
         output_spectral=...

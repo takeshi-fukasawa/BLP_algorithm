@@ -119,7 +119,7 @@ end
 if IVS_spec==0 & m==n_market & 1==0
     results_V_delta_t_dep=[results_V_0_spectral(end,:)];
 
-    t_dependent_alpha_spec=0;
+    t_dependent_spectral_coef_spec=0;
     [output_spectral,other_vars,iter_info]=...
         spectral_func(@V_update_func,spec,...
         {V_initial0},...
@@ -145,11 +145,11 @@ if IVS_spec==0 & m==n_market & 1==0
     end
     results_V_delta_t_indep=results_output_func(iter_info,s_jt_predict,S_jt_data);
  
-    results_comparison_t_dep_alpha=[results_V_delta_t_dep;results_V_delta_t_indep]
+    results_comparison_t_dep_spectral_coef=[results_V_delta_t_dep;results_V_delta_t_indep]
 
     filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
-        string(beta_C),"_",string(mistake_spec),"_V_mapping_comparison_t_dep_alpha.csv");
-    writematrix(results_comparison_t_dep_alpha,filename)
+        string(beta_C),"_",string(mistake_spec),"_V_mapping_comparison_t_dep_spectral_coef.csv");
+    writematrix(results_comparison_t_dep_spectral_coef,filename)
 
 end
 
