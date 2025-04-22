@@ -106,7 +106,7 @@ mu_ijt_true=reshape(mu_ijt_true,J,ns,G,T)./eps_sd;
 mu_i0t_true=zeros(1,ns,1,T,n_state)./eps_sd;
 mu_i0t_est=mu_i0t_true;
 
-IV_true=log(sum(exp(delta_jt_true+mu_ijt_true)./eps_sd,1));%1*ns*G*T
+IV_true=log(sum(exp(delta_jt_true+mu_ijt_true)./eps_sd,1));%1*ns*G*(T+n_grid_IV)
 
 
 

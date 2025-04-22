@@ -22,6 +22,7 @@ run DGP.m
 run solve_equil.m
 outside_ccp_array(:,:,m)=reshape(s_i0t_ccp_true,T,I,1);
 
+Pr0=Pr0_true;%%%%
 
 if 1==1 % Run inner-loop algorithms %%%
 %V_initial0=-log(S_0t_data.*weight);
@@ -54,22 +55,23 @@ if G==1 & rho_est==0
 
 end
 
-
-%% Jointly Update V and IV
-if G>=2
-run run_V_IV_update_dynamic.m
-end
-
-%% Joint update of delta and V
-%%% tune_param_BLP==0
-tune_param_BLP=0;
-run run_delta_V_joint_update_dynamic.m
-
-%%% tune_param_BLP==1
-tune_param_BLP=1;
-run run_delta_V_joint_update_dynamic.m
-
-end % if 1==0
+if beta_0<10
+    %% Jointly Update V and IV
+    if G>=2
+    run run_V_IV_update_dynamic.m
+    end
+    
+    %% Joint update of delta and V
+    %%% tune_param_BLP==0
+    tune_param_BLP=0;
+    run run_delta_V_joint_update_dynamic.m
+    
+    %%% tune_param_BLP==1
+    tune_param_BLP=1;
+    run run_delta_V_joint_update_dynamic.m
+    
+    end % if 1==0
+end%beta_0<10
 
 end% loop wrt market
 
@@ -93,17 +95,21 @@ results_table_V=[...
 %        results_V_2;results_V_2_spectral;results_V_2_SQUAREM];
 %end
 
-results_table_V_BLP=[...
-    results_table_func(results_V_BLP_0);...
-    results_table_func(results_V_BLP_0_Anderson);...    
-    results_table_func(results_V_BLP_0_spectral);...
-    results_table_func(results_V_BLP_0_SQUAREM);...
-    results_table_func(results_V_BLP_1);...
-    results_table_func(results_V_BLP_1_Anderson);...
-    results_table_func(results_V_BLP_1_spectral);...
-    results_table_func(results_V_BLP_1_SQUAREM)];
+if beta_0<10
+    results_table_V_BLP=[...
+        results_table_func(results_V_BLP_0);...
+        results_table_func(results_V_BLP_0_Anderson);...    
+        results_table_func(results_V_BLP_0_spectral);...
+        results_table_func(results_V_BLP_0_SQUAREM);...
+        results_table_func(results_V_BLP_1);...
+        results_table_func(results_V_BLP_1_Anderson);...
+        results_table_func(results_V_BLP_1_spectral);...
+        results_table_func(results_V_BLP_1_SQUAREM)];
 
-results_table=[results_table_V;results_table_V_BLP];
+    results_table=[results_table_V;results_table_V_BLP];
+else
+    results_table=[results_table_V];
+end
 
 results_table(:,end)=results_table(:,end)*100;%%conv
 results_table(:,end-1)=round(results_table(:,end-1),1);%%DIST
@@ -111,12 +117,12 @@ results_table(:,end-1)=round(results_table(:,end-1),1);%%DIST
 results_table(:,end-2)=results_table(:,end-2)*100;%%conv
 
 %%%%%% Test traditional nested loop %%%%%
-if m==n_market
+if m==n_market & beta_0<10
     run run_BLP_middle_update_dynamic.m
 end
 
 %%%%% Test time-dependent or not (perfect foresight case)
-if IVS_spec==0 & m==n_market & 1==0
+if IVS_spec==0 & m==n_market & beta_0<10 & 1==0
     results_V_delta_t_dep=[results_V_0_spectral(end,:)];
 
     t_dependent_spectral_coef_spec=0;
@@ -153,3 +159,17 @@ if IVS_spec==0 & m==n_market & 1==0
 
 end
 
+%% Save the information on the distribution of outside option CCP
+temp_vec=outside_ccp_array(:);
+dist_outside_ccp=[min(temp_vec),quantile(temp_vec,0.25),...
+    median(temp_vec),quantile(temp_vec,0.75),max(temp_vec)];
+
+if IVS_spec==1
+    filename=append(output_path,"dynamic_BLP_IVS_outside_ccp_distribution_beta_",...
+        string(beta_C),"_",string(beta_0),"_",string(mistake_spec),".csv");
+else
+    filename=append(output_path,"dynamic_BLP_outside_ccp_distribution_beta_",...
+        string(beta_C),"_",string(beta_0),"_",string(mistake_spec),".csv");
+end
+
+writematrix(dist_outside_ccp,filename)

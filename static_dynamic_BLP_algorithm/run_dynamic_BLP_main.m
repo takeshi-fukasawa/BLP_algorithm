@@ -56,6 +56,8 @@ durable_spec=1; % Use the model in Sun and Ishihara (2019)
 
 Pr0_spec=1; %%%% Pr0_spec==1=> Introduce endogenous Pr0
 
+beta_0=30;
+
 t_dependent_spectral_coef_spec=0; % Introduce time-dependent step sizes spectral_coef in the spectral / SQUAREM algorithms.
 
 n_dim_V=1;
@@ -71,11 +73,11 @@ T=30;
 %T=2;
 %T=1;
 
+
+
 if IVS_spec==1
    T=25;
    n_grid_IV=30;
-   beta_0=6;
-   Pr0_spec=1;
    t_dependent_spectral_coef_spec=0;%%%
    %spec_default.spectral_coef_max=5;%%%%
    spec_default.ITER_MAX=3000;
@@ -83,25 +85,27 @@ if IVS_spec==1
 else
     T=50;
     n_grid_IV=0;
-    beta_0=6;
-    Pr0_spec=1;
     t_dependent_spectral_coef_spec=1;
     spec_default.spectral_coef_max=10;
 end
 
 %%T=1;
+run temp.m
 
 run run_RCNL_iterations_dynamic.m
 
-if IVS_spec==1
+if IVS_spec==1 & beta_0==6
     filename=append(output_path,"dynamic_BLP_IVS_results_beta_",...
+        string(beta_C),"_",string(mistake_spec),".csv");
+elseif IVS_spec==0 & beta_0==6
+    filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
         string(beta_C),"_",string(mistake_spec),".csv");
 else
     filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
-        string(beta_C),"_",string(mistake_spec),".csv");
+        string(beta_C),"_large_const_term_",string(mistake_spec),".csv");
 end
 
-if 1==0
+if 1==1
     writematrix(results_table,filename)
 end
 
