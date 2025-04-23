@@ -1,5 +1,7 @@
 function IV=IVS_compute_IV_func(IV_obs_pt,n_grid_V)
 
+    global beta_0
+
     [ns,T]=size(IV_obs_pt,[2,4]);
     n_grid_IV=n_grid_V;
 
@@ -15,9 +17,15 @@ function IV=IVS_compute_IV_func(IV_obs_pt,n_grid_V)
     %IV_min=IV_min*0-20;%% Performance rarely change??
     %IV_max=IV_max*0+10;%% Performance rarely change??
     
-    IV_min=IV_min*0-40;%% New
-    IV_max=IV_max*0+30;%% New
     
+    if beta_0==6
+        IV_min=IV_min*0-40;%% New
+        IV_max=IV_max*0+30;%% New
+    else  
+        IV_min=IV_min*0-40;%% New
+        IV_max=IV_max*0+50;%% New
+    end
+        
     %%%%%%%%%%%%
 
     IV_grid=IV_min+...

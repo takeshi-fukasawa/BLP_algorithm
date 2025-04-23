@@ -47,7 +47,7 @@ ns=I;
 n_market=20;
 n_draw=1;
 
-IVS_spec=0; % If IVS_spec==1, use inclusive value sufficiency. If IVS_spec==0, assume perfect foresight on the future state transitions of market-level variables. For details, see the paper.
+IVS_spec=1; % If IVS_spec==1, use inclusive value sufficiency. If IVS_spec==0, assume perfect foresight on the future state transitions of market-level variables. For details, see the paper.
 
 %%%%%%%%%%%%%%%%
 %% Simulation 1
@@ -90,7 +90,6 @@ else
 end
 
 %%T=1;
-run temp.m
 
 run run_RCNL_iterations_dynamic.m
 
@@ -100,7 +99,10 @@ if IVS_spec==1 & beta_0==6
 elseif IVS_spec==0 & beta_0==6
     filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
         string(beta_C),"_",string(mistake_spec),".csv");
-else
+elseif IVS_spec==1 & beta_0>6
+    filename=append(output_path,"dynamic_BLP_IVS_nonstationary_results_beta_",...
+        string(beta_C),"_large_const_term_",string(mistake_spec),".csv");
+elseif IVS_spec==0 & beta_0>6
     filename=append(output_path,"dynamic_BLP_nonstationary_results_beta_",...
         string(beta_C),"_large_const_term_",string(mistake_spec),".csv");
 end
