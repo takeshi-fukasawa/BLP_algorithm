@@ -335,8 +335,13 @@ def scipy_optimizer(
 
     # call the SciPy function
     callback = lambda *_: iteration_callback()
+    print(scipy_options)
+    #compute_gradient=False######
+    if compute_gradient==False:
+        gradient_wrapper='3-point'
+    
     results = scipy.optimize.minimize(
-        objective_wrapper, initial_values, method=method, jac=gradient_wrapper if compute_gradient else False,
+        objective_wrapper, initial_values, method=method, jac=gradient_wrapper,
         hess=hess, bounds=bounds, callback=callback, options=scipy_options
     )
     print(results.message)######

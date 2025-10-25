@@ -553,7 +553,7 @@ class Market(Container):
                     if iteration._new_delta_mapping==False:
                         x0, x = x, x + log_shares - np.log(shares)
                     else:
-                        s_0_predict=1-sum(shares)
+                        s_0_predict=1-np.sum(shares)
 
                         ## BLP contraction mapping
                         x0, x = x, x + (log_shares - np.log(shares))- (log_outside_share-np.log(s_0_predict))
@@ -581,7 +581,7 @@ class Market(Container):
                         
                     else:
                         ## New mapping
-                        s_0_predict=1-sum(shares)
+                        s_0_predict=1-np.sum(shares)
                         S_j_data=np.exp(log_shares)
                         S_0_data=1-sum(S_j_data)
 

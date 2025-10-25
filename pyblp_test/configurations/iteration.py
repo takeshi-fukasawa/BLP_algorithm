@@ -481,11 +481,20 @@ def Anderson_acceleration_iterator(
         initial: Array, contraction: ContractionWrapper, iteration_callback: Callable[[], None], max_evaluations: int,
         atol: float, rtol: float, norm: Callable[[Array], float], scheme: int, mem_size: float) -> Tuple[Array, bool]:
     """Apply the Anderson acceleration method for fixed point iteration."""
-    m=mem_size#####
+    m = int(mem_size)
+    N = initial.size  # dimension of the variable
+
 
     x = initial
     failed = False
     k = 0
+
+    # Initialize matrices to store past values
+
+    resid_past_mat = np.empty((N, max_evaluations))
+    fun_past_mat = np.empty((N, max_evaluations))
+    x_past_mat = np.empty((N, max_evaluations))
+
     while True:
         # first step
         x0, (x, weights) = x, contraction(x)[:2]
@@ -505,43 +514,41 @@ def Anderson_acceleration_iterator(
         x_k_vec=x0
         fun_k_vec=x
 
-        if k == 0:
-            resid_past_mat = resid_k_vec
-            fun_past_mat = fun_k_vec
-            x_past_mat = x_k_vec
-        else:
-            resid_past_mat = np.column_stack((resid_past_mat, resid_k_vec))
-            x_past_mat = np.column_stack((x_past_mat, x_k_vec))
-            fun_past_mat = np.column_stack((fun_past_mat, fun_k_vec))
+        resid_past_mat[:,k] = resid_k_vec
+        fun_past_mat[:,k] = fun_k_vec
+        x_past_mat[:,k] = x_k_vec
 
         if k >= 1:
             m_k = min(m, k)
 
             Z = resid_past_mat[:, k]
-                
+            
             DF = np.diff(resid_past_mat[:, k - m_k:k+1])#resid_past_mat(:, k - m_k+1:k+1) in MATLAB
 
             if scheme == 1:
                 # Type I Anderson (Corresponding to Good Broyden update)
 
                 DX = np.diff(x_past_mat[:, k - m_k :k+1])
-                #gamma = np.linalg.solve(DX.T @ DF, DX.T @ Z)# Singular matrix error??
-                gamma=np.linalg.lstsq(DX.T @ DF,DX.T @ Z,rcond=None)[0]
+                gamma = np.linalg.solve(DX.T @ DF, DX.T @ Z)# Singular matrix error??
+                #gamma=np.linalg.lstsq(DX.T @ DF,DX.T @ Z,rcond=None)[0]
 
             else:  # scheme == 2
-                # Type II Anderson (Corresponding to Good Broyden update)
-                #gamma = np.linalg.solve(DF.T @ DF, DF.T @ Z) # Singular matrix error??
-                gamma=np.linalg.lstsq(DF.T @ DF,DF.T @ Z,rcond=None)[0]
+                # Type II Anderson (Corresponding to Bad Broyden update)
+                gamma = np.linalg.solve(DF.T @ DF, DF.T @ Z) # Singular matrix error??
+                #gamma=np.linalg.lstsq(DF.T @ DF,DF.T @ Z,rcond=None)[0]
+            
 
-            alpha_vec = np.zeros(gamma.shape[0] + 1)
-            for id in range(len(alpha_vec)):
-                if id == 0:
-                    alpha_vec[0] = gamma[0]
-                elif 1 <= id <= len(alpha_vec) - 2:
-                    alpha_vec[id] = gamma[id] - gamma[id - 1]
-                elif id == len(alpha_vec) - 1:
-                    alpha_vec[id] = 1 - gamma[id - 1]
-
+            alpha_vec = np.empty(m_k + 1) # m_k = len(gamma)
+            
+            # alpha_0 = gamma_0
+            alpha_vec[0] = gamma[0]
+            
+            # alpha_i = gamma_i - gamma_{i-1} for 1 <= i <= m_k - 1
+            alpha_vec[1:-1] = gamma[1:] - gamma[:-1]
+            
+            # alpha_{m_k} = 1 - gamma_{m_k - 1}
+            alpha_vec[-1] = 1 - gamma[-1]
+            
             x = fun_past_mat[:, k - m_k:k + 1] @ alpha_vec # Update x
 
         # record the completion of a major iteration
