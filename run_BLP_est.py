@@ -61,7 +61,7 @@ results_spectral_1 = problem.solve(initial_sigma,
     initial_pi,iteration=iteration,optimization=optimization,costs_bounds=(0.001, None),
     W_type='clustered', se_type='clustered',initial_update=True,check_optimality='gradient',finite_differences=False)
 
-with open(output_path+'BLP_est_results_spectral_trial_'+str(trial_id)+'.pickle', mode='wb') as fo:
+with open(output_path+'BLP_est_results_spectral_1_trial_'+str(trial_id)+'.pickle', mode='wb') as fo:
   pickle.dump(results_spectral_1, fo)
 
 ## SQUAREM-1
@@ -69,9 +69,9 @@ iteration=pyblp_test.Iteration('squarem',{'atol':1e-14},new_delta_mapping=True)
 
 results_squarem_1 = problem.solve(initial_sigma,
     initial_pi,iteration=iteration,optimization=optimization,costs_bounds=(0.001, None),
-    W_type='clustered', se_type='clustered',initial_update=True,check_optimality='gradient',finite_differences=False,check_optimality='gradient',finite_differences=False)
+    W_type='clustered', se_type='clustered',initial_update=True,check_optimality='gradient',finite_differences=False)
 
-with open(output_path+'BLP_est_results_squarem_trial_'+str(trial_id)+'.pickle', mode='wb') as fo:
+with open(output_path+'BLP_est_results_squarem_1_trial_'+str(trial_id)+'.pickle', mode='wb') as fo:
   pickle.dump(results_squarem_1, fo)
 
 ## Simple-1
@@ -142,6 +142,7 @@ with open(output_path+'BLP_est_results_simple_0_trial_'+str(trial_id)+'.pickle',
   pickle.dump(results_simple_0, fo)
 
 ####################
+## Read output
 with open(output_path+'BLP_est_results_Anderson_1_trial_'+str(trial_id)+'.pickle', mode='br') as fi:
   results_Anderson_1 = pickle.load(fi)
 
@@ -177,14 +178,14 @@ with open(output_path+'BLP_est_results_simple_0_trial_'+str(trial_id)+'.pickle',
 import results_functions
 
 results_table=np.array([
+    results_functions.results_func(results_simple_1),
   results_functions.results_func(results_Anderson_1),
   results_functions.results_func(results_spectral_1),
-  results_functions.results_func(results_squarem_1),
-  results_functions.results_func(results_simple_1),
+  results_functions.results_func(results_squarem_1),  
+  results_functions.results_func(results_simple_0),
   results_functions.results_func(results_Anderson_0),
   results_functions.results_func(results_spectral_0),
   results_functions.results_func(results_squarem_0),
-  results_functions.results_func(results_simple_0),
   results_functions.results_func(results_Anderson_1_numer_diff),
   results_functions.results_func(results_squarem_0_numer_diff)])
 

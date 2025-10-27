@@ -145,6 +145,7 @@ with open(output_path+'Nevo_est_results_simple_0_trial_'+str(trial_id)+'.pickle'
 #  pickle.dump(results_LM_0, fo)
 
 ####################
+## Read output
 with open(output_path+'Nevo_est_results_Anderson_1_trial_'+str(trial_id)+'.pickle', mode='br') as fi:
   results_Anderson_1 = pickle.load(fi)
 
@@ -182,14 +183,14 @@ with open(output_path+'Nevo_est_results_simple_0_trial_'+str(trial_id)+'.pickle'
 import results_functions
 
 results_table=np.array([
+  results_functions.results_func(results_simple_1),
   results_functions.results_func(results_Anderson_1),
   results_functions.results_func(results_spectral_1),
   results_functions.results_func(results_squarem_1),
-  results_functions.results_func(results_simple_1),
+  results_functions.results_func(results_simple_0),
   results_functions.results_func(results_Anderson_0),
   results_functions.results_func(results_spectral_0),
   results_functions.results_func(results_squarem_0),
-  results_functions.results_func(results_simple_0),
   results_functions.results_func(results_simple_1_numer_diff),
   results_functions.results_func(results_Anderson_1_numer_diff),
   results_functions.results_func(results_squarem_0_numer_diff)])
