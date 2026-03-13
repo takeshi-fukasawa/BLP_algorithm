@@ -19,5 +19,5 @@ function delta_updated=delta_update_func(...
 
         end% rho>0
 
-  end %tune_param_BLP>0
+    end %tune_param_BLP>0
 return

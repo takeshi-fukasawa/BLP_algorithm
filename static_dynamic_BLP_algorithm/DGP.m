@@ -39,6 +39,11 @@ if durable_spec==1
     sigma_p_true=0.25;
 end
 
+if 1==0
+    sigma_const_true=sigma_const_true*2;
+    sigma_x_true=sigma_x_true*2;
+    sigma_p_true=sigma_p_true*2;
+end
 
 eps_sd=1;
 
@@ -167,9 +172,9 @@ if mistake_spec==1
     %mu_ijt_est=mu_ijt_true*0.8;%J*ns*G*T
    
         sd=1;
-        sigma_const=sigma_const_true.*2.*sd.*rand(1,1);
-        sigma_x=sigma_x_true.*2.*sd.*rand(1,3);
-        sigma_p=sigma_p_true.*2.*sd.*rand(1,1);
+        sigma_const=sigma_const_true.*initial_scale.*sd.*rand(1,1);
+        sigma_x=sigma_x_true.*initial_scale.*sd.*rand(1,3);
+        sigma_p=sigma_p_true.*initial_scale.*sd.*rand(1,1);
         sigma_vec_est=[sigma_const;sigma_x(:);sigma_p];
    
        v_est=randn(1,ns,1,1,K);

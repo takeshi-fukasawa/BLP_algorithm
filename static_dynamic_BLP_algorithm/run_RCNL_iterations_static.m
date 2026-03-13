@@ -17,6 +17,7 @@ TOL_DIST_s_jt=1e-12;
 results_data=zeros(n_market,1);
 
 for m=1:n_market
+    
 market_id=m
 
 rng(m);
@@ -41,9 +42,6 @@ run run_BLP_contraction.m
 
 tune_param_BLP=1;
 run run_BLP_contraction.m
-
-
-TOL=1e-12;
 
 
 %%%%%%%%%%%%%

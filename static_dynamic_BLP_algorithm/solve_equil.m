@@ -66,5 +66,8 @@ if T>=2
 end
 
 
-
-delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
+if far_initial_delta_spec==0
+    delta_initial0=log(S_jt_data)-log(S_0t_data)-rho_est.*log(S_jt_given_g_data);%J by 1; Initial value of delta
+else% Initial value: far from the sol
+    delta_initial0=delta_jt_true+5;
+end
