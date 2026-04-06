@@ -1,0 +1,40 @@
+beta_0=0;
+rho_true=0.0;
+rho_est=rho_true;%%%%%
+G=1;
+ns=I;
+Newton_spec=0;
+
+for sim=1:2
+    if sim==1
+        %% Simulation 1
+        J=25;% Number of products per nest
+    else
+        %% Simulation 2
+        J=250;% Number of products per nest
+    end
+
+    profile on;
+    for m=1:n_market
+        market_id=m
+        
+        rng(m);
+        run DGP.m
+        run solve_equil.m
+        
+        %% BLP contraction mapping (G>=2 case allowed)
+        tune_param_BLP=0;
+        run run_BLP_contraction.m
+    end
+
+    stats = profile('info'); 
+    profile off
+
+    if sim==1
+        save('profiling/sim1_profiling.mat', 'stats');
+    else
+        save('profiling/sim2_profiling.mat', 'stats');
+    end
+end
+
+
