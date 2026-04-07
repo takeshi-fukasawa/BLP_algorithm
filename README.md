@@ -40,7 +40,7 @@ python run_Nevo_est.py
 ```
 
 ## Use of Anderson acceleration in PyBLP
-While the current study significantly modified the original PyBLP for numerical experiments, Anderson acceleration can be easily implemented in PyBLP without modifying the core source code by utilizing a custom Iteration configuration. The pseudo-code is provided below:
+While the current study modified the original PyBLP for numerical experiments, Anderson acceleration can be easily implemented in PyBLP without modifying the core source code by utilizing a custom Iteration configuration. The pseudo-code is provided below:
 
 ```
 import Anderson_acceleration_functions
