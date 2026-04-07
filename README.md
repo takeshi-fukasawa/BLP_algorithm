@@ -44,7 +44,8 @@ While the current study significantly modified the original PyBLP for numerical 
 
 ```
 import Anderson_acceleration_functions
-iteration=pyblp_test.Iteration(Anderson_acceleration_functions.Anderson_acceleration_iterator,{'max_evaluations':5000,'norm':Anderson_acceleration_functions.infinity_norm,'atol':1e-14,'rtol':0,'scheme':2,'mem_size':5},new_delta_mapping=True)
+iteration=pyblp_test.Iteration(Anderson_acceleration_functions.Anderson_acceleration_iterator,{'max_evaluations':5000,'norm':Anderson_acceleration_functions.infinity_norm,
+    'atol':1e-14,'rtol':0,'scheme':2,'mem_size':5})
 
 results = problem.solve(initial_sigma,initial_pi,iteration=iteration)
 
