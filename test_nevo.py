@@ -62,17 +62,19 @@ initial_pi = np.array([
     [ 1.2650, 0, -0.8091, 0 ]
 ])
 
-
-#####################
-#########################
 opt_setting = pyblp_test.Optimization('l-bfgs-b', {'gtol': 1e-4,'ftol':1e-4})
 
+
 ## Anderson-1
-#iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
+iteration=pyblp_test.Iteration('Anderson_acceleration',{'atol':1e-14,'scheme':2,'mem_size':5},new_delta_mapping=True)
+
+#import Anderson_acceleration_functions
+#iteration=pyblp_test.Iteration(Anderson_acceleration_functions.Anderson_acceleration_iterator,{'max_evaluations':5000,'norm':Anderson_acceleration_functions.infinity_norm,
+#    'atol':1e-14,'rtol':0,'scheme':2,'mem_size':5},new_delta_mapping=True)
 
 
-#results_Anderson_1 = problem.solve(initial_sigma,
-#                                   initial_pi,iteration=iteration,optimization=opt_setting,method='1s',finite_differences=False,check_optimality='gradient')
+results_Anderson_1 = problem.solve(initial_sigma,
+                                   initial_pi,iteration=iteration,optimization=opt_setting,method='1s',finite_differences=False,check_optimality='gradient')
 
 ### SQUAREM-0
 #iteration=pyblp_test.Iteration('squarem',{'atol':1e-14},new_delta_mapping=False)
