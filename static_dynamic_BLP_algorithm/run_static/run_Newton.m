@@ -7,11 +7,10 @@ TOL=1e-12;
 alpha0=0.130707;
 ITER_MAX=1000;
 
-%%% hybrid_spec==1: Use Iaria & Wang 2025's threshold
-%%% hybrid_spec==2: Use threshold 1e-2 for switching from FP to Newton
+%%% hybrid_spec==1: Use Iaria & Wang 2025's threshold (cf. Section 6 of their paper)
 
 
-for hybrid_spec=1:1
+
     iter_BLP_contraction=0;
     iter_Newton=0;
 
@@ -26,7 +25,6 @@ for hybrid_spec=1:1
             break;
         else
             
-            if hybrid_spec==1
                 s_0t_predict=1-sum(s_jt_predict(:));
                 threshold=alpha0.*s_0t_predict.*min(s_jt_predict(:))./...
                     (2.64*J)...
@@ -34,9 +32,6 @@ for hybrid_spec=1:1
                 threshold=threshold.^(1/3);
                 %threshold=max(threshold,1e-1);%%%%
 
-            elseif hybrid_spec==2
-                threshold=1e-2;
-            end
 
             if DIST>threshold
                 iter_BLP_contraction=iter_BLP_contraction+1;
@@ -63,12 +58,6 @@ for hybrid_spec=1:1
 
     small_DIST=(DIST<TOL);
 
-    if hybrid_spec==1
         result_hybrid_1(m,:)=[iter_BLP_contraction,iter_Newton,t_hybrid,...
             conv,log10(DIST),small_DIST];
-    elseif hybrid_spec==2
-        result_hybrid_2(m,:)=[iter_BLP_contraction,iter_Newton,t_hybrid,...
-            conv,log10(DIST),small_DIST];
-    end
-end
 
