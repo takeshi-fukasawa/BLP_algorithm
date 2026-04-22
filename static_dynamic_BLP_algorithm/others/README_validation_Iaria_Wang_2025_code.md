@@ -10,7 +10,7 @@ However, the expression diag(...) entails allocating an $I \times I$ matrix, whi
 
 
 ```matlab
-ms_all = exp_utility_all./(sum(exp_utility_all,1)+1);;
+ms_all = exp_utility_all./(sum(exp_utility_all,1)+1);
 ```
 
 Code profiling (refer to profile_results/file2.html) indicates that this optimization alone provides a tenfold speedup in the market share calculation, fundamentally altering the assessment of the algorithm's overall efficiency.
