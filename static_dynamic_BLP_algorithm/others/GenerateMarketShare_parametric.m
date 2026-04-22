@@ -15,8 +15,7 @@ function [diff_ms,dev_diff_ms] = GenerateMarketShare_parametric(...
         ms_all=exp_utility_all*diag(1./(sum(exp_utility_all,1)+1));%J*Sample
 
         %% More efficient code
-        denom=sum(exp_utility_all,1)+1;
-        ms_all2=exp_utility_all./denom;
+        ms_all2=exp_utility_all./sum(exp_utility_all,1)+1;
 
         ms=ms_all*weight;
         diff_ms = ms-market_share;%J*1
