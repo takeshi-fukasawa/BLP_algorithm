@@ -10,7 +10,6 @@ However, the expression diag(...) entails allocating an $I \times I$ matrix, whi
 
 
 ```matlab
-% Original implementation
 ms_all = exp_utility_all./(sum(exp_utility_all,1)+1);;
 ```
 
