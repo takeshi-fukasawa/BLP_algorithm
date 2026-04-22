@@ -89,3 +89,22 @@ G=1;
         writematrix(round(results_additional,5),filename)
 
     end
+
+    %% Case with small number of consumer types
+    I=10;
+    ns=I;
+
+    run run_RCNL_iterations_static_additional.m
+    results_no_nest_additional_small_number_of_consumer_types=table;
+
+    t_mapping_vec_small_I=zeros(3,1);
+    for mapping_spec=1:2
+        [t_base,t_additional]=check_mapping_comp_cost...
+            (mapping_spec,delta_initial0,mu_ijt_est,...
+        weight,S_jt_data,S_0t_data);
+        if mapping_spec==1
+            t_mapping_vec_small_I(1:2)=[t_base;t_base+t_additional];
+        else% Newton
+            t_mapping_vec_small_I(3)=t_base;
+        end
+    end

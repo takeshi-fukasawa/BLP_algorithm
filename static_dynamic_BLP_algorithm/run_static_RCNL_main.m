@@ -106,23 +106,6 @@ if n_market>1 & 1==1
 end
 end % run RCNL
 
-%% Simulation 4 (RCL; smaller outside share)
-J=25;% Number of products per nest
-G=1;
-beta_0=4;
-rho_true=0.0;
-rho_est=rho_true;%%%%%
-
-run run_RCNL_iterations_static.m
-results_4=results;
-
-if n_market>1 & 1==1
-    filename=append(output_path,"results_RCL_smaller_outside_share_ns_",...
-        string(ns),"_",string(mistake_spec),"_S",string(spec.spectral_coef_spec),".csv");
-
-    writematrix(results_4,filename)
-end
-
 %% Additional results (Try Newton/LM)
 
 if 1==1
