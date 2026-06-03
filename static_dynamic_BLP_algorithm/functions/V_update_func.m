@@ -78,22 +78,26 @@ function [output,other_vars]=...
         S_0_ratio=s_0t_predict./reshape(S_0t_data,1,1,1,T);%1*1*1*T
     end
 
+    max_val_v_i0t_tilde=max(v_i0t_tilde(:));
+    max_val_IV=max(IV(:));
+    max_val=max(max_val_v_i0t_tilde,max_val_IV);
+
     if n_dim_V==T
         if tune_param==0
-            V_updated=log(exp(v_i0t_tilde)+exp(IV));%1*ns*1*n_dim_V
+            V_updated=log(exp(v_i0t_tilde-max_val)+exp(IV-max_val))+max_val;%1*ns*1*n_dim_V
         else
-            V_updated=log(exp(v_i0t_tilde)+exp(IV).*(S_0_ratio.^tune_param));%1*ns*1*n_dim_V
+            V_updated=log(exp(v_i0t_tilde-max_val)+exp(IV-max_val).*(S_0_ratio.^tune_param))+max_val;%1*ns*1*n_dim_V
         end
     else
         if tune_param==0
-            V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
-            exp(IV(:,:,:,1:T)));%1*ns*1*T
+            V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T)-max_val)+...
+            exp(IV(:,:,:,1:T)-max_val))+max_val;%1*ns*1*T
         else
-            V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T))+...
-            exp(IV(:,:,:,1:T).*(S_0_ratio.^tune_param)));%1*ns*1*T
+            V_obs_pt=log(exp(v_i0t_tilde(:,:,:,1:T)-max_val)+...
+            exp(IV(:,:,:,1:T)-max_val).*(S_0_ratio.^tune_param))+max_val;%1*ns*1*T
         end
-        V_grid=log(exp(v_i0t_tilde(:,:,:,T+1:end))+...
-            exp(IV(:,:,:,T+1:end)));%1*ns*1*n_grid_IV
+        V_grid=log(exp(v_i0t_tilde(:,:,:,T+1:end)-max_val)+...
+            exp(IV(:,:,:,T+1:end)-max_val))+max_val;%1*ns*1*n_grid_IV
         V_updated=cat(4,V_obs_pt,V_grid);%1*ns*1*n_dim_V
     end
 
